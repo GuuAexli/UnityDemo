@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ce4c9ada6c55448b531c8ed94aeccf, type: 3}
+  m_Name: c_weapon
+  m_EditorClassIdentifier: 
+  prefabName: 
+  prefab: {fileID: 0}
+  costValue: 0
+  menuIcon: {fileID: 0}
+  weaponIcon: {fileID: 0}
+  aimTime: 3
+  attackInterval: 0
+  attackCooling: 5
+  weaponAccurracy: 0.5
+  closeRangeAccurracy: 0.6
+  mediumRangeAccurracy: 0.5
+  longRangeAccurracy: 0.4
+  attackDuration: 5
+  bullet: {fileID: 6878576729818197845, guid: a45eb0ec688c93e458d60206a9c43014, type: 3}
+  suppressionValue: 0
+  attackRange: 25
+  duffusion: 3
+  penetrationMultiplier: 1
+  damageMultiplier: 1
+  barbetteRotatSpeed: 0

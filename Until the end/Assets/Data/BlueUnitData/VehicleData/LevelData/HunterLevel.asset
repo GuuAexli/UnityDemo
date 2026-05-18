@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2876ee50a8190441b2c4e82cf1a25b9, type: 3}
+  m_Name: HunterLevel
+  m_EditorClassIdentifier: 
+  levels:
+  - health: 120
+    moveSpeed: 1
+    rotationSpeed: 40
+    accurracy: 0.2
+    volum: 5
+    armor: 3
+    nextLevelExp: 300
+    decayFear: 0
+  - health: 120
+    moveSpeed: 1.2
+    rotationSpeed: 40
+    accurracy: 0.2
+    volum: 5
+    armor: 5
+    nextLevelExp: 600
+    decayFear: 0
+  - health: 120
+    moveSpeed: 1.5
+    rotationSpeed: 50
+    accurracy: 0.2
+    volum: 5
+    armor: 5
+    nextLevelExp: 1000
+    decayFear: 0
+  - health: 120
+    moveSpeed: 1.8
+    rotationSpeed: 50
+    accurracy: 0.3
+    volum: 5
+    armor: 6
+    nextLevelExp: 0
+    decayFear: 0

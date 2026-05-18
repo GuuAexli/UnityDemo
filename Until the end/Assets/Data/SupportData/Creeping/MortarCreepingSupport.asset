@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ee7310d8e3efef4cb6d1bf5318ac5bd, type: 3}
+  m_Name: MortarCreepingSupport
+  m_EditorClassIdentifier: 
+  prefabName: MoterCreepingSuppout
+  prefab: {fileID: 6361356724023819802, guid: c22050914da919d42a78eacfb11ecb0a, type: 3}
+  costValue: 0
+  description: 
+  canDraw: 1
+  canRotate: 1
+  canExtend: 1
+  shell: {fileID: 1184973721759703930, guid: 6c786e84e3f260a45aae7aa8f49831ba, type: 3}
+  eachTimeNumber: 2
+  number: 5
+  delay: 5
+  interval: 1
+  radiusRange: 5

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 888c611bb1e77d34bb543dea2fd9aa84, type: 3}
+  m_Name: Medkit
+  m_EditorClassIdentifier: 
+  prefabName: Medkit
+  prefab: {fileID: 7085757056771361528, guid: ed7b145fdc30bdf4ea45ed63cca70702, type: 3}
+  costValue: 0
+  repeatable: 0
+  requireTarget: 1
+  targetTag: blue_tag
+  effectValue: 30
+  useRange: 2
+  delay: 5
+  useNumber: 1
+  effectPrefab: {fileID: 0}
