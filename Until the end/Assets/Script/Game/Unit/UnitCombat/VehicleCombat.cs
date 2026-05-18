@@ -10,9 +10,8 @@ public class VehicleCombat : UnitCombat
     {
         if (!unit.isAttack && barbette.transform.rotation != transform.rotation)
         {
-           barbette.transform.rotation=RotateHelper.RotateToUnit(barbette.transform,
-                                                        unit.transform,
-                                                        weapon._rotateSpeed);
+            barbette.transform.rotation = Quaternion.RotateTowards(
+                 barbette.transform.rotation, transform.rotation, weapon._rotateSpeed * Time.deltaTime);
         }//²»ÔÚ¹¥»÷
         Attack();
     }
@@ -23,13 +22,9 @@ public class VehicleCombat : UnitCombat
                                                     weapon._rotateSpeed);
     }
     protected override void TowardsTarget(UnitAttribute target)
-    { 
-        targetAngle = Mathf.Atan2(target.transform.position.y - barbette.transform.position.y,
-                                   target.transform.position.x - barbette.transform.position.x)
-                                   * Mathf.Rad2Deg;
-        Quaternion Angle = Quaternion.Euler(0, 0, targetAngle);
-        barbette.transform.rotation = Quaternion.RotateTowards(barbette.transform.rotation
-                                                        , Angle, weapon._rotateSpeed * Time.deltaTime);
+    {
+        Quaternion Angle = RotateHelper.GetRotateAngle(barbette.transform.position, target.transform.position); ;
+        barbette.transform.rotation = RotateHelper.RotateToUnit(barbette.transform, target.transform, weapon._rotateSpeed);
         if (Quaternion.Angle(barbette.transform.rotation, Angle) < 10)
         {
             isTowardsTarget = true;
