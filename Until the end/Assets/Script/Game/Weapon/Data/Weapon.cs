@@ -96,7 +96,7 @@ public  class Weapon : MonoBehaviour
         Bullet bullet=bulletPrefab.GetComponent<Bullet>();
         bool hit = HitTarget(owner._unitAccurracy, target, targetDistance);
 
-        bullet.SetBullet(hit,target,owner.unit,penetrationMultiplier,damageMultiplier,
+        bullet.SetBullet(hit,target,owner.attr,penetrationMultiplier,damageMultiplier,
                         targetDistance,duffusion,fierPos);
 
        /* 
@@ -107,7 +107,7 @@ public  class Weapon : MonoBehaviour
         bullet.flightDistance = targetDistance;
         bullet.bulletDuffusion = duffusion;
        */
-        owner.unit?.AddExp(2);
+        owner.attr?.AddExp(2);
         //给予 发射者 经验值
     }
     

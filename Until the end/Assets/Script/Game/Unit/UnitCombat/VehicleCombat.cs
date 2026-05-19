@@ -8,7 +8,7 @@ public class VehicleCombat : UnitCombat
     [SerializeField]protected float targetAngle;//ÅÚËþ½Ç¶È
     private void Update()
     {
-        if (!unit.isAttack && barbette.transform.rotation != transform.rotation)
+        if (!attr.isAttack && barbette.transform.rotation != transform.rotation)
         {
             barbette.transform.rotation = Quaternion.RotateTowards(
                  barbette.transform.rotation, transform.rotation, weapon._rotateSpeed * Time.deltaTime);

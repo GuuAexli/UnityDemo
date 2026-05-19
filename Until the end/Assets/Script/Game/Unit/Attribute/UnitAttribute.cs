@@ -5,40 +5,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class UnitAttribute : MonoBehaviour,ITakeDamage
+public abstract class UnitAttribute : MonoBehaviour
 {
     [Header("数据")]
     public UnitData unitData;//单位数据
 
-
     [Header("组件")]
     [SerializeField] protected Rigidbody2D _rd;
     [SerializeField] protected Collider2D _cd;
-    //[SerializeField] public UnitMove unitMove;//移动脚本
+
+    [Header("管理")]
+    public bool isSelected;//正在选中
+    [Header("移动组件")]   
     [SerializeField] protected UnitNavMove unitNavMove;
-    [SerializeField] protected UnitCombat unitCombat;
-    public UnitCombat _unitCombat => unitCombat;
+    [SerializeField] protected float moveEfficiency = 1;//效率（移动，旋转） 
+    [SerializeField] protected bool canMove = true;//允许移动
+    public bool isMove;
+
     public UnitNavMove _unitNavMove => unitNavMove;
 
-
-    [Header("单位状态")]
-    [SerializeField] protected bool canMove = true;//允许移动
-    [SerializeField] protected float moveEfficiency = 1;//效率（移动，旋转）
-    [SerializeField] protected bool canAttack = true;//允许攻击
+    [Header("战斗组件")]
+    [SerializeField] protected UnitCombat unitCombat;
     [SerializeField] protected float attackEfficiency = 1;//效率（整体命中率）
+    [SerializeField] protected bool canAttack = true;//允许攻击
+    public bool isAttack;//正在攻击
+    public bool underAttack;//正在被攻击
+
+    public UnitCombat _unitCombat => unitCombat;
+
+
+    public bool isAction;//正在行动
     [SerializeField] protected bool isUseItem = false;//正在使用道具
     [SerializeField] private bool canEnterObject;//可以进入 模型/载具   
 
-
-    [Header("控制")]
-    public bool isSelected;//正在选中
-    public bool isAttack;//正在攻击
-    public bool underAttack;//正在被攻击
-    public bool isMove;
-    public bool isAction;//正在行动
+    
 
     public bool _canEnterObject => canEnterObject;
-    public bool _canAttack { get { return canAttack; } set { canAttack = value; } }
     public bool _isUseItem { get { return isUseItem; }set { isUseItem = value; } }
 
 
@@ -167,6 +169,9 @@ public abstract class UnitAttribute : MonoBehaviour,ITakeDamage
             ApplyLevelData();
         }
     }//添加经验 
+    public bool _canMove { get => canMove; set => canMove = value; }
+    public bool _canAttack { get => canAttack; set => canAttack = value; }
+
 
 }
 

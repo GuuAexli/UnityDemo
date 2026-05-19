@@ -139,9 +139,8 @@ MonoBehaviour:
   health: 0
   moveSpeed: 0
   rotateSpeed: 0
-  unitVolum: 0
-  actualUnitVolum: 0
-  targetAngle: 0
+  unitVolume: 0
+  actualUnitVolume: 0
   canMoveAttack: 0
   fear: 0
   decayFear: 0

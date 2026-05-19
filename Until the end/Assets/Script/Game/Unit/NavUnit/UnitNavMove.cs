@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class UnitNavMove : MonoBehaviour
 {
-    [SerializeField] protected UnitAttribute unit;
+    [SerializeField] protected UnitAttribute attr;
     //[Header("移动参数")]
-    public float moveSpeed => unit.moveSpeed;
-    public float rotateSpeed => unit.rotateSpeed;
+    public float moveSpeed => attr.moveSpeed;
+    public float rotateSpeed => attr.rotateSpeed;
     public float defaultAngle = 90f;
     public float repathRate = 0.5f;//重新寻路间隔
     public float lostRepathTime;
 
-    public bool isMove=>unit !=null &&unit.isMove;
-    public bool isAttack=>unit !=null &&unit.isAttack;
+    public bool isMove=>attr !=null &&attr.isMove;
+    public bool isAttack=>attr !=null &&attr.isAttack;
 
     public float stoppingDistance = 0.1f;      // 距离目标点多近时停止
 
@@ -30,7 +30,7 @@ public class UnitNavMove : MonoBehaviour
 
     void Awake()
     {
-        unit=GetComponent<UnitAttribute>();
+        attr=GetComponent<UnitAttribute>();
         rb = GetComponent<Rigidbody2D>();
         unitCol= GetComponent<Collider2D>();
         if (unitCol == null)
@@ -54,10 +54,10 @@ public class UnitNavMove : MonoBehaviour
         if (!isMove && !isAttack && transform.rotation != Quaternion.Euler(0, 0, defaultAngle))
         {
             transform.rotation = RotateHelper.ObjectRotate(transform, defaultAngle, rotateSpeed);
-        }
+        }//不需要移动 不在攻击 单位没有恢复默认朝向
         if (path == null || path.Count == 0 || pathIndex >= path.Count)
             return;//没有路径||路径数==0||目标路径序列大于路径数
-
+        if(attr._canMove)
             NavMove();
     }
     public void NavMove()
@@ -81,10 +81,10 @@ public class UnitNavMove : MonoBehaviour
             pathIndex++;
             if (pathIndex >= path.Count)
             {
-                unit.isMove = false;
+                attr.isMove = false;
                 return;
             }//到达最后一个路径点
-            LineEvent.UpdateMovePathEvent?.Invoke(unit);
+            LineEvent.UpdateMovePathEvent?.Invoke(attr);
             Vector2Int pos = GridManager.Instance.WorldToCell(path[pathIndex]);
             currentPathPos = path[pathIndex];
         }//到达最小停止距离
@@ -93,7 +93,7 @@ public class UnitNavMove : MonoBehaviour
     {
         transform.position = Vector2.MoveTowards(transform.position, currentPathPos,
                                                     moveSpeed * Time.deltaTime);
-        if (!unit.isAttack)
+        if (!attr.isAttack)
             transform.rotation = RotateHelper.RotateToPos(transform, currentPathPos,
                                                     rotateSpeed);
     }//移动方式
@@ -105,8 +105,7 @@ public class UnitNavMove : MonoBehaviour
             targetPos = target;
             pathIndex = 0;
             currentPathPos = path[pathIndex];
-            unit.isMove=true;
-            //LineEvent.showMovePathEvent?.Invoke(new ShowMovePathEvent { unit = this.unit, path = this.path, show = true });
+            attr.isMove=true;
         }//设置路径序列
         else
         {

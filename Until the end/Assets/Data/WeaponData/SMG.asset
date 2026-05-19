@@ -15,16 +15,16 @@ MonoBehaviour:
   prefabName: SMG
   prefab: {fileID: 615246794536754578, guid: 649960664dd39324fbaae76179de6700, type: 3}
   costValue: 0
+  description: 
   menuIcon: {fileID: 0}
   weaponIcon: {fileID: 0}
   aimTime: 1.8
-  attackInterval: 0.2
+  attackInterval: 0.15
   attackCooling: 3.5
-  weaponAccurracy: 0.1
   closeRangeAccurracy: 0.8
   mediumRangeAccurracy: 0.4
   longRangeAccurracy: 0.2
-  attackDuration: 5
+  attackDuration: 3
   bullet: {fileID: 6878576729818197845, guid: a45eb0ec688c93e458d60206a9c43014, type: 3}
   suppressionValue: 8
   attackRange: 15
