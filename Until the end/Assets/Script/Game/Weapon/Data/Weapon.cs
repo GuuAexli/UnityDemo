@@ -99,14 +99,6 @@ public  class Weapon : MonoBehaviour
         bullet.SetBullet(hit,target,owner.attr,penetrationMultiplier,damageMultiplier,
                         targetDistance,duffusion,fierPos);
 
-       /* 
-        bullet.hitTarget=HitTarget(owner._unitAccurracy, target, targetDistance);
-        bullet.target = target;
-        bullet.bulletPenetration *= penetrationMultiplier;//给予穿甲倍率
-        bullet.bulletDamage *= damageMultiplier;//给予伤害倍率
-        bullet.flightDistance = targetDistance;
-        bullet.bulletDuffusion = duffusion;
-       */
         owner.attr?.AddExp(2);
         //给予 发射者 经验值
     }

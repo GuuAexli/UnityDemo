@@ -16,7 +16,6 @@ public class GameController : MonoBehaviour
 
     UnitAttribute hitUnit;//触碰的单位
     public UnitAttribute selectedUnit;
-    public LayerMask unitLayer;
 
     public int Supply;
     public int Inning;
@@ -43,15 +42,11 @@ public class GameController : MonoBehaviour
         //确保管理器唯一
 
         
-        UnitEvent.resetUnitAllBehavior +=ResetUnitAllBehavior;
-        UnitEvent.resetUnitCoroutine += ResetUnitCoroutine;
         ManagerEvent.BattleEnd += BattleEnd;
         ManagerEvent.DefenseValueLoss += DefenseValueLoss;
     }
     private void OnDestroy()
     {
-        UnitEvent.resetUnitAllBehavior-=ResetUnitAllBehavior;
-        UnitEvent.resetUnitCoroutine -= ResetUnitCoroutine;
         ManagerEvent.BattleEnd -= BattleEnd;
         ManagerEvent.DefenseValueLoss -= DefenseValueLoss;
     }
@@ -96,7 +91,7 @@ public class GameController : MonoBehaviour
         
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         //二维量 鼠标位置 主摄像头 在世界位置 获取当前鼠标的位置
-        Collider2D hit = Physics2D.OverlapPoint(mousePos, unitLayer) ;
+        Collider2D hit = Physics2D.OverlapPoint(mousePos, LayerMask.GetMask("unit")) ;
         //Debug.Log(hit + "位置" + mousePos);
 
         if (hit != null)
@@ -182,8 +177,6 @@ public class GameController : MonoBehaviour
         Vector2 targetPos =Camera.main.ScreenToWorldPoint(Input.mousePosition);
         //目标位置 鼠标的位置
 
-        UnitEvent.resetUnitAllBehavior?.Invoke(selectedUnit);//执行移动需要取消其他行动状态
-        UnitEvent.resetUnitCoroutine?.Invoke(selectedUnit);//取消选择单位正在执行的协程
 
         selectedUnit.SetUnitMovePos(targetPos);
         LineEvent.ShowUnitVisualEvent?.Invoke(new ShowUnitVisualEvent 
@@ -195,21 +188,6 @@ public class GameController : MonoBehaviour
         Supply += supply;
         if (Supply < 0) Supply = 0;
         UIEvent.UpdateSupplyInfo?.Invoke();
-    }
-    public void ResetUnitAllBehavior(UnitAttribute unit)
-    {
-
-        unit.isAttack = false;//正在攻击
-        unit.underAttack = false;//正在被攻击
-        unit.isMove = false;//正在移动
-        unit.isAction = false;//正在行动
-        unit._canAttack = true;
-        unit._isUseItem = false;//正在使用道具
-        
-    }//重置单位行为
-    public void ResetUnitCoroutine(UnitAttribute unit)
-    {
-        unit.GetComponent<FunctionItemList>()?.IsUseItem(null);
     }
     private void BattleEnd()
     {

@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class VehicleAttribute : UnitAttribute
 {
-    public VehicleStateMachine UnitStateMachine { get; protected set; }
     //状态机
 
     [SerializeField] private bool canLoad;//可以装载

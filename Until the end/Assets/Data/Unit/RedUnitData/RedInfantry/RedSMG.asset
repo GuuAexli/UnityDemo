@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344bfb921c80a9042a33bb79c9918008, type: 3}
+  m_Name: RedSMG
+  m_EditorClassIdentifier: 
+  prefabName: redSMG
+  prefab: {fileID: 4493732231648590784, guid: 92a0db0e9d46f5f40817405259321d37, type: 3}
+  costValue: 1
+  description: 
+  isVehicle: 0
+  buttonIcon: {fileID: 0}
+  unitIcon: {fileID: 0}
+  unitFaction: 1
+  level: {fileID: 11400000, guid: efdcd643228cea14d9be1b4c47ea1ff8, type: 2}
+  destroyValue: 1
+  weapon:
+  - {fileID: 11400000, guid: 736678fa1ed944a489787aa5271bf62c, type: 2}
+  - {fileID: 11400000, guid: db2a5f3a04c82ee459f22d7d7c45e2cc, type: 2}
+  canEnterObject: 0

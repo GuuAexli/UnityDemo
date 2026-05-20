@@ -26,8 +26,7 @@ public class UnitNavMove : MonoBehaviour
     public List<Vector3> path { get; protected set; }//路径组
     public int pathIndex { get; protected set; }//目标路径序列
     public Vector3 currentPathPos;//现在路径位置
-    protected Vector3 targetPos;
-
+    public Vector3 targetPos { get; protected set; }
     void Awake()
     {
         attr=GetComponent<UnitAttribute>();
@@ -44,7 +43,7 @@ public class UnitNavMove : MonoBehaviour
     {
         UpdateOccupiedGrid();//初始占用
 
-        if (tag == "red_tag")
+        if (attr.faction==Faction.Red)
         {
             SetMovePos(GameController.Instance.defenseZone.GetRandomDefensePos());
         }

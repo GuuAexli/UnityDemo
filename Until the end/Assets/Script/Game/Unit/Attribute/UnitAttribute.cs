@@ -9,10 +9,28 @@ public abstract class UnitAttribute : MonoBehaviour
 {
     [Header("数据")]
     public UnitData unitData;//单位数据
-
     [Header("组件")]
-    [SerializeField] protected Rigidbody2D _rd;
-    [SerializeField] protected Collider2D _cd;
+    [SerializeField] protected Rigidbody2D rb;
+    [SerializeField]
+    protected Collider2D col;
+    [Header("单位信息")]
+    public string unitName;//单位名字
+    public Sprite unitIcon;//单位图片
+    public Sprite weaponIcon;//武器图片
+    public Faction faction;//派系/阵营
+    [Header("单位属性")]
+    public float maxHealth;//最大生命值
+    public float health;//现在健康值
+    public float moveSpeed;//移动速度
+    public float rotateSpeed;//单位旋转速度
+
+    [Header("战斗属性")]
+    [SerializeField] protected float unitVolume;//单位体积
+    public float _unitVolume => unitVolume;
+    public float actualUnitVolume;
+
+    protected int unitArmor;//单位装甲
+    public int _unitArmor => unitArmor;
 
     [Header("管理")]
     public bool isSelected;//正在选中
@@ -30,7 +48,7 @@ public abstract class UnitAttribute : MonoBehaviour
     [SerializeField] protected bool canAttack = true;//允许攻击
     public bool isAttack;//正在攻击
     public bool underAttack;//正在被攻击
-
+    public Transform itemPos;
     public UnitCombat _unitCombat => unitCombat;
 
 
@@ -58,32 +76,14 @@ public abstract class UnitAttribute : MonoBehaviour
     [Header("单位种类")]
     public bool isVehicle;//是载具
 
-
-    [Header("单位信息")]
-    public string unitName;//单位名字
-    public Sprite unitIcon;//单位图片
-    public Sprite weaponIcon;//武器图片
-
-
-    [Header("单位属性")]
-    public float maxHealth;//最大生命值
-    public float health;//现在健康值
-    public float moveSpeed;//移动速度
-    public float rotateSpeed;//单位旋转速度
-
-
-    [Header("战斗属性")]
-    [SerializeField]protected float unitVolume;//单位体积
-    public float _unitVolume => unitVolume;
-    public float actualUnitVolume;
-
-    protected int unitArmor;//单位装甲
-    public int _unitArmor=>unitArmor;
+ 
     //public float targetAngle;//敌人角度
+
+
     protected virtual void Awake()
     {
-        _rd = GetComponent<Rigidbody2D>();
-        _cd = GetComponent<Collider2D>();
+        rb = GetComponent<Rigidbody2D>();
+        col = GetComponent<Collider2D>();
 
         unitCombat = GetComponent<UnitCombat>();
         unitNavMove = GetComponent<UnitNavMove>();
@@ -112,6 +112,7 @@ public abstract class UnitAttribute : MonoBehaviour
         unitIcon = unitData.unitIcon;
         isVehicle = unitData.isVehicle;
         canEnterObject = unitData.canEnterObject;
+        faction = unitData.unitFaction;
     }//初始化单位数据
 
     public void OnDestroy() 

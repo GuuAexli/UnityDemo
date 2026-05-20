@@ -55,9 +55,9 @@ public  class UnitCombat : MonoBehaviour//执行战斗的脚本
                                                                 attackRange, 
                                                                 targetLayer);
         foreach(Collider2D colliderTarget in hitTarget){
-            if (colliderTarget.tag == targetTag)
-            {
-                UnitAttribute target = colliderTarget.gameObject.GetComponent<UnitAttribute>();
+            UnitAttribute target = colliderTarget.GetComponent<UnitAttribute>();
+            if (target != null&&target.faction!=attr.faction)
+            {      
                 targetList.Add(target);
             }
         }
@@ -211,12 +211,5 @@ public  class UnitCombat : MonoBehaviour//执行战斗的脚本
         {
             unitAccurracy = value;
         }
-    }
-
-    
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.white;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }

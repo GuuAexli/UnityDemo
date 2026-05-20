@@ -18,10 +18,7 @@ public class UnitButtonUI : MonoBehaviour
         None,
         Attack,
         Enter, 
-        Exit,
-        Funtction1,
-        Funtction2,
-        Funtction3
+        Exit
     }
     private void OnEnable()
     {
@@ -46,12 +43,12 @@ public class UnitButtonUI : MonoBehaviour
        AttackButton(unit);
        EnterButton(unit);
        ExitButton(unit);
-       FunctionButton(unit);
+       ItemButton(unit);
     }
     
     public void AttackButton(UnitAttribute unit)
     {
-        if (unit.tag != "red_tag" && GameController.Instance.canCommandValue > 0)
+        if (unit.faction == Faction.Blue && GameController.Instance.canCommandValue > 0)
         {
             unitAttackBtn.SetActive(true);
             unitAttackBtn.GetComponent<Button>()?.
@@ -59,9 +56,9 @@ public class UnitButtonUI : MonoBehaviour
                 {
                     ActiveButton(ActiveButtonType.Attack, unit);
                 });
-        }
+        }//单位是友军&&存在指挥单位
         else return;
-    }//攻击按钮
+    }//显示攻击按钮并监听事件
     public void EnterButton(UnitAttribute unit)
     {
         if (unit.tag != "red_tag" && unit._canEnterObject||unit.TryGetComponent<ILoadUnit>(out var transport))//可以装载的单位 运输的载具
@@ -87,23 +84,23 @@ public class UnitButtonUI : MonoBehaviour
             });
         }
     }//离开按钮
-    public void FunctionButton(UnitAttribute unit)
+    public void ItemButton(UnitAttribute unit)
     {
-        FunctionItemList itemList=unit.GetComponent<FunctionItemList>();
+        ItemList itemList=unit.GetComponent<ItemList>();
         if (itemList != null)
         {
             for (int a = 0; a < itemList._itemList.Count; a++)
             {
                 if (a == 3) return;
-
+                
                 int index = a;
                 //c#闭包捕获问题
                 if (itemList._itemList[index] != null)
-                {
+                {                    
                     functionBtn[index].gameObject.SetActive(true);
                     functionBtn[index].onClick?.AddListener(() => itemList.UseItem(index));
-                }
-            }
+                }//显示并监听对应位置的按钮
+            }//检查道具组
         }//获取单位的道具组
 
     }//功能道具按钮
@@ -119,7 +116,7 @@ public class UnitButtonUI : MonoBehaviour
         {
             RemoveAllButtonActive();
             currentButtonType = buttonType;
-            Debug.Log("清除所有选择");
+            //Debug.Log("清除所有选择");
 
             switch (currentButtonType) 
             {
@@ -140,11 +137,11 @@ public class UnitButtonUI : MonoBehaviour
             }
 
         }
-    }//激活的按钮
+    }//判断激活的按钮
     public void RemoveAllButtonActive()
     {
         GetComponent<CommandController>().isSelectedButton = false;
-        GetComponent<LoadUnitController>().isSelectedButton = false;
+        //GetComponent<LoadUnitController>().isSelectedButton = false;
     }//移除所有的按钮激活
     public void RemoveButtonHide()
     {

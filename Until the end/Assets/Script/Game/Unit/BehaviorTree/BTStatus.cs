@@ -17,7 +17,8 @@ public class Blackboard
     public T Get<T>(string key) => data.ContainsKey(key) ? (T)data[key] : default;
     //如果字典包含该 key，则取出 data[key]（它是 object 类型），并强制转换为 T 类型(T)data[key]。
     //如果不包含,则返回 default(T)（对于引用类型为 null，对于值类型如 int 为 0，bool 为 false 等
+    //Set("useItem"(key),item(Item))  Get<Item>("useItem"(key))=>item(Item)
 
-    public bool HasKey(string key)=> data.ContainsKey(key);//有钥匙
+    public bool HasKey(string key)=> data.ContainsKey(key);//判断键是否有值
     public void Remove(string key)=>data.Remove(key);//移除钥匙
 }

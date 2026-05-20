@@ -53,14 +53,7 @@ public class CommandController : MonoBehaviour
             {
                 UnitAttribute target = hit.collider.GetComponent<UnitAttribute>();
                 if (target != null&&target.gameObject.tag=="red_tag")
-                {
-                    UnitEvent.
-                        resetUnitAllBehavior.Invoke(atkUnit);//重置单位行为
-
-                    UnitCombat unitCombat = atkUnit.GetComponent<UnitCombat>();
-                    unitCombat._priorityTarget = target;
-
-                    
+                {    
                     Debug.Log("目标" + target.name);
 
                     ResetState();

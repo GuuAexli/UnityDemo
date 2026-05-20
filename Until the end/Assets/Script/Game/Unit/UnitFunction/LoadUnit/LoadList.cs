@@ -51,8 +51,7 @@ public class LoadList : MonoBehaviour
     }//通过触发器 判断是否进入装载范围
     public void EnterUnit(UnitAttribute unit)
     {
-        UnitEvent.resetUnitAllBehavior.Invoke(unit);
-        UnitEvent.resetUnitAllBehavior.Invoke(GetComponent<UnitAttribute>());
+
 
         if (unitList.Count < maxLoad)
         {
@@ -76,8 +75,6 @@ public class LoadList : MonoBehaviour
                 //假如单位在掩体时进入载具会导致体积减少 所以需要重新 获取等级状态 来纠正 单位体积
 
                 unit.transform.position = new Vector2(this.transform.position.x + Random.Range(-1f, 1f), transform.position.y - 2);
-                UnitEvent.resetUnitAllBehavior.Invoke(unit.GetComponent<UnitAttribute>());//重置单位行为
-                unitList.Remove(unit);
                 Debug.Log("卸载完成");
             }
         else Debug.Log("没有装载单位");

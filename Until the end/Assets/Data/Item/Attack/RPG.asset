@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: RPG
   m_EditorClassIdentifier: 
   prefabName: RPG
-  prefab: {fileID: 0}
+  prefab: {fileID: 9084865756028003220, guid: 42cfd57771e88a145909cc274a21e1d1, type: 3}
   costValue: 0
+  description: 
   repeatable: 1
   requireTarget: 1
-  targetTag: red_tag
-  effectValue: 0
+  targetFaction: 1
+  effectValue: 10
   useRange: 15
   delay: 3
   useNumber: 1
