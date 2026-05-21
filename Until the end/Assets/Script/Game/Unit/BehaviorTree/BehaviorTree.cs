@@ -56,20 +56,12 @@ public class ConditionNode : BTNode
 {
     public System.Func<bool> condition;
     public BTNode child;
-    public ConditionNode(Blackboard bb, System.Func<bool> cond, BTNode chilnode) : base(bb)
-    {
-        condition = cond;
-        child = chilnode;
-    }
-    public override BTStatus Tick()
-    {
-        bool condResult = condition();
-        return condition() ? child.Tick() : BTStatus.Failure;
-    }  
+    public ConditionNode(Blackboard bb, System.Func<bool> cond) : base(bb) { condition = cond; }
+    public override BTStatus Tick()=>condition()?BTStatus.Success: BTStatus.Failure;
+
 }//条件节点 根据条件只有 成功/失败
 
 public abstract class ActionNode : BTNode 
 {
     public ActionNode(Blackboard bb):base(bb) { }
 }//动作节点 
-

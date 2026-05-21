@@ -58,16 +58,21 @@ public class UnitBehavior : MonoBehaviour
         var root = new SelectorNode(blackboard, new List<BTNode>
         {
             //优先级1
-            new ConditionNode(blackboard,
-                ()=>blackboard.HasKey("useItem"),
+            new SequenceNode(blackboard,new List<BTNode>
+            {
+                new ConditionNode(blackboard,
+                        ()=>blackboard.HasKey("useItem")),
                 new UseItmeBehavior(blackboard)
-            ),
+            }),//使用道具
+
             //优先级2
-            new ConditionNode(blackboard,
-                ()=>blackboard.HasKey("patrolPos"),
-                new PatrolAttackBehavior(blackboard)
-            //巡逻
-            ),
+            new SequenceNode(blackboard,new List<BTNode>
+            {
+                new ConditionNode(blackboard,
+                        ()=>blackboard.HasKey("patrolPos")),
+                new PatrolAttackBehavior(blackboard)        
+            }),//巡逻
+
             //优先级3
             new IdleBehavior(blackboard)
             //闲置
