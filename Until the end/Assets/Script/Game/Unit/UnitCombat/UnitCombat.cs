@@ -127,7 +127,7 @@ public  class UnitCombat : MonoBehaviour//执行战斗的脚本
                 {
                     target = priorityTarget;
                     priorityTarget = null;
-                    attr.isMove = false;
+                    attr.SetMove();
                     targetDistance = Vector3.Distance(target.transform.position, gameObject.transform.position);
                     return target;
                 }//优先目标在范围内 停止移动 取消优先目标

@@ -15,50 +15,28 @@ public  class Item : MonoBehaviour
     [SerializeField] protected Faction targetFaction;//目标阵营
     [SerializeField] protected float effectValue;//效果值
     [SerializeField] protected float useRange;//使用范围
-    
+    public float _useRange => useRange;
     [SerializeField] protected float delay;//延迟
-    [SerializeField] protected int useNumber;//重复激活次数
+    public float _delay=>delay;
+    [SerializeField] protected int activeNumber;//重复激活次数
     [SerializeField] protected GameObject effectPrefab;//效果预制体 如果有
 
     public UnitAttribute target;
-    public bool use;//使用完成
-    public bool move;//需要移动
+    public Vector3 targetPos;
 
     private void Awake()
     {
         ApplyData();
+        
     }
     public void ActiveItem(UnitBehavior owner)
     {       
         owner.StartCoroutine(owner.WaitForUseItem(useRange,targetFaction,this));
     }
-    private void Use()
+    public void Use()
     {
         Debug.Log(ownerItemList.owner.attr.unitName + "使用" + itemName);
-    }
-    public IEnumerator UseItem(Vector3? pos=null)
-    {
-        while (move) 
-        {
-            float distance = Vector2.Distance(ownerItemList.owner.transform.position,
-                                        target.transform.position);
-            if(distance<=useRange)
-                move=false;
-            //到达可以使用的范围
-            yield return null;
-        }
-        Debug.Log(itemName+"使用中");
-        while (use==false)
-        {
-            if ((delay -= Time.deltaTime) <= 0)
-            {
-                Use();
-                use = true;
-                delay = itemData.delay;
-            }//使用延迟
-            yield return null;
-        }
-        use = false;
+        //Instantiate(effectPrefab);
     }
     protected virtual void ApplyData() 
     {
@@ -69,7 +47,7 @@ public  class Item : MonoBehaviour
         effectValue= itemData.effectValue;
         useRange= itemData.useRange;
         delay = itemData.delay;
-        useNumber = itemData.useNumber;
+        activeNumber = itemData.useNumber;
         effectPrefab = itemData.effectPrefab;
         targetFaction = itemData.targetFaction;
     }//应用数据

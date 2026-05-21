@@ -119,8 +119,9 @@ public  class Weapon : MonoBehaviour
             _ when targetDistance >= attackRange*0.33 => mediumRangeAccurracy,
             _ => closeRangeAccurracy
         };
-        //Debug.Log("命中率=" + (unit * targetVolum.GetComponent<UnitAttribute>().actualUnitVolum) * distanceAccurracy);
-        
+        //Debug.Log("命中率=" + (unit * targetVolum.GetComponent<UnitAttribute>().actualUnitVolume) * distanceAccurracy);
+        //Debug.Log("单位："+ unit + "目标体积："+targetVolum.GetComponent<UnitAttribute>().actualUnitVolume+"距离："+ distanceAccurracy);
+
         if (Random.Range(0f, 1f) <= (unit * targetVolum.actualUnitVolume)*distanceAccurracy)
         {
             //Debug.Log("命中");

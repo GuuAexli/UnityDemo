@@ -5,7 +5,7 @@ using UnityEngine;
 public interface IFear
 {
     void AddFear(float value);
-    void ReplyFear();
+    void ReduceFear();
 }
 public struct FearInfo
 {

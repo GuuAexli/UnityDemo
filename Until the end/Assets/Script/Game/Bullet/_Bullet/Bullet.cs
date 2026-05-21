@@ -121,18 +121,18 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
             return;
-        }
+        }//有伤害接口
 
         DamageInfo info = new DamageInfo
         {
-            damage = bulletDamage,
-            unit = hitTarget,
-            atkUnit=unit,
-            penetration=bulletPenetration
-        };
+            damage = bulletDamage,//伤害
+            unit = hitTarget,//命中目标
+            atkUnit=unit,//攻击发起者
+            penetration=bulletPenetration//穿透率
+        };//伤害信息
 
         bool isProbability=damageable.TakeDamage(info);
-
+        //
         if (isProbability)
         {
             Destroy(gameObject);

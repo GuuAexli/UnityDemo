@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class UnitAttribute : MonoBehaviour
+public abstract class UnitAttribute : MonoBehaviour,ITakeDamage
 {
     [Header("数据")]
     public UnitData unitData;//单位数据
@@ -23,7 +23,8 @@ public abstract class UnitAttribute : MonoBehaviour
     public float health;//现在健康值
     public float moveSpeed;//移动速度
     public float rotateSpeed;//单位旋转速度
-
+    public float fear { get; protected set; }//恐惧值
+    public float decayFear{ get; protected set; }//恐惧值衰减
     [Header("战斗属性")]
     [SerializeField] protected float unitVolume;//单位体积
     public float _unitVolume => unitVolume;
@@ -38,8 +39,8 @@ public abstract class UnitAttribute : MonoBehaviour
     [SerializeField] protected UnitNavMove unitNavMove;
     [SerializeField] protected float moveEfficiency = 1;//效率（移动，旋转） 
     [SerializeField] protected bool canMove = true;//允许移动
-    public bool isMove;
-
+    [SerializeField] protected bool isMove;
+    public bool _isMove=>isMove;
     public UnitNavMove _unitNavMove => unitNavMove;
 
     [Header("战斗组件")]
@@ -146,6 +147,7 @@ public abstract class UnitAttribute : MonoBehaviour
         {
             float damage =(probability>=1f)? info.damage: info.damage * probability;
             ApplyDamage(damage, info.atkUnit);
+            
         }
         return isPenetration;
      
@@ -170,6 +172,10 @@ public abstract class UnitAttribute : MonoBehaviour
             ApplyLevelData();
         }
     }//添加经验 
+    public void SetMove(bool value=false)
+    {
+        isMove = value;
+    }
     public bool _canMove { get => canMove; set => canMove = value; }
     public bool _canAttack { get => canAttack; set => canAttack = value; }
 

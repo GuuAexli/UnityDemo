@@ -11,7 +11,7 @@ public class UnitInfoUI : MonoBehaviour
 
     public GameObject unitInfoPanel;//单位数据面板
     public GameObject weaponInfoPanel;//武器数据面板
-    //单例模式
+
     [Header("单位")]
     public Image unitImage;//单位图片   
     public Text unitName;//单位名字
@@ -22,7 +22,7 @@ public class UnitInfoUI : MonoBehaviour
     public Text unitHealth;//单位生命
     public Slider unitExpSlider;//经验条
     public Text unitLevel;//单位等级
-    
+    public Text unitFear;//单位恐惧
     [Header("武器")]
     public Button weaponInfoButton;
     public Button weaponHideInfoButton;
@@ -97,9 +97,11 @@ public class UnitInfoUI : MonoBehaviour
         unitHealth.text ="健康值："+$"{ target.health}/{ target.maxHealth}";
         //获取单位健康值    单位 现在生命  /  单位最大生命
         unitLevel.text ="等级："+ $"{target._unitLevel}/{target._maxLevel}";
-        unitVolume.text = "体积：" + target._unitVolume;
+        unitVolume.text = "体积：" + target.actualUnitVolume;
         unitArmor.text = "装甲：" + target._unitArmor;
         unitAccurracy.text = "单位命中率：" + target._unitCombat._unitAccurracy;
+        if(target.GetComponent<IFear>()!=null)
+            unitFear.text = "恐惧值：" + target.fear;
 
         if(unitHealthSlider != null ) 
         {

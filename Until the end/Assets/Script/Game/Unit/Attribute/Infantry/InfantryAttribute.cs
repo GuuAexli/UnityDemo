@@ -5,9 +5,7 @@ using UnityEngine;
 public class InfantryAttribute : UnitAttribute,IFear
 {
     [SerializeField] private bool canMoveAttack;//可以移动攻击
-    [SerializeField] protected float fear;//恐惧值
-    [SerializeField] protected float decayFear;//恐惧值衰减
-    public float _decayFear => decayFear;
+   
 
     private void Start()
     {
@@ -23,13 +21,8 @@ public class InfantryAttribute : UnitAttribute,IFear
         //UnitMoveMachine.OnAwake();
     }
     private void Update()
-    {
-        Debug.DrawRay(transform.position, transform.right * 2f, Color.red); // 当前朝向
-        //UnitMoveMachine.UpdateState(this);
-        //UnitStateMachine?.UpdateMachine();
-        if (health <= 0)
-            Destroy(gameObject);
-        ReplyFear();
+    {        
+        ReduceFear();
     }
     public override void ApplyLevelData()
     {
@@ -58,17 +51,16 @@ public class InfantryAttribute : UnitAttribute,IFear
     public void AddFear(float value)
     {
         fear += value;
+        if (fear >= 120)
+            fear = 120;
+        UIEvent.UpdateUnitInfo?.Invoke();
     }
-    public void ReplyFear()
+    public void ReduceFear()
     {
-        if (fear > 0)
-        {
-            fear -= decayFear * Time.deltaTime;
-        }
-        else
-        {
+        fear -= decayFear*Time.deltaTime;
+        if(fear<=0)
             fear = 0;
-        }
+        UIEvent.UpdateUnitInfo?.Invoke();
     }
     public float _fear
     {

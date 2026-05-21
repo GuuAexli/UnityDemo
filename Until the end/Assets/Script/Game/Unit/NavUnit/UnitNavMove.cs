@@ -11,7 +11,7 @@ public class UnitNavMove : MonoBehaviour
     public float repathRate = 0.5f;//重新寻路间隔
     public float lostRepathTime;
 
-    public bool isMove=>attr !=null &&attr.isMove;
+    public bool isMove=>attr !=null &&attr._isMove;
     public bool isAttack=>attr !=null &&attr.isAttack;
 
     public float stoppingDistance = 0.1f;      // 距离目标点多近时停止
@@ -67,7 +67,7 @@ public class UnitNavMove : MonoBehaviour
             lostRepathTime = Time.time;
             if (!IsPathStillValid())
             {
-                SetMovePos(targetPos);
+                SetMovePos(targetPos,true);
             }//路径不在可用
         }//检查间隔
 
@@ -80,7 +80,7 @@ public class UnitNavMove : MonoBehaviour
             pathIndex++;
             if (pathIndex >= path.Count)
             {
-                attr.isMove = false;
+                attr.SetMove();
                 return;
             }//到达最后一个路径点
             LineEvent.UpdateMovePathEvent?.Invoke(attr);
@@ -96,15 +96,17 @@ public class UnitNavMove : MonoBehaviour
             transform.rotation = RotateHelper.RotateToPos(transform, currentPathPos,
                                                     rotateSpeed);
     }//移动方式
-    public void SetMovePos(Vector3 target)
+    public void SetMovePos(Vector3 target,bool force=false)
     {
+        if((target==targetPos||Vector3.Distance(target,targetPos)<1)&&!force) return;
+ 
         path = AStarPathfinder.FindPath(transform.position, target,this);
         if (path != null && path.Count > 0)
         {
             targetPos = target;
             pathIndex = 0;
             currentPathPos = path[pathIndex];
-            attr.isMove=true;
+            attr.SetMove(true);
         }//设置路径序列
         else
         {

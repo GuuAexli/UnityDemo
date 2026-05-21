@@ -16,6 +16,7 @@ public class StandingPosture : IUnitState
     public void OnEnter()
     {
         Debug.Log("×ËÌ¬£ºÕ¾Á¢");
+        unit.actualUnitVolume = unit._unitVolume;
     }
     public void OnUpdate(float dt)
     { 
@@ -34,6 +35,7 @@ public class PronePosture : IUnitState
     public void OnEnter()
     {
         Debug.Log("×ËÌ¬£ºÙéÙë");
+        unit.actualUnitVolume = unit._unitVolume * 0.5f;
     }
     public void OnUpdate(float dt)
     {
@@ -41,7 +43,7 @@ public class PronePosture : IUnitState
     }
     public void OnExit()
     {
-
+        unit.actualUnitVolume = unit._unitVolume;
     }
 }
 

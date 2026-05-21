@@ -11,8 +11,6 @@ public class GameController : MonoBehaviour
 {
     public static  GameController Instance;
     //单例模式
-    public LineRenderer lineRenderer;
-    public int segments = 45;//平滑
 
     UnitAttribute hitUnit;//触碰的单位
     public UnitAttribute selectedUnit;
@@ -139,11 +137,10 @@ public class GameController : MonoBehaviour
     //修改选择    
     {
         if (selectedUnit != null)
-        //选择不为空
         {
             selectedUnit.UnitSelected(false);
-        //取消之前 单位 的 正在选择 
-        }
+
+        }//取消之前 单位 的 正在选择
 
         if (selectedUnit != newSelection)
         //不是现在的选择
@@ -155,11 +152,12 @@ public class GameController : MonoBehaviour
         }
 
         else
-        //选择相同的单位 取消选择
         {
-            selectedUnit = null;
+            
             UIEvent.HideUnitInfo.Invoke();
-        }
+            LineEvent.ShowUnitVisualEvent?.Invoke(new ShowUnitVisualEvent {unit=selectedUnit,show=false });
+            selectedUnit = null;
+        }//选择相同的单位 取消选择
     }
     public void ClearSelection()
         //取消选择函数
@@ -200,39 +198,5 @@ public class GameController : MonoBehaviour
         if (defenseValue <= 0)
             BattleEnd();
     }
-    /// <summary>
-    /// 绘制单位攻击范围
-    /// </summary>
-    /// <param name="unit"></param>
-    protected void DrawCircleRangeLine(UnitAttribute unit)
-    {
-        if (unit==null || lineRenderer == null)
-        {
-            lineRenderer.enabled = false;
-            return;
-        }
-        else lineRenderer.enabled = true;
-
-        UnitCombat unitCombat = unit._unitCombat;
-        if (unitCombat == null|| unitCombat.weapon==null)
-        {
-            Debug.LogWarning("单位没有武器/战斗模块");
-            hitUnit = null;
-            return;
-        }//没有武器/战斗模块
-        lineRenderer.positionCount = segments;
-        float angle = 0f;
-        float angleStep = 360 / segments;
-        float range = unitCombat.weapon.attackRange;
-        for (int i = 0; i < segments; i++)
-        {
-            float rad = angle * Mathf.Deg2Rad;
-
-            Vector3 pos = new Vector3(Mathf.Cos(rad) * range,
-                            Mathf.Sin(rad) * range, 0f);
-
-            lineRenderer.SetPosition(i, unit.transform.TransformPoint(pos));
-            angle += angleStep;
-        }
-    }//绘制单位攻击范围
+    
 }

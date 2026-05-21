@@ -20,7 +20,7 @@ MonoBehaviour:
     volum: 0.9
     armor: 1
     nextLevelExp: 100
-    decayFear: 0.01
+    decayFear: 5
   - health: 100
     moveSpeed: 0.3
     rotationSpeed: 150
@@ -28,7 +28,7 @@ MonoBehaviour:
     volum: 0.9
     armor: 1
     nextLevelExp: 200
-    decayFear: 0.05
+    decayFear: 5
   - health: 100
     moveSpeed: 0.3
     rotationSpeed: 150
@@ -36,7 +36,7 @@ MonoBehaviour:
     volum: 0.8
     armor: 1
     nextLevelExp: 350
-    decayFear: 0.1
+    decayFear: 8
   - health: 100
     moveSpeed: 0.3
     rotationSpeed: 150
@@ -44,4 +44,4 @@ MonoBehaviour:
     volum: 0.7
     armor: 1
     nextLevelExp: 0
-    decayFear: 0.15
+    decayFear: 10

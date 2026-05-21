@@ -17,8 +17,7 @@ public class UnitBehavior : MonoBehaviour
     private Blackboard blackboard;//黑板
     public BTNode behaviorNode;//行为节点
 
-    public Vector3? patrolPos;
-    public Vector3? forcedMovePos;
+    public Vector3? movePos;
     public void Awake()
     {
         attr= GetComponent<UnitAttribute>();
@@ -40,18 +39,31 @@ public class UnitBehavior : MonoBehaviour
     public void Update()
     {
         HandleInput();
+        UpdatePostureByFear();//更新姿态
         unitPosture?.OnUpdate(Time.deltaTime);//姿态状态机
         if(behaviorNode != null)
         {
             behaviorNode.Tick();
         }//行为树
     }
+    public void UpdatePostureByFear()
+    {
+
+        if (attr.fear >= 80&&!(unitPosture is PronePosture))
+        {
+            ChangePosture(new PronePosture(attr));
+        }
+        else if (attr.fear <= 50&&!(unitPosture is StandingPosture))
+        {
+            ChangePosture(new StandingPosture(attr));
+        }
+    }
     public void ChangePosture(IUnitState newState)
     {
+
         unitPosture?.OnExit();
         unitPosture = newState;
         unitPosture.OnEnter();
-
     }
     public void BuildBehaviorTree()
     {
@@ -60,11 +72,19 @@ public class UnitBehavior : MonoBehaviour
             //优先级1
             new SequenceNode(blackboard,new List<BTNode>
             {
-                new ConditionNode(blackboard,
-                        ()=>blackboard.HasKey("useItem")),
-                new UseItmeBehavior(blackboard)
-            }),//使用道具
-
+                new ConditionNode(blackboard,()=>blackboard.HasKey("useItem")),
+                    new SelectorNode(blackboard,new List<BTNode>
+                    {
+                        new SequenceNode(blackboard,new List<BTNode>
+                        {
+                           new ConditionNode(blackboard,
+                                ()=>blackboard.HasKey("moveToRange")),
+                           new MoveToRangeBehavior(blackboard),
+                           new UseItemBehavior(blackboard)
+                        }),//不在使用范围 顺序节点 先移动后使用
+                        new UseItemBehavior(blackboard)
+                    })//在使用范围 直接使用
+            }),//使用道具 顺序节点=>选择节点(判断在不在范围)
             //优先级2
             new SequenceNode(blackboard,new List<BTNode>
             {
@@ -76,9 +96,9 @@ public class UnitBehavior : MonoBehaviour
             //优先级3
             new IdleBehavior(blackboard)
             //闲置
-        });
+        });//选择行为
         behaviorNode = root;
-    }
+    }//构建行为树
     private void HandleInput()
     {
         if (attr.isSelected)
@@ -91,17 +111,11 @@ public class UnitBehavior : MonoBehaviour
             {
                 StartCoroutine(WaitForPatrolPos());
             }
-        }//选择中
-        
-
-        if(Input.GetKeyDown(KeyCode.A)) 
-        {
-            ChangePosture(new PronePosture(attr));
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            ChangePosture(new StandingPosture(attr));
-        }
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                attr.GetComponent<IFear>()?.AddFear(10);
+            }
+        }//选择中    
     }
     private IEnumerator WaitForPatrolPos()
     {
@@ -115,14 +129,13 @@ public class UnitBehavior : MonoBehaviour
 
         if (unitNavMove.path == null) { Debug.Log("巡逻位置无效"); yield break; }
 
-        patrolPos = unitNavMove.targetPos;
-        Debug.Log("开始巡逻,巡逻位置：" + patrolPos);
-        blackboard.Set("patrolPos", patrolPos.Value);
+        movePos = unitNavMove.targetPos;
+        Debug.Log("开始巡逻,巡逻位置：" + movePos);
+        blackboard.Set("patrolPos", movePos.Value);
     }//设置巡逻位置
     public IEnumerator WaitForUseItem(float range,Faction faction,Item item)
     {
         Debug.Log("选择目标");
-        item.use = false;
         while (!Input.GetMouseButtonDown(0))
             yield return null;//等待输入
 
@@ -145,17 +158,19 @@ public class UnitBehavior : MonoBehaviour
             unitNavMove.SetMovePos(pos);
             if (unitNavMove.path == null) { Debug.Log("没有可移动路线"); yield break; }
 
-            forcedMovePos = unitNavMove.targetPos;
-            item.move = true;
-            Debug.Log("强制移动到使用范围中，位置：" + forcedMovePos);
+            movePos = unitNavMove.targetPos;
+
+            Debug.Log("移动到使用范围中，位置：" + movePos);
+            blackboard.Set("moveToRange",item );
             blackboard.Set("useItem", item);
-            item.StartCoroutine(item.UseItem());
         }//需要移动
-    }
+    }//使用道具
 
     public void ClearAllBehavior()
     {
         blackboard.Remove("useItem");
+        blackboard.Remove("moveToRange");
+        blackboard.Remove("forcedMove");
         blackboard.Remove("patrolPos");
-    }
+    }//清除所有行为
 }

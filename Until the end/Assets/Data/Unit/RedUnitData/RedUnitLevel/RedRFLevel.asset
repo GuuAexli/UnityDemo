@@ -19,6 +19,5 @@ MonoBehaviour:
     accurracy: 0.25
     volum: 0.9
     armor: 1
-    levelExpUp: 0
-    fear: 0
-    decayFear: 0.01
+    nextLevelExp: 0
+    decayFear: 8
