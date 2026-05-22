@@ -10,7 +10,7 @@ public class UnitButtonUI : MonoBehaviour
     public GameObject unitAttackBtn;
     public GameObject unitEnterBtn;
     public GameObject unitExitBtn;
-    public List<Button> functionBtn=new List<Button>();
+    public List<Button> ItemBtn=new List<Button>();
     private ActiveButtonType currentButtonType = ActiveButtonType.None;
 
     public enum ActiveButtonType 
@@ -97,8 +97,18 @@ public class UnitButtonUI : MonoBehaviour
                 //c#闭包捕获问题
                 if (itemList._itemList[index] != null)
                 {                    
-                    functionBtn[index].gameObject.SetActive(true);
-                    functionBtn[index].onClick?.AddListener(() => itemList.UseItem(index));
+                    ItemBtn[index].gameObject.SetActive(true);
+                    ItemBtn[index].onClick?.AddListener(() => itemList.UseItem(index));
+                    
+                    Item item= itemList._itemList[index];
+                    Text itemText = ItemBtn[index].GetComponentInChildren<Text>();
+                    itemText.text = item._itemData.prefabName;
+                    if (item.isCooling)
+                    {
+                        itemText.text = $"{ item.cooling.ToString("F2") }";
+                    }
+                    else
+                        itemText.text=item._itemData.prefabName;
                 }//显示并监听对应位置的按钮
             }//检查道具组
         }//获取单位的道具组
@@ -148,7 +158,7 @@ public class UnitButtonUI : MonoBehaviour
         unitAttackBtn.SetActive(false);
         unitEnterBtn.SetActive(false);
         unitExitBtn.SetActive(false);
-        foreach(var Btn in functionBtn)
+        foreach(var Btn in ItemBtn)
         {
             Btn.gameObject.SetActive(false);
         }
@@ -160,7 +170,7 @@ public class UnitButtonUI : MonoBehaviour
         unitAttackBtn?.GetComponent<Button>().onClick.RemoveAllListeners();
         unitEnterBtn?.GetComponent<Button>().onClick.RemoveAllListeners();
         unitExitBtn?.GetComponent<Button>().onClick.RemoveAllListeners();
-        foreach(var Btn in functionBtn)
+        foreach(var Btn in ItemBtn)
         {
             Btn.onClick?.RemoveAllListeners();
         }

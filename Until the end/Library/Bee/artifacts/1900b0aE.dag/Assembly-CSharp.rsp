@@ -420,6 +420,7 @@
 "Assets/Script/Game/Bullet/_Bullet/Bullet.cs"
 "Assets/Script/Game/Bullet/_Bullet/BulletData.cs"
 "Assets/Script/Game/Data.cs"
+"Assets/Script/Game/Item/Assistant/AssitstantItem.cs"
 "Assets/Script/Game/Item/Item.cs"
 "Assets/Script/Game/Item/ItemData.cs"
 "Assets/Script/Game/supply.cs"

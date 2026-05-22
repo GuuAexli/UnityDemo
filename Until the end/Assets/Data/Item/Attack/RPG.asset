@@ -20,7 +20,8 @@ MonoBehaviour:
   requireTarget: 1
   targetFaction: 1
   effectValue: 10
-  useRange: 15
+  useRange: 20
   delay: 3
+  cooling: 10
   useNumber: 1
   effectPrefab: {fileID: 7989176797132129879, guid: d0406b506077c5741a96f2b842145afe, type: 3}

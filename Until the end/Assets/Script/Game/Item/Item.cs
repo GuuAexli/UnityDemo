@@ -17,6 +17,8 @@ public  class Item : MonoBehaviour
     [SerializeField] protected float useRange;//使用范围
     public float _useRange => useRange;
     [SerializeField] protected float delay;//延迟
+    public float cooling { get; protected set; }
+    public bool isCooling { get; protected set; }
     public float _delay=>delay;
     [SerializeField] protected int activeNumber;//重复激活次数
     [SerializeField] protected GameObject effectPrefab;//效果预制体 如果有
@@ -30,20 +32,50 @@ public  class Item : MonoBehaviour
         
     }
     public void ActiveItem(UnitBehavior owner)
-    {       
+    {
         owner.StartCoroutine(owner.WaitForUseItem(useRange,targetFaction,this));
     }
-    public void Use()
+    private void Update()
     {
-        Debug.Log(ownerItemList.owner.attr.unitName + "使用" + itemName);
-        //Instantiate(effectPrefab);
+        if (isCooling)
+        {
+            ItemCooling();
+        }//冷却
+    }
+    public virtual void Use()
+    {
+        if (!isCooling)
+        {
+            Debug.Log(ownerItemList.owner.attr.unitName + "使用" + itemName);
+            GameObject obj = Instantiate(effectPrefab, transform.position, transform.rotation);
+            //obj.transform.position=transform.position;
+            Bullet bullet = obj.GetComponent<Bullet>();
+            if (bullet == null) return;
+            //if (requireTarget)
+                bullet.AttackUnit(target);
+            //else bullet.AttackPos();
+            isCooling = true;
+        }//没有冷却
+        else
+        {
+            Debug.Log(itemData.prefabName + "还在冷却");
+        }//还在冷却
+    }
+    protected void ItemCooling()
+    {
+        cooling -= Time.deltaTime;
+        if (cooling<=0)
+        {
+            isCooling = false;
+            cooling = itemData.cooling;
+        }
     }
     protected virtual void ApplyData() 
     {
         itemName = itemData.prefabName;
         repeatable = itemData.repeatable;
         requireTarget = itemData.requireTarget;
-
+        cooling=itemData.cooling;
         effectValue= itemData.effectValue;
         useRange= itemData.useRange;
         delay = itemData.delay;

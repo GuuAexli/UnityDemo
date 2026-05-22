@@ -24,8 +24,9 @@ public class Bullet : MonoBehaviour
     [SerializeField] protected float bulletSpeed = 2f;//速度
     public float bulletDamage;//伤害
     public  float bulletPenetration;//穿深
-
+    [Header("效果")]
     [SerializeField] protected GameObject explosion;//爆炸效果
+    [SerializeField] protected GameObject traces;//痕迹
 
     public float bulletDuffusion;//扩散 武器决定
     [Header("距离相关")]
@@ -72,6 +73,10 @@ public class Bullet : MonoBehaviour
         {     
             Instantiate(explosion, transform.position,transform.rotation);
         }
+        if (traces != null)
+        {
+            Instantiate(traces, transform.position, transform.rotation);
+        }
     }//销毁效果
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -113,7 +118,11 @@ public class Bullet : MonoBehaviour
         hitPos = true;
         attackPos = _attackPos;
     }//攻击指定位置
-
+    public void AttackUnit(UnitAttribute _target)
+    {
+        hitTarget = true;
+        target= _target;
+    }
     private void Damage(UnitAttribute hitTarget,UnitAttribute unit=null)
     {
         ITakeDamage damageable=hitTarget.GetComponent<ITakeDamage>();
@@ -165,7 +174,7 @@ public class Bullet : MonoBehaviour
             target = null;//设置打击目标
             Destroy(gameObject, bulletTime);
         }
-    }
+    }//武器攻击使用
     private void Ricochet()
     {
         //Debug.Log("跳弹");

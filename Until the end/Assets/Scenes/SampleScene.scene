@@ -2135,7 +2135,7 @@ MonoBehaviour:
   unitAttackBtn: {fileID: 1641315754}
   unitEnterBtn: {fileID: 1090743737}
   unitExitBtn: {fileID: 741762105}
-  functionBtn:
+  ItemBtn:
   - {fileID: 1588875214}
   - {fileID: 1674813692}
   - {fileID: 1587106383}
@@ -3764,9 +3764,9 @@ RectTransform:
   - {fileID: 442214775}
   m_Father: {fileID: 1023837433}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30, y: -30}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &908392989
@@ -6653,9 +6653,9 @@ RectTransform:
   - {fileID: 1598408507}
   m_Father: {fileID: 1023837433}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30, y: -95}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1507345406
@@ -6855,7 +6855,7 @@ GameObject:
   - component: {fileID: 1587106383}
   m_Layer: 5
   m_HasEditorInfo: 1
-  m_Name: Function3
+  m_Name: item3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6977,7 +6977,7 @@ GameObject:
   - component: {fileID: 1588875214}
   m_Layer: 5
   m_HasEditorInfo: 1
-  m_Name: Function1
+  m_Name: Item1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7440,7 +7440,7 @@ GameObject:
   - component: {fileID: 1674813692}
   m_Layer: 5
   m_HasEditorInfo: 1
-  m_Name: Function2
+  m_Name: Item2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

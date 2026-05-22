@@ -135,14 +135,18 @@ public class UnitBehavior : MonoBehaviour
     }//设置巡逻位置
     public IEnumerator WaitForUseItem(float range,Faction faction,Item item)
     {
+        if (item.isCooling) { Debug.Log("道具还在冷却");yield break; }
         Debug.Log("选择目标");
         while (!Input.GetMouseButtonDown(0))
             yield return null;//等待输入
 
         Vector3 pos =Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Collider2D col = Physics2D.OverlapPoint(pos, LayerMask.GetMask("unit"));
+        if(col==null) { Debug.Log("没有目标"); yield break; }
+
         UnitAttribute target = col.GetComponent<UnitAttribute>();
-        if (target == null) { Debug.Log("没有目标");yield break; }
+        if (target == null) { Debug.Log("没有目标类型错误");yield break; }
+
         if(target.faction != faction) { Debug.Log("选择单位不能成为目标"); yield break; }
 
         //否则是目标

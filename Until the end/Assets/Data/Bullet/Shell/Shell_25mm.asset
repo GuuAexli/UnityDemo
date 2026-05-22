@@ -15,7 +15,10 @@ MonoBehaviour:
   prefabName: 25mm
   prefab: {fileID: 6016916899249912152, guid: 9dc1131845bada24b9285c145183e8d9, type: 3}
   costValue: 0
+  description: 
   bulletSpeed: 18
   bulletDamage: 20
   bulletPenetration: 20
   bulletTime: 5
+  expiosion: {fileID: 3707751826874163458, guid: 6ac2549c896f2d54189ac3044ac79860, type: 3}
+  traces: {fileID: 0}

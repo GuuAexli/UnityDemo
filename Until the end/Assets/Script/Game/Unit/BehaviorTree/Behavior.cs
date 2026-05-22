@@ -148,6 +148,7 @@ public class UseItemBehavior : ActionNode
             return BTStatus.Running;
         }//使用道具 停止攻击和移动
         item.Use();
+        time = 0f;
         blackboard.Remove("useItem");
         return BTStatus.Success;
     }//使用道具
