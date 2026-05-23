@@ -31,7 +31,7 @@ public class Bullet : MonoBehaviour
     public float bulletDuffusion;//扩散 武器决定
     [Header("距离相关")]
     public Vector2 fierPos;//射击时的位置
-    public float bulletFlightDistance;//飞行距离
+    public float bulletFlightDistance=0;//飞行距离
     
     [Header("存在时间")]
     [SerializeField] private float bulletTime;
@@ -44,11 +44,6 @@ public class Bullet : MonoBehaviour
         col = GetComponent<Collider2D>();
 
         ApplyData();
-    }
-    private void Start()
-    {
-        bulletFlightDistance += Random.Range(-1f, 1f);
-        //未命中 子弹距离目标落点距离
     }
     // Update is called once per frame
     void Update()
@@ -64,7 +59,9 @@ public class Bullet : MonoBehaviour
         {
             rb.velocity = transform.up * bulletSpeed;
             if (bulletFlightDistance < Vector3.Distance(fierPos, transform.position))
-                  Destroy(gameObject);
+            {              
+                Destroy(gameObject); 
+            }
         }//没有命中目标
     }//未命中
     private void OnDestroy()
@@ -104,6 +101,7 @@ public class Bullet : MonoBehaviour
         }//有攻击位置  优先打击攻击位置
         else if (target != null)
         {
+
             transform.position = Vector2.MoveTowards(transform.position, 
                                        target.transform.position, bulletSpeed * Time.deltaTime);
         }//目标不为空 移动到目标
@@ -117,11 +115,16 @@ public class Bullet : MonoBehaviour
         hitTarget = true;
         hitPos = true;
         attackPos = _attackPos;
+        fierPos=transform.position;
+        bulletFlightDistance = Vector3.Distance(fierPos, target.transform.position);
     }//攻击指定位置
     public void AttackUnit(UnitAttribute _target)
     {
         hitTarget = true;
         target= _target;
+        fierPos = transform.position;
+        bulletFlightDistance = Vector3.Distance(fierPos,target.transform.position);
+        //Debug.Log("距离" + bulletFlightDistance);
     }
     private void Damage(UnitAttribute hitTarget,UnitAttribute unit=null)
     {
@@ -172,6 +175,7 @@ public class Bullet : MonoBehaviour
             //生成散布偏转
             transform.rotation = transform.rotation * dispersion;
             target = null;//设置打击目标
+            bulletFlightDistance += Random.Range(-1f, 1f);
             Destroy(gameObject, bulletTime);
         }
     }//武器攻击使用

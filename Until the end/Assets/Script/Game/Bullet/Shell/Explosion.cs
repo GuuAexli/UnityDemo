@@ -11,6 +11,8 @@ public class Explosion : MonoBehaviour
     [SerializeField] private float penetration;//´©Éî
     [SerializeField] private float delay;//ÑÓ³Ù
     [SerializeField] private float fear;//¿Ö¾åÖµ
+
+    public float _range => range;
     private void Awake()
     {
         ApplyData();
@@ -18,10 +20,14 @@ public class Explosion : MonoBehaviour
     private void Start()
     {
         Invoke("EnterEffect", delay);
+        LineEvent.ShowExplosEvent(new ShowExplosionEvent 
+                                { explosion = this, pos = transform.position,show=true });
     }
     private void OnDestroy()
     {
-        ExitEffect();   
+        ExitEffect();
+        LineEvent.ShowExplosEvent(new ShowExplosionEvent 
+                                { explosion = this,pos= transform.position,show=false});
     }
     protected void EnterEffect()
     {

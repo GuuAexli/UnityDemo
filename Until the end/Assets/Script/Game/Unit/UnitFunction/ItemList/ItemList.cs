@@ -7,6 +7,7 @@ using static UnityEditor.Timeline.Actions.MenuPriority;
 public class ItemList : MonoBehaviour
 {
     public GameObject a;
+    public GameObject b;
     [SerializeField]private List<Item> itemList = new List<Item>();
     public List<Item> _itemList => itemList;
     public UnitBehavior owner{ get; private set; }
@@ -14,7 +15,14 @@ public class ItemList : MonoBehaviour
     private void Start()
     {
         owner = GetComponent<UnitBehavior>();
-        AddItem(a.GetComponent<Item>());
+        for (int i = 0; i < 3; i++)
+            itemList.Add(null);//初始化防止越界
+
+        if (a != null)
+        {
+            AddItem(a.GetComponent<Item>());
+            AddItem(b.GetComponent<Item>());
+        }
     }
 
     public void UseItem(int i)

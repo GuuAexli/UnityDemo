@@ -19,7 +19,7 @@ public abstract class UnitAttribute : MonoBehaviour,ITakeDamage
     public Sprite weaponIcon;//武器图片
     public Faction faction;//派系/阵营
     [Header("单位属性")]
-    public float maxHealth;//最大生命值
+    [SerializeField]public float maxHealth;//最大生命值
     public float health;//现在健康值
     public float moveSpeed;//移动速度
     public float rotateSpeed;//单位旋转速度

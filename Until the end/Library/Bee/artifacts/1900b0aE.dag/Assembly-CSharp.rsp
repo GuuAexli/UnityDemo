@@ -470,6 +470,7 @@
 "Assets/Script/gameManager/gameOutside/Button/SumBtnSpawnController.cs"
 "Assets/Script/gameManager/gameOutside/GenerateSoldier.cs"
 "Assets/Script/gameManager/gameOutside/Start_Quit.cs"
+"Assets/Script/gameManager/Helper/GetRangeObj.cs"
 "Assets/Script/gameManager/Helper/RotateHelper.cs"
 "Assets/Script/gameManager/Map/CustomTile.cs"
 "Assets/Script/gameManager/Map/GridManager.cs"

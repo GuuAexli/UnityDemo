@@ -4,8 +4,28 @@ using UnityEngine;
 
 public class AssitstantItem : Item
 {
+    public bool activeItem=false;
+
+    public void ChangeActive()
+    {
+        if (activeItem == false)
+        {
+            activeItem = true;
+            ownerItemList.owner.StartCoroutine(ownerItemList.owner.AssitstantItemBehavior(this));
+            Debug.Log("激活"+itemName);
+        }
+        else
+        {
+            activeItem = false;
+            Debug.Log("取消激活"+itemName);
+        }
+    }
+    public override void ActiveItem(UnitBehavior owner)
+    {
+        ChangeActive();
+    }
     public override void Use()
     {
-        Debug.Log("这是辅助道具不能主动激活");
+        target.AddHealth(effectValue);
     }
-}
+}//辅助道具(如果激活 自动寻找目标)

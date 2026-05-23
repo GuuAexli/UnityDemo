@@ -19,15 +19,16 @@ public class LineBinding
     public System.Action<LineRenderer, object> updateAction;
 }//绑定线条
 
-
 public class ShowUnitVisualEvent
 {
     public UnitAttribute unit;
     public bool show;
 }//显示单位视觉辅助
-public class ShowUnitMovePath 
+public class ShowExplosionEvent
 {
-    public UnitAttribute unit;
+    public Explosion explosion;
+    public Vector3 pos;
+    public bool show;
 }
 
 public class ClearAllShowEvent { }
@@ -47,18 +48,21 @@ public class DrawManager : MonoBehaviour
                                 activeAttackRange = new Dictionary<UnitAttribute, LineRenderer>();
     [SerializeField] private Dictionary<UnitAttribute,LineRenderer> 
                                 activeMovePath= new Dictionary<UnitAttribute, LineRenderer>();
-
+    [SerializeField] private Dictionary<Explosion,LineRenderer>
+                                activeExplosion=new Dictionary<Explosion,LineRenderer>();
     private void OnEnable()
     {
         LineEvent.ShowUnitVisualEvent += HandleShowUnitVisual;
         LineEvent.UpdateMovePathEvent += UpdateMovePath;
         LineEvent.HideDestroyUnitEvent += RecycleUnitLine;
+        LineEvent.ShowExplosEvent += HandleShowExplosion;
     }
     private void OnDestroy()
     {
         LineEvent.ShowUnitVisualEvent -= HandleShowUnitVisual;
         LineEvent.UpdateMovePathEvent-= UpdateMovePath;
         LineEvent.HideDestroyUnitEvent -= RecycleUnitLine;
+        LineEvent.ShowExplosEvent-= HandleShowExplosion;
     }
     private void Start()
     {
@@ -95,6 +99,17 @@ public class DrawManager : MonoBehaviour
             unitShow = null;
             HideAttackRange(evt.unit);
             HideMovePathLine(evt.unit);
+        }
+    }
+    private void HandleShowExplosion(ShowExplosionEvent evt)
+    {
+        if (evt.show)
+        {
+            DrawExplosionRange(evt.explosion, evt.pos);
+        }
+        else
+        {
+            HideExplosionRange(evt.explosion);
         }
     }
     #endregion
@@ -163,7 +178,6 @@ public class DrawManager : MonoBehaviour
         DrawUnitAttackRangeOnLine(unit, lr);
         activeAttackRange[unit] = lr;
     }//调用绘制圆
-    
     private void DrawUnitAttackRangeOnLine(UnitAttribute unit, LineRenderer lr)
     {
         if (lr == null) return;
@@ -202,6 +216,33 @@ public class DrawManager : MonoBehaviour
         {
             lr.SetPosition(i, path[startIndex+i]);
         }
+    }
+    private void DrawExplosionRange(Explosion explosion,Vector3 pos)
+    {
+        LineRenderer lr=GetLine();
+        ApplyStyle(lr, attackLineStyle);
+        DrawExplosionRangeOnLine(explosion, lr, pos);
+        activeExplosion[explosion] = lr;
+    }
+    private void DrawExplosionRangeOnLine(Explosion explosion,LineRenderer lr,Vector3 pos)
+    {
+        if (lr == null) return;
+        float range = explosion._range;
+        int segment = 45;
+        float angleStep = 360 / segment;
+        lr.positionCount = segment;
+
+        for(int i = 0;i < lr.positionCount;i++)
+        {
+            float rad = i * angleStep * Mathf.Deg2Rad;
+            Vector3 offset = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad), 0) * range;
+            lr.SetPosition(i, explosion.transform.TransformPoint(offset));
+        }
+    }   
+    private void HideExplosionRange(Explosion explosion)
+    {
+        if(activeExplosion.TryGetValue(explosion,out LineRenderer lr))
+            RecycleLineKey(lr,activeExplosion, explosion);
     }
     /// <summary>
     /// 回收字典键

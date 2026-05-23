@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42b8121fc22aa8e43bd535cb598e0225, type: 3}
+  m_Name: Bullet_Medkit
+  m_EditorClassIdentifier: 
+  prefabName: "\u6CBB\u7597"
+  prefab: {fileID: 7141174930487616046, guid: ac68a339740fab34c81edf45fbaa8f28, type: 3}
+  costValue: 0
+  description: 
+  bulletSpeed: 10
+  bulletDamage: 0
+  bulletPenetration: 1000
+  bulletTime: 3
+  expiosion: {fileID: 0}
+  traces: {fileID: 0}

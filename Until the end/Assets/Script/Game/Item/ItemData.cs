@@ -14,5 +14,8 @@ public class ItemData : Data
     public float cooling;//冷却
     public int useNumber;//重复激活次数
     public GameObject effectPrefab;//效果 范围效果预制体
+
+
+    public float searchRange;//寻找范围（辅助道具使用）
 }
 

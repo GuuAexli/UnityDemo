@@ -13,6 +13,7 @@ public  class Item : MonoBehaviour
     [SerializeField] protected bool repeatable;//重复使用
     [SerializeField] protected bool requireTarget;//需要目标
     [SerializeField] protected Faction targetFaction;//目标阵营
+    public Faction _targetFaction => targetFaction;
     [SerializeField] protected float effectValue;//效果值
     [SerializeField] protected float useRange;//使用范围
     public float _useRange => useRange;
@@ -22,7 +23,7 @@ public  class Item : MonoBehaviour
     public float _delay=>delay;
     [SerializeField] protected int activeNumber;//重复激活次数
     [SerializeField] protected GameObject effectPrefab;//效果预制体 如果有
-
+    public float searchRange { get; protected set; }
     public UnitAttribute target;
     public Vector3 targetPos;
 
@@ -31,10 +32,10 @@ public  class Item : MonoBehaviour
         ApplyData();
         
     }
-    public void ActiveItem(UnitBehavior owner)
+    public virtual void ActiveItem(UnitBehavior owner)
     {
         owner.StartCoroutine(owner.WaitForUseItem(useRange,targetFaction,this));
-    }
+    }//激活单位行为
     private void Update()
     {
         if (isCooling)
@@ -48,13 +49,12 @@ public  class Item : MonoBehaviour
         {
             Debug.Log(ownerItemList.owner.attr.unitName + "使用" + itemName);
             GameObject obj = Instantiate(effectPrefab, transform.position, transform.rotation);
-            //obj.transform.position=transform.position;
+
             Bullet bullet = obj.GetComponent<Bullet>();
             if (bullet == null) return;
-            //if (requireTarget)
                 bullet.AttackUnit(target);
-            //else bullet.AttackPos();
             isCooling = true;
+            target = null;
         }//没有冷却
         else
         {
@@ -82,5 +82,6 @@ public  class Item : MonoBehaviour
         activeNumber = itemData.useNumber;
         effectPrefab = itemData.effectPrefab;
         targetFaction = itemData.targetFaction;
+        searchRange = itemData.searchRange;
     }//应用数据
 }//功能道具

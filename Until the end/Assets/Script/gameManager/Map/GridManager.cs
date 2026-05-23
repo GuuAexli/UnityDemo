@@ -170,6 +170,26 @@ public class GridManager : MonoBehaviour
         }
         return grid;
     }//获取占用网格 通过collide 
+    public Vector3 GetClosesWalkableCellAround(Vector2Int centerCell, UnitNavMove unit,int maxRadius= 20)
+    {
+        for(int radius=0;radius<maxRadius; radius++)
+        {
+            for (int dx = -radius; dx <= radius; dx++)
+            {
+                for(int dy=-radius; dy <= radius; dy++)
+                {
+                    if(Mathf.Abs(dx)+Mathf.Abs(dy)!=radius) continue;//只检查周边的格子
+
+                    Vector2Int cellPos = centerCell+new Vector2Int(dx, dy);
+                    if (IsWalkable(cellPos,unit))
+                    {
+                        return CellToWorld(cellPos) ;
+                    }//周围可行走格子
+                }
+            }
+        }
+        return Vector3.zero;//周围没有可行走格子
+    }
     public bool IsOccupied(Vector2Int cellPos)
     {
         int x=cellPos.x-walkableTilemap.cellBounds.xMin;
@@ -178,26 +198,6 @@ public class GridManager : MonoBehaviour
             return occupiedCell[x, y];
         return false;
     }//检查格子占用情况
-    void OnDrawGizmosSelected()
-    {
-        if (walkableTilemap == null) return;
-        Grid grid = walkableTilemap.layoutGrid;
-        if (grid == null) return;
 
-        BoundsInt bounds = walkableTilemap.cellBounds;
-        Gizmos.color = Color.gray;
-        for (int x = bounds.xMin; x <= bounds.xMax; x++)
-        {
-            for (int y = bounds.yMin; y <= bounds.yMax; y++)
-            {
-                Vector3 cellCenter = walkableTilemap.GetCellCenterWorld(new Vector3Int(x, y, 0));
-                // 绘制一个小十字标记中心
-                Gizmos.DrawLine(cellCenter + Vector3.left * 0.1f, cellCenter + Vector3.right * 0.1f);
-                Gizmos.DrawLine(cellCenter + Vector3.down * 0.1f, cellCenter + Vector3.up * 0.1f);
-            }
-        }
-
-        // 绘制格子边界（可选）
-    }
 }
 

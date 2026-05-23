@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 using static UnityEditor.Progress;
 
 public class UnitBehavior : MonoBehaviour
@@ -57,19 +58,34 @@ public class UnitBehavior : MonoBehaviour
         {
             ChangePosture(new StandingPosture(attr));
         }
-    }
+    }//更新单位姿 根据恐惧值
     public void ChangePosture(IUnitState newState)
     {
 
         unitPosture?.OnExit();
         unitPosture = newState;
         unitPosture.OnEnter();
-    }
+    }//改变姿态
     public void BuildBehaviorTree()
     {
         var root = new SelectorNode(blackboard, new List<BTNode>
         {
             //优先级1
+            new SequenceNode(blackboard,new List<BTNode>
+            {
+                new ConditionNode(blackboard,()=>blackboard.HasKey("assitstantItem")),
+                    new SelectorNode(blackboard,new List<BTNode>
+                    {
+                        new SequenceNode(blackboard,new List<BTNode>
+                        {
+                            new ConditionNode(blackboard,()=>blackboard.HasKey("moveToRange")),
+                            new MoveToRangeBehavior(blackboard),
+                            new UseItemBehavior(blackboard)
+                        }),
+                        new UseItemBehavior(blackboard)
+                    })
+            }),//自动道具行为
+            //优先级2
             new SequenceNode(blackboard,new List<BTNode>
             {
                 new ConditionNode(blackboard,()=>blackboard.HasKey("useItem")),
@@ -85,7 +101,7 @@ public class UnitBehavior : MonoBehaviour
                         new UseItemBehavior(blackboard)
                     })//在使用范围 直接使用
             }),//使用道具 顺序节点=>选择节点(判断在不在范围)
-            //优先级2
+            //优先级3
             new SequenceNode(blackboard,new List<BTNode>
             {
                 new ConditionNode(blackboard,
@@ -93,7 +109,7 @@ public class UnitBehavior : MonoBehaviour
                 new PatrolAttackBehavior(blackboard)        
             }),//巡逻
 
-            //优先级3
+            //优先级4
             new IdleBehavior(blackboard)
             //闲置
         });//选择行为
@@ -116,7 +132,7 @@ public class UnitBehavior : MonoBehaviour
                 attr.GetComponent<IFear>()?.AddFear(10);
             }
         }//选择中    
-    }
+    }//判断输入
     private IEnumerator WaitForPatrolPos()
     {
         Debug.Log("选择巡逻位置");
@@ -159,6 +175,7 @@ public class UnitBehavior : MonoBehaviour
         }//可以使用道具
         else
         {
+
             unitNavMove.SetMovePos(pos);
             if (unitNavMove.path == null) { Debug.Log("没有可移动路线"); yield break; }
 
@@ -169,6 +186,43 @@ public class UnitBehavior : MonoBehaviour
             blackboard.Set("useItem", item);
         }//需要移动
     }//使用道具
+    public IEnumerator AssitstantItemBehavior(AssitstantItem item)
+    {
+        while (item != null || item.activeItem)
+        {
+            if (!blackboard.HasKey("assitstantItem"))
+            {
+                UnitAttribute unit = null;
+                while(unit == null) 
+                {
+                    unit = GetRangeObj.GetMinHealthUnit
+                            (item.searchRange, item._targetFaction, transform.position);
+                    if(unit == null)
+                        Debug.Log(item._itemName + "暂时没有可选择目标"); 
+                    yield return new WaitForSeconds(3f);
+                }
+                //暂时没有目标等待1秒
+                Debug.Log(item._itemName + "找到可以选择目标" + unit.unitData.prefabName);
+                item.target= unit;
+                blackboard.Set("assitstantItem",item);
+                float distance = Vector3.Distance(transform.position, unit.transform.position);
+                if (distance <= item._useRange)
+                {
+                    blackboard.Set("useItem", item);
+                    Debug.Log("正在执行"+item._itemName);
+                }//范围内直接使用
+                else
+                {
+                    blackboard.Set("moveToRange", item);
+                    blackboard.Set("useItem", item);
+                    Debug.Log("正在移动并执行" + item._itemName);
+                }//范围外 需要移动
+            }//没有执行辅助行为
+            yield return new WaitForSeconds(3f);
+        }
+        Debug.Log("取消自动行为");
+        blackboard.Remove("assitstantItem");
+    }
 
     public void ClearAllBehavior()
     {
@@ -176,5 +230,6 @@ public class UnitBehavior : MonoBehaviour
         blackboard.Remove("moveToRange");
         blackboard.Remove("forcedMove");
         blackboard.Remove("patrolPos");
+        blackboard.Remove("assitstantItem");
     }//清除所有行为
 }

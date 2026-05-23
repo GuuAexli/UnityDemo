@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 888c611bb1e77d34bb543dea2fd9aa84, type: 3}
   m_Name: Medkit
   m_EditorClassIdentifier: 
-  prefabName: Medkit
+  prefabName: "\u533B\u7597\u5305"
   prefab: {fileID: 7085757056771361528, guid: ed7b145fdc30bdf4ea45ed63cca70702, type: 3}
   costValue: 0
+  description: 
   repeatable: 0
   requireTarget: 1
-  targetTag: blue_tag
+  targetFaction: 0
   effectValue: 30
   useRange: 2
   delay: 5
+  cooling: 10
   useNumber: 1
-  effectPrefab: {fileID: 0}
+  effectPrefab: {fileID: 7141174930487616046, guid: ac68a339740fab34c81edf45fbaa8f28, type: 3}
+  searchRange: 20

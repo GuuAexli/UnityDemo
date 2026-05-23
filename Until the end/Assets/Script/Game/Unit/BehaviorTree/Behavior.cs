@@ -116,7 +116,7 @@ public class MoveToRangeBehavior : ActionNode
         
         return BTStatus.Running;
     }
-}
+}//移动到范围
 
 /// <summary>
 /// 使用道具行为
@@ -137,6 +137,7 @@ public class UseItemBehavior : ActionNode
         { 
             Debug.Log("已经无法使用道具");
             blackboard.Remove("useItem");
+            blackboard.Remove("assitstantItem");
             return BTStatus.Failure;
         }//目标被销毁 行为失败
         if ((time+=Time.deltaTime)<item._delay)
@@ -150,6 +151,7 @@ public class UseItemBehavior : ActionNode
         item.Use();
         time = 0f;
         blackboard.Remove("useItem");
+        blackboard.Remove("assitstantItem");
         return BTStatus.Success;
     }//使用道具
 }

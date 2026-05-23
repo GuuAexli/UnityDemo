@@ -17,9 +17,16 @@ public static class AStarPathfinder
         //获取开始节点信息
         Node targetNode = gm.GetNode(targetCell);
         //获取目标节点信息
-        if (startNode == null || targetNode == null || !gm.IsWalkable(targetCell,unit))
+        if (startNode == null || targetNode == null)
             return null;
-            //开始格子不为空 目标格子不为空 目标格子可行走 
+            //开始格子不为空 目标格子不为空 
+        if(!gm.IsWalkable(targetCell,unit))
+        {
+            Vector3 target=gm.GetClosesWalkableCellAround(targetCell,unit);
+            targetCell = gm.WorldToCell(target);
+            targetNode = gm.GetNode(targetCell);
+            Debug.Log("移动到目标最近位置"+targetCell);
+        }//目标格子不可行走 改为寻找目标最近的格子 
 
         List<Node> openSet = new List<Node>();
         //开启列表 可能移动的格子
