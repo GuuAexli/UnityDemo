@@ -18,7 +18,6 @@ public  class UnitCombat : MonoBehaviour//执行战斗的脚本
     [SerializeField] public Weapon weapon { get; private set; }//武器组件
     [SerializeField] protected Sprite weaponIcon;//武器图片
     [Header("属性")]
-    [SerializeField] protected Transform fierPos;//射击位置
     [SerializeField] protected float attackRange;//攻击范围
     [SerializeField] protected float unitAccurracy;//单位精准度
     [SerializeField] protected float targetDistance;//目标距离
@@ -188,7 +187,6 @@ public  class UnitCombat : MonoBehaviour//执行战斗的脚本
         weapon=currentWeapon.GetComponent<Weapon>();
         weapon.SetOwner(this);
         attackRange = weapon.attackRange;
-        weapon._fierPos = fierPos;
         attr.weaponIcon = weaponIcon;
     }//应用武器 
     public float _attackRange 

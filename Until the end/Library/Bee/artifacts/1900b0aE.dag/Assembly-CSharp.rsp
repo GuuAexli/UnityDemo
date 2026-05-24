@@ -415,6 +415,7 @@
 "Assets/Script/Game/Building/Defense/Bldg/shelter.cs"
 "Assets/Script/Game/Building/Defense/DefenseBldg.cs"
 "Assets/Script/Game/Building/Function/FunctionBldg.cs"
+"Assets/Script/Game/Bullet/Bullet_Trace.cs"
 "Assets/Script/Game/Bullet/Shell/Explosion.cs"
 "Assets/Script/Game/Bullet/Shell/ExplosionData.cs"
 "Assets/Script/Game/Bullet/_Bullet/Bullet.cs"

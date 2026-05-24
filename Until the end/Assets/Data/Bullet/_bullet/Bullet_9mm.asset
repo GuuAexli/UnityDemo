@@ -20,3 +20,5 @@ MonoBehaviour:
   bulletDamage: 5
   bulletPenetration: 0.8
   bulletTime: 3
+  expiosion: {fileID: 0}
+  traces: {fileID: 8135716111572857044, guid: 140d0e8627dc66f448be468443234c2d, type: 3}

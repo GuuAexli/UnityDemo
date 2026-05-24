@@ -15,7 +15,10 @@ MonoBehaviour:
   prefabName: Bullet_5_56mm
   prefab: {fileID: 6878576729818197845, guid: a45eb0ec688c93e458d60206a9c43014, type: 3}
   costValue: 0
+  description: 
   bulletSpeed: 50
   bulletDamage: 5
   bulletPenetration: 1
   bulletTime: 3
+  expiosion: {fileID: 0}
+  traces: {fileID: 8135716111572857044, guid: 140d0e8627dc66f448be468443234c2d, type: 3}

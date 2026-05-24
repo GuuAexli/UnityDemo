@@ -175,7 +175,7 @@ public class Bullet : MonoBehaviour
             //生成散布偏转
             transform.rotation = transform.rotation * dispersion;
             target = null;//设置打击目标
-            bulletFlightDistance += Random.Range(-1f, 1f);
+            bulletFlightDistance += Random.Range(-8f, 1f);
             Destroy(gameObject, bulletTime);
         }
     }//武器攻击使用
@@ -194,5 +194,6 @@ public class Bullet : MonoBehaviour
         bulletSpeed=bulletData.bulletSpeed;//速度
         bulletPenetration = bulletData.bulletPenetration;// 穿深
         bulletTime=bulletData.bulletTime;//存在时间
+        traces = bulletData.traces;
     }
 }

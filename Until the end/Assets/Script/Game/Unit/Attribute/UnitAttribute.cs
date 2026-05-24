@@ -104,7 +104,7 @@ public abstract class UnitAttribute : MonoBehaviour,ITakeDamage
     public void SetUnitMovePos(Vector2 pos)
     {
         //unitMove.movePos = pos;
-        unitNavMove.SetMovePos(pos);
+        unitNavMove.SetMovePos(pos,true);
         //移动到目标位置 = 接收的值
     }//移动到目标位置 接收 Vector2值
     public void AwakeUnitData()

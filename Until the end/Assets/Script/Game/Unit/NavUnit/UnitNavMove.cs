@@ -98,7 +98,7 @@ public class UnitNavMove : MonoBehaviour
     }//ÒÆ¶¯·½Ê½
     public void SetMovePos(Vector3 target,bool force=false)
     {
-        if ((target == targetPos || Vector3.Distance(target, targetPos) < 3) && !force)
+        if ((target == targetPos || Vector3.Distance(target, targetPos) < 1.5) && !force)
         {
             return;
         }
