@@ -98,12 +98,15 @@ public class UnitNavMove : MonoBehaviour
     }//移动方式
     public void SetMovePos(Vector3 target,bool force=false)
     {
-        if((target==targetPos||Vector3.Distance(target,targetPos)<1)&&!force) return;
- 
+        if ((target == targetPos || Vector3.Distance(target, targetPos) < 3) && !force)
+        {
+            return;
+        }
+
         path = AStarPathfinder.FindPath(transform.position, target,this);
         if (path != null && path.Count > 0)
         {
-            targetPos = target;
+            targetPos = path[path.Count - 1];
             pathIndex = 0;
             currentPathPos = path[pathIndex];
             attr.SetMove(true);
@@ -120,9 +123,14 @@ public class UnitNavMove : MonoBehaviour
         {
             GridManager.Instance.UpdateOccupied(occupiedGrid,newOccupied);
             occupiedGrid = newOccupied;
-            //Debug.Log("单位：" + unit.name + "占用格子数；" + occupiedGrid.Count);
+            //Debug.Log("单位：" + attr.name + "占用格子数；" + occupiedGrid.Count);
         }
     }//更新占用
+    /// <summary>
+    /// 判断格子是否是自己占用 true=是自己占用
+    /// </summary>
+    /// <param name="cellPos">需要判断的格子</param>
+    /// <returns></returns>
     public bool IsOccupiedGrid(Vector2Int cellPos)
     {
         return occupiedGrid.Contains(cellPos);
@@ -130,20 +138,27 @@ public class UnitNavMove : MonoBehaviour
     bool IsPathStillValid()
     {
         if (path == null || path.Count == 0) return false;
-        
+        if(pathIndex>=path.Count) return false;//到达终点
+
         Vector2Int targetCell = GridManager.Instance.WorldToCell(targetPos);
-        if (!GridManager.Instance.IsWalkable(targetCell,this)) 
+        if (!GridManager.Instance.IsWalkable(targetCell, this))
+        {
+            Debug.Log("0");
             return false;
+        }
         // 检查最终目标点
 
         int checkCount = Mathf.Min(3, path.Count - pathIndex);
         for (int i = 0; i < checkCount; i++)
         {
             Vector2Int cell = GridManager.Instance.WorldToCell(path[pathIndex + i]);
-            if (!GridManager.Instance.IsWalkable(cell,this)) return false;
+            if (!GridManager.Instance.IsWalkable(cell, this))
+            {
+                return false;
+            }
         }// 检查后续几个路径点（最多检查前方3个）
         return true;
-    }//检查前方路径是否被占用
+    }//判断路径有效性 
     bool AreGridListsEqual(List<Vector2Int> oldList,List<Vector2Int> newList)
     {
         if(oldList.Count!=newList.Count) return false;
@@ -160,6 +175,10 @@ public class UnitNavMove : MonoBehaviour
         if (GridManager.Instance != null)
             GridManager.Instance.UpdateOccupied(occupiedGrid, new List<Vector2Int>());
     }//销毁时取消占用
+    public void SetTargetPos(Vector3 pos)
+    {
+        targetPos = pos;
+    }//用于修改 如果目标位置不可移动 则移动到 可移动到目标的最近位置
     void OnDrawGizmosSelected()
     {
         if (path != null)

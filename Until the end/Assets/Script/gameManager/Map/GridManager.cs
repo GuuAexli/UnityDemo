@@ -126,11 +126,17 @@ public class GridManager : MonoBehaviour
             //Debug.Log(pos + "占用");
         }//设置新占用
     }//更新占用状态
+    /// <summary>
+    /// 判断是否可行走 true=可以行走
+    /// </summary>
+    /// <param name="cellPos">需要判断的格子</param>
+    /// <param name="unit">排除占用单位</param>
+    /// <returns></returns>
     public bool IsWalkable(Vector2Int cellPos,UnitNavMove unit=null)
     {
         Node node = GetNode(cellPos);
-        if (node == null) return false;//没有节点
-        if(!node.walkable) return false;//不可行走
+        if (node == null)return false; //没有节点
+        if (!node.walkable) return false;//不可行走
         
         int x = cellPos.x - boundsMin.x;
         int y = cellPos.y - boundsMin.y;
@@ -139,10 +145,13 @@ public class GridManager : MonoBehaviour
         if (occupiedCell[x, y])
         {
             if (unit != null && unit.IsOccupiedGrid(cellPos))
-                //移动位置在自己的占用网格内
-                return true;//可通行
+            //移动位置在自己的占用网格内
+                return true;
+            //可通行
             else
-                return false;//不可行走
+            {
+                return false; 
+            }//不可行走
         }//网格被占用 如果在自己占用内 可通行
         return true;//没有被占用
 

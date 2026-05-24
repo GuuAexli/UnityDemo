@@ -90,19 +90,19 @@ public class ForcedMoveBehavior : ActionNode
         return BTStatus.Running;
     }
 }//强制移动
-public class MoveToRangeBehavior : ActionNode 
+public class MoveToItemRangeBehavior : ActionNode 
 {
-    public MoveToRangeBehavior(Blackboard bb):base(bb) { }
+    public MoveToItemRangeBehavior(Blackboard bb):base(bb) { }
     float distance;
     public override BTStatus Tick()
     {
         UnitAttribute attr = blackboard.Get<UnitAttribute>("attribute");
         UnitNavMove move = blackboard.Get<UnitNavMove>("navMove");
-        Item item=blackboard.Get<Item>("moveToRange");
+        Item item=blackboard.Get<Item>("moveToItemRange");
 
         if(attr == null||move==null||item==null) return BTStatus.Failure;
 
-        if (!blackboard.HasKey("moveToRange")) { Debug.Log("已经不需要移动到范围"); return BTStatus.Failure; }
+        if (!blackboard.HasKey("moveToItemRange")) { Debug.Log("已经不需要移动到范围"); return BTStatus.Failure; }
 
         move.SetMovePos(item.target.transform.position);
         distance = Vector3.Distance(attr.transform.position, item.target.transform.position);
@@ -110,16 +110,17 @@ public class MoveToRangeBehavior : ActionNode
         {
             Debug.Log("到达范围内");
             attr.SetMove();
-            blackboard.Remove("moveToRange");       
+            blackboard.Remove("moveToItemRange");   
+            distance= 0f;
             return BTStatus.Success;
         }
         
         return BTStatus.Running;
     }
-}//移动到范围
+}//移动到范围（自动）
 
 /// <summary>
-/// 使用道具行为
+/// 自动使用道具行为
 /// </summary>
 public class UseItemBehavior : ActionNode
 {
@@ -130,17 +131,17 @@ public class UseItemBehavior : ActionNode
         UnitAttribute attr = blackboard.Get<UnitAttribute>("attribute");
         UnitNavMove move = blackboard.Get<UnitNavMove>("navMove");
         UnitCombat combat = blackboard.Get<UnitCombat>("combat");
-        Item item = blackboard.Get<Item>("useItem");
+        Item item = blackboard.Get<Item>("assistantItem");
 
         if (attr == null || move == null||combat==null) return BTStatus.Failure;
-        if (!blackboard.HasKey("useItem")|| item.target == null) 
+        if (!blackboard.HasKey("assistantItem")|| item.target == null) 
         { 
             Debug.Log("已经无法使用道具");
-            blackboard.Remove("useItem");
-            blackboard.Remove("assitstantItem");
+            blackboard.Remove("assistantItem");
             return BTStatus.Failure;
         }//目标被销毁 行为失败
-        if ((time+=Time.deltaTime)<item._delay)
+        time += 1 * Time.deltaTime;
+        if (time<item._delay)
         {
             attr._canAttack = false;
             attr._canMove = false;
@@ -150,8 +151,76 @@ public class UseItemBehavior : ActionNode
         }//使用道具 停止攻击和移动
         item.Use();
         time = 0f;
-        blackboard.Remove("useItem");
-        blackboard.Remove("assitstantItem");
+        attr._canAttack = true;
+        attr._canMove = true;
+        blackboard.Remove("assistantItem");
         return BTStatus.Success;
     }//使用道具
-}
+}//使用道具（自动）
+public class ManualMoveToItemRangeBehavior : ActionNode
+{
+    public ManualMoveToItemRangeBehavior(Blackboard bb) : base(bb) { }
+    float distance;
+    public override BTStatus Tick()
+    {
+        UnitAttribute attr = blackboard.Get<UnitAttribute>("attribute");
+        UnitNavMove move = blackboard.Get<UnitNavMove>("navMove");
+        Item item = blackboard.Get<Item>("manualMoveToItemRange");
+
+        if (attr == null || move == null || item == null) return BTStatus.Failure;
+        attr._canAttack = true;
+        attr._canMove = true;
+        if (!blackboard.HasKey("manualMoveToItemRange")) { Debug.Log("已经不需要移动到范围"); return BTStatus.Failure; }
+
+        move.SetMovePos(item.target.transform.position);
+        distance = Vector3.Distance(attr.transform.position, item.target.transform.position);
+        if (distance <= item._useRange)
+        {
+            Debug.Log("到达范围内");
+            attr.SetMove();
+            blackboard.Remove("manualMoveToItemRange");
+            return BTStatus.Success;
+        }
+
+        return BTStatus.Running;
+    }
+}//主动移动到范围
+
+/// <summary>
+/// 主动使用道具行为
+/// </summary>
+public class ManualUseItemBehavior : ActionNode
+{
+    public ManualUseItemBehavior(Blackboard bb) : base(bb) { }
+    float time = 0f;
+    public override BTStatus Tick()
+    {
+        UnitAttribute attr = blackboard.Get<UnitAttribute>("attribute");
+        UnitNavMove move = blackboard.Get<UnitNavMove>("navMove");
+        UnitCombat combat = blackboard.Get<UnitCombat>("combat");
+        Item item = blackboard.Get<Item>("manualUseItem");
+
+        if (attr == null || move == null || combat == null) return BTStatus.Failure;
+        if (!blackboard.HasKey("manualUseItem") || item.target == null)
+        {
+            Debug.Log("已经无法使用道具");
+            blackboard.Remove("manualUseItem");
+            return BTStatus.Failure;
+        }//目标被销毁 行为失败
+        time += 1 * Time.deltaTime;
+        if (time  < item._delay)
+        {
+            attr._canAttack = false;
+            attr._canMove = false;
+            attr.SetMove();
+            attr.transform.rotation = RotateHelper.RotateToUnit(attr.transform, item.target.transform, attr.rotateSpeed);
+            return BTStatus.Running;
+        }//使用道具 停止攻击和移动
+        item.Use();
+        time = 0f;
+        attr._canAttack = true;
+        attr._canMove = true;
+        blackboard.Remove("manualUseItem");
+        return BTStatus.Success;
+    }//使用道具
+}//主动使用道具
