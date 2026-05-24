@@ -120,7 +120,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -177,8 +177,6 @@ MonoBehaviour:
   maxLevel: 0
   isVehicle: 0
   canMoveAttack: 0
-  fear: 0
-  decayFear: 0
 --- !u!114 &8895690316242597424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +195,6 @@ MonoBehaviour:
   weaponInstantiate: {fileID: 0}
   currentWeapon: {fileID: 0}
   weaponIcon: {fileID: 0}
-  fierPos: {fileID: 8662904790181517880}
   attackRange: 0
   unitAccurracy: 0
   targetDistance: 0
@@ -414,6 +411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   a: {fileID: 0}
+  b: {fileID: 0}
   itemList:
   - {fileID: 0}
   - {fileID: 0}

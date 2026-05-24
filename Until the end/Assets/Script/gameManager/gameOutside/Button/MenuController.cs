@@ -14,7 +14,7 @@ public class MenuController : MonoBehaviour
 
         public Button mainButton;
         //主要按钮
-        public GameObject subMenu;
+        public GameObject subMenuPos;
         //子按钮
     }
     public MenuPair[] menuPairs;
@@ -29,10 +29,10 @@ public class MenuController : MonoBehaviour
     {
         foreach(var pair in menuPairs){
             //历遍每一个菜单对
-            pair.mainButton.onClick.AddListener(() => ToggleSubMenu(pair.subMenu));
+            pair.mainButton.onClick.AddListener(() => ToggleSubMenu(pair.subMenuPos));
             //为每一个主按钮添加事件监听器
             //当主按钮被点击就执行（）=>后面的函数或代码    按下后执行函数并给予自己附属的子菜单
-            pair.subMenu.SetActive(false);
+            pair.subMenuPos.SetActive(false);
             //确保开始时子按钮没有被打开
         }
     }

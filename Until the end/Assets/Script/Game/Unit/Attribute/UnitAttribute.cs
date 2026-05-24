@@ -89,6 +89,7 @@ public abstract class UnitAttribute : MonoBehaviour,ITakeDamage
         unitCombat = GetComponent<UnitCombat>();
         unitNavMove = GetComponent<UnitNavMove>();
 
+
         AwakeUnitData();
     }
 

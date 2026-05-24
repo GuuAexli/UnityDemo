@@ -11,6 +11,10 @@ public class BuildingData : Data
      public int effectValue_I;
      public float maxHealth;
 
+    public override void Spawn()
+    {
+        Instantiate(prefab);
+    }
 }
 [CreateAssetMenu(fileName ="DefenseBldgData",menuName ="BuildingData/DefenseBldgData")]
 public class DefenseBldgData : BuildingData 

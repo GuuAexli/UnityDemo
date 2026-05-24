@@ -102,7 +102,7 @@ public class MoveToItemRangeBehavior : ActionNode
 
         if(attr == null||move==null||item==null) return BTStatus.Failure;
 
-        if (!blackboard.HasKey("moveToItemRange")) { Debug.Log("已经不需要移动到范围"); return BTStatus.Failure; }
+        if (!blackboard.HasKey("moveToItemRange")||item.target==null) { Debug.Log("已经不需要移动到范围"); return BTStatus.Failure; }
 
         move.SetMovePos(item.target.transform.position);
         distance = Vector3.Distance(attr.transform.position, item.target.transform.position);

@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ce4c9ada6c55448b531c8ed94aeccf, type: 3}
+  m_Name: SniperRifle
+  m_EditorClassIdentifier: 
+  prefabName: "\u72D9\u51FB\u67AA"
+  prefab: {fileID: 1587091685866413109, guid: fafe62fa42f3a0e46a23dc7b0310aa05, type: 3}
+  costValue: 0
+  description: 
+  menuIcon: {fileID: 0}
+  weaponIcon: {fileID: 0}
+  aimTime: 3
+  attackInterval: 0
+  attackCooling: 4
+  closeRangeAccurracy: 0.4
+  mediumRangeAccurracy: 0.7
+  longRangeAccurracy: 0.9
+  attackDuration: 0
+  bullet: {fileID: 6878576729818197845, guid: 4e05598462b385246a425047df7f7801, type: 3}
+  bulletNumber: 1
+  suppressionValue: 30
+  attackRange: 25
+  duffusion: 4
+  penetrationMultiplier: 1
+  damageMultiplier: 1
+  barbetteRotatSpeed: 0

@@ -116,7 +116,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 0.27735847, b: 0.27735847, a: 1}
   m_FlipX: 0
@@ -141,39 +141,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitData: {fileID: 11400000, guid: 1f2bceaa8cc2adc4f9594cc4bf831b78, type: 2}
-  _rd: {fileID: 0}
-  _cd: {fileID: 0}
-  unitNavMove: {fileID: 0}
-  unitCombat: {fileID: 0}
-  canMove: 1
-  moveEfficiency: 1
-  canAttack: 1
-  attackEfficiency: 1
-  isUseItem: 0
-  canEnterObject: 0
+  rb: {fileID: 0}
+  col: {fileID: 0}
+  unitName: 
+  unitIcon: {fileID: 0}
+  weaponIcon: {fileID: 0}
+  faction: 1
+  maxHealth: 0
+  health: 0
+  moveSpeed: 0
+  rotateSpeed: 0
+  unitVolume: 0
+  actualUnitVolume: 0
   isSelected: 0
+  unitNavMove: {fileID: 0}
+  moveEfficiency: 1
+  canMove: 1
+  isMove: 0
+  unitCombat: {fileID: 0}
+  attackEfficiency: 1
+  canAttack: 1
   isAttack: 0
   underAttack: 0
-  isMove: 0
+  itemPos: {fileID: 0}
   isAction: 0
+  isUseItem: 0
+  canEnterObject: 0
   unitLevel: 0
   nextLevelExp: 0
   unitExp: 0
   maxLevel: 0
   isVehicle: 0
-  unitName: 
-  unitIcon: {fileID: 0}
-  weaponIcon: {fileID: 0}
-  maxHealth: 0
-  health: 0
-  moveSpeed: 0
-  rotateSpeed: 0
-  unitVolum: 0
-  actualUnitVolum: 0
-  targetAngle: 0
   canMoveAttack: 0
-  fear: 0
-  decayFear: 0
 --- !u!114 &6101577152147505472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,12 +186,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isVehicle: 0
-  unit: {fileID: 0}
+  attr: {fileID: 0}
   weaponParent: {fileID: 424182163676820653}
   weaponInstantiate: {fileID: 0}
   currentWeapon: {fileID: 0}
   weaponIcon: {fileID: 0}
-  fierPos: {fileID: 222831198609445765}
   attackRange: 0
   unitAccurracy: 0
   targetDistance: 0
@@ -215,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9094d29c71b072747a574f3c91f551f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unit: {fileID: 0}
+  attr: {fileID: 0}
   defaultAngle: 90
   repathRate: 0.5
   lostRepathTime: 0

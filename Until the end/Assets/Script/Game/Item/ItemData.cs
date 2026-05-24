@@ -17,5 +17,10 @@ public class ItemData : Data
 
 
     public float searchRange;//寻找范围（辅助道具使用）
+
+    public override void Spawn()
+    {
+        Instantiate(prefab);
+    }
 }
 

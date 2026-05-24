@@ -87,7 +87,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -112,38 +112,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitData: {fileID: 0}
-  _rd: {fileID: 0}
-  _cd: {fileID: 0}
-  unitNavMove: {fileID: 0}
-  unitCombat: {fileID: 0}
-  canMove: 1
-  moveEfficiency: 1
-  canAttack: 1
-  attackEfficiency: 1
-  isUseItem: 0
-  canEnterObject: 0
-  isSelected: 0
-  isAttack: 0
-  underAttack: 0
-  isMove: 0
-  isAction: 0
-  unitLevel: 0
-  nextLevelExp: 0
-  unitExp: 0
-  maxLevel: 0
-  isVehicle: 0
+  rb: {fileID: 0}
+  col: {fileID: 0}
   unitName: 
   unitIcon: {fileID: 0}
   weaponIcon: {fileID: 0}
+  faction: 0
   maxHealth: 0
   health: 0
   moveSpeed: 0
   rotateSpeed: 0
   unitVolume: 0
   actualUnitVolume: 0
+  isSelected: 0
+  unitNavMove: {fileID: 0}
+  moveEfficiency: 1
+  canMove: 1
+  isMove: 0
+  unitCombat: {fileID: 0}
+  attackEfficiency: 1
+  canAttack: 1
+  isAttack: 0
+  underAttack: 0
+  itemPos: {fileID: 0}
+  isAction: 0
+  isUseItem: 0
+  canEnterObject: 0
+  unitLevel: 0
+  nextLevelExp: 0
+  unitExp: 0
+  maxLevel: 0
+  isVehicle: 0
   canMoveAttack: 0
-  fear: 0
-  decayFear: 0
 --- !u!114 &8895690316242597424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,12 +157,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isVehicle: 0
-  unit: {fileID: 0}
+  attr: {fileID: 0}
   weaponParent: {fileID: 2367698211716120094}
   weaponInstantiate: {fileID: 0}
   currentWeapon: {fileID: 0}
   weaponIcon: {fileID: 0}
-  fierPos: {fileID: 8662904790181517880}
   attackRange: 0
   unitAccurracy: 0
   targetDistance: 0
@@ -185,7 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9094d29c71b072747a574f3c91f551f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unit: {fileID: 0}
+  attr: {fileID: 0}
   defaultAngle: 90
   repathRate: 0.5
   lostRepathTime: 0
@@ -378,10 +377,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 857d7e4e02e92ef408a1b8bb7201a071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  a: {fileID: 0}
+  b: {fileID: 0}
   itemList:
   - {fileID: 0}
   - {fileID: 0}
-  owner: {fileID: 0}
   useItem: {fileID: 0}
 --- !u!1 &7388338435462047526
 GameObject:

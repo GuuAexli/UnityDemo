@@ -325,7 +325,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -356,6 +356,7 @@ MonoBehaviour:
   currentDurationTime: 0
   currentAttackTime: 0
   fierPos: {fileID: 7285664139029781963}
+  bulletNumber: 0
   VehicleRotatSpeed: 0
   isAttackCooling: 0
   isSelected: 0

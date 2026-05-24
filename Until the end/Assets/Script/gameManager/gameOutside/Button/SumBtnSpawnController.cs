@@ -37,37 +37,12 @@ public class SumBtnSpawnController : MonoBehaviour
             if (GameController.Instance.Supply >= data.costValue)
             {
                 GameController.Instance.setSupply(-data.costValue);
-                //统一生成
-                if (data is UnitData)
-                {
-                    SpawnUnit(data);
-                    return;
-                }//如果是单位
-                if(data is WeaponData)
-                {
-                    Instantiate(data.prefab);
-                }
-                if(data is SupportData)
-                {
-                    SpawnSupport(data);
-                    return;
-                }
+                
+                data.Spawn();//统一生成
             }
             else Debug.Log("补给不足");
         else Debug.Log("管理器错误");
     }
-    void SpawnUnit(Data unit)
-    {
-        Debug.Log("生成" + unit.prefabName);
-        Vector3 spawnPoint = new Vector3(Random.Range(-30f, -8f), -10, 0);
-        GameObject newUnit = Instantiate(unit.prefab, spawnPoint, Quaternion.identity);
-        //生成  数据实例    生成位置  默认角度
-        newUnit.GetComponent<UnitAttribute>().SetUnitMovePos(new Vector2(newUnit.transform.position.x, newUnit.transform.position.y + 5));
-        //生成后向前移动
-    }
-    void SpawnSupport(Data support)
-    {
-        Instantiate(support.prefab);
-        Debug.Log(support.name);
-    }
+
+
 }

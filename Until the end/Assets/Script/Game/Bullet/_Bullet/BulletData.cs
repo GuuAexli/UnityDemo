@@ -10,4 +10,9 @@ public class BulletData : Data
     public float bulletTime;//存在时间
     public GameObject expiosion;//爆炸效果
     public GameObject traces;//痕迹
+
+    public override void Spawn()
+    {
+
+    }
 }

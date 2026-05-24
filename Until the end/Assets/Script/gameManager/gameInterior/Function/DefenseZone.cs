@@ -46,7 +46,7 @@ public class DefenseZone : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col)
     {
         UnitAttribute unit = col.GetComponent<UnitAttribute>();
-        if (unit != null && unit.gameObject.tag == "red_tag")
+        if (unit != null && unit.faction==Faction.Red)
         {
 
             ManagerEvent.DefenseValueLoss(unit.unitData.destroyValue);

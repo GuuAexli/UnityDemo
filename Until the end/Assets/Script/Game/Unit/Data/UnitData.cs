@@ -22,7 +22,15 @@ public class UnitData : Data
     public bool canEnterObject;                             //可以进入对象（模型/掩体）
 
 
-
+    public override void Spawn()
+    {
+        Vector2Int pos = GameController.Instance.defenseZone.walkableCell[
+                                Random.Range(0, GameController.Instance.defenseZone.walkableCell.Count)];
+        Vector3 spawnPos=GridManager.Instance.CellToWorld(pos);
+        GameObject unit= Instantiate(prefab, spawnPos,Quaternion.identity);
+        unit.GetComponent<UnitAttribute>().SetUnitMovePos(spawnPos+new Vector3(0,5));
+        
+    }
 }
 [CreateAssetMenu(fileName ="InfantryData",menuName ="UnitData/InfantryData")]
 public class InfantryData : UnitData 

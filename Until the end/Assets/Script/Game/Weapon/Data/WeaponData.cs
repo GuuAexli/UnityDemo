@@ -19,6 +19,7 @@ public class WeaponData : Data
         public float longRangeAccurracy;            //远距离精准度
     public float attackDuration;                //攻击持续时间
     public GameObject bullet;                   //子弹
+    public int bulletNumber=1;                    //弹丸数
     public float suppressionValue;              //压制力
     [Range(0, 100)] public float attackRange;   //攻击半径
     [Range(0, 100)] public float duffusion;     //散布
@@ -32,4 +33,8 @@ public class WeaponData : Data
 
     //public LayerMask targetLayer;             //目标图层
 
+    public override void Spawn()
+    {
+        Instantiate(prefab);
+    }
 }

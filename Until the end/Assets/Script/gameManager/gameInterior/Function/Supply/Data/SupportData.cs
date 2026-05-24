@@ -15,4 +15,9 @@ public class SupportData : Data
     public float delay;//开始延迟
     public float interval;//每次间隔
     public float radiusRange;//支援宽度
+
+    public override void Spawn()
+    {
+        Instantiate(prefab);
+    }
 }

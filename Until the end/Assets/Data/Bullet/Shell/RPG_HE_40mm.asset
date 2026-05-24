@@ -21,4 +21,4 @@ MonoBehaviour:
   bulletPenetration: 20
   bulletTime: 1
   expiosion: {fileID: 2212062484607625923, guid: 4a5ff356af58c7748b99d245a7492cb5, type: 3}
-  traces: {fileID: 0}
+  traces: {fileID: 8135716111572857044, guid: 8e433572e50f89e44b332fed5dbee1d3, type: 3}

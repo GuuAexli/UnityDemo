@@ -24,7 +24,8 @@ public  class Weapon : MonoBehaviour
 
     /////////////////////////武器属性///////////////////////////
     [SerializeField] protected Transform fierPos;//发射位置
-    public  GameObject bullet { get; protected set; }//子弹
+    public GameObject bullet { get; protected set; }//子弹
+    public int bulletNumber;
     public float suppressionValue { get; protected set; }//压制值
     public float attackRange { get; protected set; }//攻击半径
     public float duffusion { get; protected set; }//散布
@@ -63,11 +64,14 @@ public  class Weapon : MonoBehaviour
                     //攻击持续时间>现在持续时间>瞄准射击
                     if ((currentAttackTime += Time.deltaTime) >= attackInterval&&owner.isTowardsTarget)     
                     {
+                        for(int i= 0;i<bulletNumber;i++) 
+                        {
                             GameObject newBullet = Instantiate(bullet, fierPos.position,
                                                                     fierPos.rotation);
-                            SetBullet(newBullet, target, shooter, targetDistance, 
-                                                        fierPos.position);
-                            target.GetComponent<IFear>()?.AddFear(suppressionValue);
+                            SetBullet(newBullet, target, shooter, targetDistance,
+                                                    fierPos.position);
+                        }
+                        target.GetComponent<IFear>()?.AddFear(suppressionValue);
                             //增加目标恐惧值 如果是步兵类型
                             currentAttackTime = 0;
                         if (currentDurationTime >= attackDuration)  
@@ -140,6 +144,7 @@ public  class Weapon : MonoBehaviour
         attackDuration = data.attackDuration;
         attackRange = data.attackRange;
         bullet = data.bullet;
+        bulletNumber= data.bulletNumber;
             closeRangeAccurracy = data.closeRangeAccurracy;
             mediumRangeAccurracy=data.mediumRangeAccurracy;
             longRangeAccurracy = data.longRangeAccurracy;
