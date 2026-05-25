@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RedRifleman
   m_EditorClassIdentifier: 
   prefabName: redRF
-  prefab: {fileID: 4970239577019227959, guid: 2bbb09a7970ef58488c36c82360ddb4b, type: 3}
+  prefab: {fileID: 2982839176625619408, guid: 2bbb09a7970ef58488c36c82360ddb4b, type: 3}
   costValue: 0
   description: 
   isVehicle: 0

@@ -99,7 +99,7 @@ public class UnitInfoUI : MonoBehaviour
         unitLevel.text ="等级："+ $"{target._unitLevel}/{target._maxLevel}";
         unitVolume.text = "体积：" + target.actualUnitVolume;
         unitArmor.text = "装甲：" + target._unitArmor;
-        unitAccurracy.text = "单位命中率：" + target._unitCombat._unitAccurracy;
+        unitAccurracy.text = "单位命中率：" + target._unitAccurracy;
         if(target.GetComponent<IFear>()!=null)
             unitFear.text = "恐惧值：" + target.fear;
 

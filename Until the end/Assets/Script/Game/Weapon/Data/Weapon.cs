@@ -98,7 +98,7 @@ public  class Weapon : MonoBehaviour
     public void SetBullet(GameObject bulletPrefab, UnitAttribute target, UnitAttribute shooter,float targetDistance,Vector2 fierPos)
     {
         Bullet bullet=bulletPrefab.GetComponent<Bullet>();
-        bool hit = HitTarget(owner._unitAccurracy, target, targetDistance);
+        bool hit = HitTarget(owner.unitAccurracy, target, targetDistance);
 
         bullet.SetBullet(hit,target,owner.attr,penetrationMultiplier,damageMultiplier,
                         targetDistance,duffusion,fierPos);

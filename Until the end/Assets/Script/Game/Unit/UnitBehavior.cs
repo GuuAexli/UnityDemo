@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -41,7 +42,7 @@ public class UnitBehavior : MonoBehaviour
     {
         HandleInput();
         UpdatePostureByFear();//更新姿态
-        unitPosture?.OnUpdate(Time.deltaTime);//姿态状态机
+        unitPosture?.OnUpdate();//姿态状态机
         if(behaviorNode != null)
         {
             behaviorNode.Tick();
@@ -49,14 +50,29 @@ public class UnitBehavior : MonoBehaviour
     }
     public void UpdatePostureByFear()
     {
+        var posture = new List<(Func<float, bool> condition, Type currentType,
+                                    Func<UnitAttribute, IUnitState> nextFactory)>
+        {
+            // 判断值      判断的姿态   切换姿态
+            (fear=>fear>=90,null,attr=>new SuppressdPosture(attr)),
+            //从任何姿态 转换为 被压制（如果fear大于90）
+            (fear=>fear>=40,typeof(StandingPosture),attr=>new PronePosture(attr)),
+            //从站立 转换为 匍匐 (如果fear大于40)
+            (fear=>fear<60,typeof(SuppressdPosture),attr=>new PronePosture(attr)),
+            //从压制 转换为 匍匐 (如果fear小于60)
+            (fear=>fear<=30,null,attr=>new StandingPosture(attr))
+            //从任何姿态 转换为 站立
+        };
 
-        if (attr.fear >= 80&&!(unitPosture is PronePosture))
+        foreach(var(condition,requiredType,nextFactory)in posture)
         {
-            ChangePosture(new PronePosture(attr));
-        }
-        else if (attr.fear <= 50&&!(unitPosture is StandingPosture))
-        {
-            ChangePosture(new StandingPosture(attr));
+            if (condition(attr.fear) && (requiredType == null || unitPosture.GetType() == requiredType))
+            {
+                var newPosture = nextFactory(attr);
+                if(newPosture.GetType()!=unitPosture.GetType())//姿态不相同
+                    ChangePosture(newPosture);
+                break; //姿态相同跳出
+            }
         }
     }//更新单位姿 根据恐惧值
     public void ChangePosture(IUnitState newState)

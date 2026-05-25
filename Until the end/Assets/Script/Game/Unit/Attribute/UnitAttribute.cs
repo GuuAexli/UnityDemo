@@ -11,8 +11,8 @@ public abstract class UnitAttribute : MonoBehaviour,ITakeDamage
     public UnitData unitData;//单位数据
     [Header("组件")]
     [SerializeField] protected Rigidbody2D rb;
-    [SerializeField]
-    protected Collider2D col;
+    [SerializeField] protected Collider2D col;
+    public GameObject posture;//临时表现姿态（白色站立，黄色匍匐，红色被压制）
     [Header("单位信息")]
     public string unitName;//单位名字
     public Sprite unitIcon;//单位图片
@@ -37,21 +37,25 @@ public abstract class UnitAttribute : MonoBehaviour,ITakeDamage
     public bool isSelected;//正在选中
     [Header("移动组件")]   
     [SerializeField] protected UnitNavMove unitNavMove;
-    [SerializeField] protected float moveEfficiency = 1;//效率（移动，旋转） 
     [SerializeField] protected bool canMove = true;//允许移动
     [SerializeField] protected bool isMove;
+    public float moveEfficiency { get; private set; }//效率（移动，旋转）
     public bool _isMove=>isMove;
     public UnitNavMove _unitNavMove => unitNavMove;
 
     [Header("战斗组件")]
     [SerializeField] protected UnitCombat unitCombat;
-    [SerializeField] protected float attackEfficiency = 1;//效率（整体命中率）
+    [SerializeField] protected float unitAccurracy;
+
+    
     [SerializeField] protected bool canAttack = true;//允许攻击
+    
     public bool isAttack;//正在攻击
     public bool underAttack;//正在被攻击
     public Transform itemPos;
     public UnitCombat _unitCombat => unitCombat;
-
+    public float _unitAccurracy => unitAccurracy;
+    public float combatEfficiency { get; private set; }//效率（整体命中率）
 
     public bool isAction;//正在行动
     [SerializeField] protected bool isUseItem = false;//正在使用道具
@@ -77,10 +81,11 @@ public abstract class UnitAttribute : MonoBehaviour,ITakeDamage
     [Header("单位种类")]
     public bool isVehicle;//是载具
 
- 
+
     //public float targetAngle;//敌人角度
 
 
+    protected Dictionary<VolumeFactorType, float> volumeFactor=new Dictionary<VolumeFactorType, float>();
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -89,11 +94,46 @@ public abstract class UnitAttribute : MonoBehaviour,ITakeDamage
         unitCombat = GetComponent<UnitCombat>();
         unitNavMove = GetComponent<UnitNavMove>();
 
-
         AwakeUnitData();
-    }
 
-    public abstract void ApplyLevelData();
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr == null) return;
+        if (faction == Faction.Blue)
+        {
+            if (ColorUtility.TryParseHtmlString("#5A99FF", out Color color))
+                sr.color = color;
+        }
+        else 
+        {
+            if (ColorUtility.TryParseHtmlString("#FF4545", out Color color))
+                sr.color= color;
+        }
+    }
+    private void Start()
+    {
+        ApplyLevelData();
+        health = maxHealth;
+        moveEfficiency = 1;
+        combatEfficiency = 1;
+    }
+    public virtual void ApplyLevelData() 
+    {
+        UnitLevelData.LevelStats levelData = unitData.level.levels[unitLevel];//应用现在等级属性
+
+        maxHealth = levelData.health;//设置生命
+        moveSpeed = levelData.moveSpeed;//速度
+        rotateSpeed = levelData.rotationSpeed;//旋转速度
+        unitVolume = levelData.volum;//体积
+        RecalculateActualVolume();
+        unitArmor = levelData.armor;//装甲
+        decayFear = levelData.decayFear;//恐惧衰减
+
+        nextLevelExp = levelData.nextLevelExp;//下一次升级需要的经验
+        UnitCombat accurracy = gameObject.GetComponent<UnitCombat>();
+        unitAccurracy = levelData.accurracy;//设置单位精准度
+
+    }    //应用等级状态
+
 
     public void UnitSelected(bool stats)
     //选择单位 接收 bool值
@@ -115,6 +155,7 @@ public abstract class UnitAttribute : MonoBehaviour,ITakeDamage
         isVehicle = unitData.isVehicle;
         canEnterObject = unitData.canEnterObject;
         faction = unitData.unitFaction;
+        maxLevel =unitData.level.levels.Length-1;
     }//初始化单位数据
 
     public void OnDestroy() 
@@ -177,6 +218,36 @@ public abstract class UnitAttribute : MonoBehaviour,ITakeDamage
     {
         isMove = value;
     }
+    public void SetVolumeFactor(VolumeFactorType type,float value)
+    {
+        volumeFactor[type]=value;
+        RecalculateActualVolume();
+    }//设置因子值
+    public void RemoveVolumeFactor(VolumeFactorType type)
+    {
+        volumeFactor.Remove(type);
+        RecalculateActualVolume();
+    }
+    public void RecalculateActualVolume()
+    {
+        actualUnitVolume = unitVolume;
+        foreach(var factor in volumeFactor) 
+        {
+            actualUnitVolume *= factor.Value;
+        }
+        if (actualUnitVolume <= 0.1f) 
+        {
+            actualUnitVolume=0.1f;
+        }
+    }//重新计算体积
+    public void SetMoveEfficiency(float value = 1)
+    {
+        moveEfficiency=value;
+    }//设置移动效率
+    public void SetCombatEfficiency(float value = 1)
+    {
+        combatEfficiency=value;
+    }//设置战斗效率
     public bool _canMove { get => canMove; set => canMove = value; }
     public bool _canAttack { get => canAttack; set => canAttack = value; }
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RedSMG
   m_EditorClassIdentifier: 
   prefabName: redSMG
-  prefab: {fileID: 4493732231648590784, guid: 92a0db0e9d46f5f40817405259321d37, type: 3}
+  prefab: {fileID: 2396536578835226131, guid: 92a0db0e9d46f5f40817405259321d37, type: 3}
   costValue: 1
   description: 
   isVehicle: 0

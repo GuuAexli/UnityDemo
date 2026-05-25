@@ -19,11 +19,9 @@ public  class UnitCombat : MonoBehaviour//执行战斗的脚本
     [SerializeField] protected Sprite weaponIcon;//武器图片
     [Header("属性")]
     [SerializeField] protected float attackRange;//攻击范围
-    [SerializeField] protected float unitAccurracy;//单位精准度
+    public float unitAccurracy=>attr._unitAccurracy*attr.combatEfficiency;//单位精准度
     [SerializeField] protected float targetDistance;//目标距离
-    [SerializeField] protected LayerMask targetLayer;//目标图层
-    [SerializeField] protected string targetTag;//目标tag
-    public float rotateSpeed=>attr.rotateSpeed;
+    public float rotateSpeed=>attr.rotateSpeed * attr.moveEfficiency;//单位旋转速度
     public bool isTowardsTarget { get; protected set; }//朝向目标
     [SerializeField] protected List<UnitAttribute> targetList = new List<UnitAttribute>();//目标组
     [SerializeField] protected UnitAttribute target;//选中的目标
@@ -52,7 +50,7 @@ public  class UnitCombat : MonoBehaviour//执行战斗的脚本
         targetList.Clear();
         Collider2D[] hitTarget = Physics2D.OverlapCircleAll(transform.position, 
                                                                 attackRange, 
-                                                                targetLayer);
+                                                                LayerMask.GetMask("unit"));
         foreach(Collider2D colliderTarget in hitTarget){
             UnitAttribute target = colliderTarget.GetComponent<UnitAttribute>();
             if (target != null&&target.faction!=attr.faction)
@@ -199,15 +197,5 @@ public  class UnitCombat : MonoBehaviour//执行战斗的脚本
             attackRange = value; 
         }
     }
-    public float _unitAccurracy 
-    {
-        get
-        {
-            return unitAccurracy;
-        }
-        set
-        {
-            unitAccurracy = value;
-        }
-    }
+
 }

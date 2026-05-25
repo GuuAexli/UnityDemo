@@ -5,8 +5,8 @@ public class UnitNavMove : MonoBehaviour
 {
     [SerializeField] protected UnitAttribute attr;
     //[Header("移动参数")]
-    public float moveSpeed => attr.moveSpeed;
-    public float rotateSpeed => attr.rotateSpeed;
+    public float moveSpeed => attr.moveSpeed*attr.moveEfficiency;
+    public float rotateSpeed => attr.rotateSpeed * attr.moveEfficiency;
     public float defaultAngle = 90f;
     public float repathRate = 0.5f;//重新寻路间隔
     public float lostRepathTime;

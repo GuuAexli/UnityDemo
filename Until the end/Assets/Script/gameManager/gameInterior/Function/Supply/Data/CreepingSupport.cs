@@ -12,9 +12,13 @@ public class CreepingSupport : Support
                                 Mathf.Abs(point[0].y - point[2].y));
 
         float creeping=size.y/ number;//œ¬¥Œæ‡¿Î—”…Ï
+
+        float spawnY = (-size.y * 0.5f + Random.Range(-creeping, creeping) + (creeping * (currentNumber + 1)));
+        spawnY=Mathf.Clamp(spawnY,-size.y*0.5f,size.y*0.5f);
+
         Vector2 spawnPos = new Vector2(
-                        Random.Range(-size.x * 0.5f, size.x * 0.5f),
-                        (-size.y*0.5f+Random.Range(-2f,1f)+(creeping*(currentNumber+1))));
+                        Random.Range(-size.x * 0.5f, size.x * 0.5f),spawnY
+                        );
         
         Quaternion angle = Quaternion.Euler(0, 0, rotateAngle);
         Vector2 afterRotatePos = angle * spawnPos;

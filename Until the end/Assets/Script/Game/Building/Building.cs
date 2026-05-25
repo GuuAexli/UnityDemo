@@ -9,9 +9,16 @@ public abstract class Building : MonoBehaviour
     [SerializeField] protected float effectValue_F;
     [SerializeField] protected int effectValue_I;
     public float health;
+
+    public bool complete;
     private void Awake()
     {
         ApplyState();
+    }
+    public void Complete(Vector3 pos)
+    {
+        complete = true;
+        transform.position = pos;
     }
     public void ApplyState()
     {

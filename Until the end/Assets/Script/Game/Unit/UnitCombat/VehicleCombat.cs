@@ -32,4 +32,9 @@ public class VehicleCombat : UnitCombat
         else isTowardsTarget = false;
 
     }
+    protected override void ApplyWeapon()
+    {
+        base.ApplyWeapon();
+        barbette = currentWeapon;
+    }
 }

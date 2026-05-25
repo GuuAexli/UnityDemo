@@ -9,18 +9,14 @@ public class shelter : DefenseBldg
     {
         if(unit is InfantryAttribute inf)
         {
-            inf.actualUnitVolume -= effectValue_F;
-            if (inf.actualUnitVolume < 0.1)
-                inf.actualUnitVolume = 0.1f;
-            //Debug.Log(inf.actualUnitVolum);
+            inf.SetVolumeFactor(VolumeFactorType.Cover, effectValue_F);
         }
     }
     public override void ExitEffect(UnitAttribute unit) 
     {
         if(unit is InfantryAttribute inf)
         {
-            inf.actualUnitVolume = inf._unitVolume;
-            //Debug.Log(inf.actualUnitVolum);
+            inf.RemoveVolumeFactor(VolumeFactorType.Cover);
         }
         
     }

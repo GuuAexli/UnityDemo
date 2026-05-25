@@ -35,6 +35,6 @@ public class WeaponData : Data
 
     public override void Spawn()
     {
-        Instantiate(prefab);
+        GameObject weaponobj=Instantiate(prefab);
     }
 }

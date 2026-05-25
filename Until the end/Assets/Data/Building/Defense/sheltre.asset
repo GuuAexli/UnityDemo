@@ -15,6 +15,7 @@ MonoBehaviour:
   prefabName: shelter
   prefab: {fileID: 1577313322005239774, guid: 211e9fdfe8ef43d41be687c49f1a90d2, type: 3}
   costValue: 0
-  effectValue_F: 0.2
+  description: 
+  effectValue_F: 0.8
   effectValue_I: 0
   maxHealth: 50
