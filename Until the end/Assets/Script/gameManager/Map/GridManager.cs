@@ -9,7 +9,7 @@ public class GridManager : MonoBehaviour
 
     [Header("Tilemap引用")]
     public Tilemap walkableTilemap;   // 可行走区域的Tilemap（或主Tilemap）
-    public Tilemap obstacleTilemap;   // 障碍物Tilemap（可选，用于标记不可行走）
+    public Tilemap obstacleTilemap;   // 障碍物Tilemap
 
     private int width, height;//地图范围
     public Node[,] grid;//格子组

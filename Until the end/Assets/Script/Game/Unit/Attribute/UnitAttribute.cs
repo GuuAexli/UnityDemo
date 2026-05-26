@@ -183,7 +183,7 @@ public abstract class UnitAttribute : MonoBehaviour,ITakeDamage
         float probability=info.penetration/unitArmor;
         //»÷´©ÂÊ
         bool isPenetration = (probability >= 1f || 
-            (probability >= 0.3f) && Random.Range(0f, 1f) >= probability);
+            (probability >= 0.2f) && Random.Range(0f, 1f) >= probability);
 
         if (isPenetration)
         {

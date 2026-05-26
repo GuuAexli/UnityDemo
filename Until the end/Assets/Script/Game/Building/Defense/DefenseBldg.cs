@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class DefenseBldg : Building
+public  class DefenseBldg : Building
 {
     public void OnTriggerEnter2D(Collider2D col)
     {
@@ -20,8 +20,19 @@ public abstract class DefenseBldg : Building
             ExitEffect(unit);
         }
     }
-    public  abstract void EnterEffect(UnitAttribute unit);
-
-    public abstract void ExitEffect(UnitAttribute unit);
+    public void EnterEffect(UnitAttribute unit)
+    {
+        if(unit is InfantryAttribute inf)
+        {
+            inf.SetVolumeFactor(VolumeFactorType.Cover, effectValue_F);
+        }
+    }
+    public void ExitEffect(UnitAttribute unit)
+    {
+        if (unit is InfantryAttribute inf)
+        {
+            inf.RemoveVolumeFactor(VolumeFactorType.Cover);
+        }
+    }
     
-}
+}//·ÀÓùÑÚÌå

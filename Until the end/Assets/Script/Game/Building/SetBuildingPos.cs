@@ -35,7 +35,6 @@ public class SetBuildingPos : MonoBehaviour
             
 
             building.Complete(pos);
-            Debug.Log("完成建造");
         }
         if(Input.GetMouseButton(1))
         {

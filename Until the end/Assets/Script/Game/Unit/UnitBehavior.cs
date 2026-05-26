@@ -204,7 +204,7 @@ public class UnitBehavior : MonoBehaviour
     }//使用道具
     public IEnumerator AssistantItemBehavior(AssistantItem item)
     {
-        while (item != null || item.activeItem)
+        while (item != null && item.activeItem)
         {
             while(blackboard.HasKey("manualUseItem")) 
             {

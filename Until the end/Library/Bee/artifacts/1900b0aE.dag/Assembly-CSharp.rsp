@@ -412,7 +412,6 @@
 "Assets/Script/Event/UnitEvent.cs"
 "Assets/Script/Game/Building/Building.cs"
 "Assets/Script/Game/Building/BuildingData.cs"
-"Assets/Script/Game/Building/Defense/Bldg/shelter.cs"
 "Assets/Script/Game/Building/Defense/DefenseBldg.cs"
 "Assets/Script/Game/Building/Function/FunctionBldg.cs"
 "Assets/Script/Game/Building/SetBuildingPos.cs"

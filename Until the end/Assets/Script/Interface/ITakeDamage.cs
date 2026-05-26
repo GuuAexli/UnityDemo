@@ -5,6 +5,7 @@ using UnityEngine;
 public interface ITakeDamage
 {
     bool TakeDamage(DamageInfo info);
+    void ApplyDamage(float damage, UnitAttribute atkUnit);
 }
 public struct DamageInfo
 {

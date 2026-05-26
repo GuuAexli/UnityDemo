@@ -126,6 +126,7 @@ public class UnitNavMove : MonoBehaviour
             //Debug.Log("单位：" + attr.name + "占用格子数；" + occupiedGrid.Count);
         }
     }//更新占用
+
     /// <summary>
     /// 判断格子是否是自己占用 true=是自己占用
     /// </summary>

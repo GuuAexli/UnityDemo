@@ -7,10 +7,11 @@ public class BuildingData : Data
 {
     //public GameObject prefab;
     //影响的效果值
-     public float effectValue_F;
-     public int effectValue_I;
-     public float maxHealth;
-
+    public float effectValue_F;
+    public int effectValue_I;
+    public float maxHealth;
+    public float volume;
+    public int armor;
     public override void Spawn()
     {
         Instantiate(prefab);
