@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8314209451664530215}
   - component: {fileID: 1426042550553074402}
   - component: {fileID: 3860755747585354239}
-  m_Layer: 0
+  m_Layer: 6
   m_HasEditorInfo: 1
   m_Name: shelter
   m_TagString: Untagged
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d9d9eb22f766f4f8a066fe828b2282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 2ebe5c255d346d444ab4c051b1d8814e, type: 2}
+  data: {fileID: 11400000, guid: 2b673181d2ab10845b3bc8464341831a, type: 2}
   maxHealth: 0
   effectValue_F: 0
   effectValue_I: 0
@@ -179,7 +179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2948484273380946204}
   - component: {fileID: 2064515020736039855}
-  m_Layer: 0
+  m_Layer: 6
   m_HasEditorInfo: 1
   m_Name: Square (1)
   m_TagString: Untagged
@@ -270,7 +270,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6347914419027983570}
   - component: {fileID: 788380571479147336}
-  m_Layer: 0
+  m_Layer: 6
   m_HasEditorInfo: 1
   m_Name: Square (3)
   m_TagString: Untagged
@@ -359,7 +359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8827876716884894870}
   - component: {fileID: 7364956668103938504}
-  m_Layer: 0
+  m_Layer: 6
   m_HasEditorInfo: 1
   m_Name: Square (2)
   m_TagString: Untagged

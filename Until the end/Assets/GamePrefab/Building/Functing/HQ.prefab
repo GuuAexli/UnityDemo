@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5768230272626404367}
   - component: {fileID: 6371495110256583122}
   - component: {fileID: 6350522974744704617}
-  m_Layer: 0
+  m_Layer: 6
   m_HasEditorInfo: 1
   m_Name: HQ
   m_TagString: Untagged
@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b651fb7a3c5d10240be2ff111b7d96fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 02c1fe5e879ec864f984ce03f7e38fa4, type: 2}
+  data: {fileID: 11400000, guid: c00d15431cb85f3438cbe2af724b09e1, type: 2}
   maxHealth: 0
   effectValue_F: 0
   effectValue_I: 0

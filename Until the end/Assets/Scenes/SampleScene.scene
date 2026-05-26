@@ -3155,7 +3155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   availableUnits:
-  - {fileID: 11400000, guid: 02c1fe5e879ec864f984ce03f7e38fa4, type: 2}
+  - {fileID: 11400000, guid: c00d15431cb85f3438cbe2af724b09e1, type: 2}
   subButtonPrefab: {fileID: 3457761983277830599, guid: b6ad506d59eada8448213c48817ffdd0, type: 3}
   subButtonPos: {fileID: 823779500}
 --- !u!114 &823779502
@@ -4869,7 +4869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   availableUnits:
-  - {fileID: 11400000, guid: 2b31b2551b43cbf43a4a87586ec3cc3f, type: 2}
+  - {fileID: 11400000, guid: 62480ffe699fbc446b0f24cfbe3aa7d6, type: 2}
   subButtonPrefab: {fileID: 3457761983277830599, guid: b6ad506d59eada8448213c48817ffdd0, type: 3}
   subButtonPos: {fileID: 1102762658}
 --- !u!1 &1114719402
@@ -6151,6 +6151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b099ce375f1533442993e31b6ef653f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentControlType: 0
   selectedUnit: {fileID: 0}
   Supply: 0
   Inning: 0
@@ -8850,7 +8851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   availableUnits:
-  - {fileID: 11400000, guid: 2ebe5c255d346d444ab4c051b1d8814e, type: 2}
+  - {fileID: 11400000, guid: 2b673181d2ab10845b3bc8464341831a, type: 2}
   subButtonPrefab: {fileID: 3457761983277830599, guid: b6ad506d59eada8448213c48817ffdd0, type: 3}
   subButtonPos: {fileID: 1889167923}
 --- !u!114 &1889167925

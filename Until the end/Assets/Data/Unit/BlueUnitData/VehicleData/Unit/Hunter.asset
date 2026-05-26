@@ -9,20 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 9d8cc9ab024ce304fa4da6e6c5c87112, type: 3}
   m_Name: Hunter
-  m_EditorClassIdentifier: Assembly-CSharp::VehicleData
+  m_EditorClassIdentifier: 
   prefabName: Hunter
   prefab: {fileID: 4644748188699385847, guid: b73eabac311303540bf4bb565a7c2840, type: 3}
   costValue: 2
+  description: 
   isVehicle: 1
   buttonIcon: {fileID: 0}
   unitIcon: {fileID: 0}
+  unitFaction: 0
   level: {fileID: 11400000, guid: f08f2167abbcab945854f3f2bb34cb07, type: 2}
   destroyValue: 0
   weapon:
   - {fileID: 11400000, guid: dde095e35765c084ba10ed6229c1cfff, type: 2}
   canEnterObject: 0
-  canLoad: 1
   loadList: []
-  maxLoad: 2
+  maxLoad: 0

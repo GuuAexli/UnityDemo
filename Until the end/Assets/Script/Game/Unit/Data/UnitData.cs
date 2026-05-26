@@ -16,7 +16,7 @@ public class UnitData : Data
     public Sprite unitIcon;                                 //单位图片
     public Faction unitFaction;
     public UnitLevelData level;                             //对应 单位的等级数据类
-    public int destroyValue;                                //破坏值
+    public int destroyValue;                                //破坏值(进入防御点扣除的健康值)
     public WeaponData[] weapon;                             //初始 武器  武器组里随机使用一个武器
 
     public bool canEnterObject;                             //可以进入对象（模型/掩体）
@@ -32,16 +32,4 @@ public class UnitData : Data
         
     }
 }
-[CreateAssetMenu(fileName ="InfantryData",menuName ="UnitData/InfantryData")]
-public class InfantryData : UnitData 
-{
-    //默认就是步兵单位
-}
-[CreateAssetMenu(fileName ="VehicleData",menuName ="UnitData/VehicleData")]
-public class VehicleData : UnitData 
-{
-    
-    public List<GameObject> loadList = new List<GameObject>();//装入成员组
-    public int maxLoad;                                   //最大装入量
-}//载具
 

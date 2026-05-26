@@ -6,11 +6,18 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.HableCurve;
+public enum ControlType
+{
+    idle,
+    unit,
+    building
+}
 public class GameController : MonoBehaviour
     //游戏管理
 {
     public static  GameController Instance;
     //单例模式
+    public ControlType currentControlType = ControlType.idle;
 
     UnitAttribute hitUnit;//触碰的单位
     public UnitAttribute selectedUnit;
@@ -40,12 +47,12 @@ public class GameController : MonoBehaviour
         //确保管理器唯一
 
         
-        ManagerEvent.BattleEnd += BattleEnd;
+        ManagerEvent.BattleEnd += GameOver;
         ManagerEvent.DefenseValueLoss += DefenseValueLoss;
     }
     private void OnDestroy()
     {
-        ManagerEvent.BattleEnd -= BattleEnd;
+        ManagerEvent.BattleEnd -= GameOver;
         ManagerEvent.DefenseValueLoss -= DefenseValueLoss;
     }
     void Start()
@@ -64,21 +71,20 @@ public class GameController : MonoBehaviour
     public void mouseSelected()
     //鼠标选择 
     {
-        if (Input.GetMouseButtonDown(0) && !isCommand && !isSelectedLoadUnit )
-            //在选择单位时 不能 在选择装载单位的状态 和 指挥状态
+        if ((currentControlType==ControlType.idle||currentControlType==ControlType.unit)&&Input.GetMouseButtonDown(0)  )
+            //选择单位时 需要闲置状态或单位状态
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-                //判断是否是UI
+            if (EventSystem.current.IsPointerOverGameObject())   
             {
                 return;
-            }
-           //鼠标左键 
+            }//判断是否是UI
+  
             HandleSelection(); 
             //执行 处理选择 
         }
-        if (Input.GetMouseButtonDown(1) && selectedUnit != null && !isSelectedLoadUnit && !isCommand) {
+        if (currentControlType==ControlType.unit&&Input.GetMouseButtonDown(1) && selectedUnit != null ) {
             //鼠标右键且选择模型不是空的  不能 在选择装载单位的状态 和 指挥状态
-            MoveSelectedObject();
+            MoveSelectedUnit();
             //执行 移动选择的模型 
         }
     }
@@ -93,12 +99,9 @@ public class GameController : MonoBehaviour
         //Debug.Log(hit + "位置" + mousePos);
 
         if (hit != null)
-        //射线形参获取的碰撞体不为空
         {
             hitUnit = hit.GetComponent<UnitAttribute>();
-            //                     射线碰撞体获取碰撞体上的blue脚本 如果没有则为null
-            //  如果有 hitBlue=hit，否则hitBlue=null
-           
+            //  如果有 hitBlue=hit，否则hitBlue=null           
             LineEvent.ShowUnitVisualEvent?.Invoke(new ShowUnitVisualEvent { unit=hitUnit,show=true});
             if (hitUnit != null)
             {
@@ -106,9 +109,9 @@ public class GameController : MonoBehaviour
 
                 UIEvent.OnUnitInfo?.Invoke(hitUnit);//显示单位UI  可显示敌我单位
                 UIEvent.UpdateDescriptionInfo?.Invoke(hitUnit.unitData);
-                if (hitUnit.tag == "blue_tag")
+                if (hitUnit.faction==Faction.Blue)
                 {
-                    ToggleSelection(hitUnit);
+                    ToggleSelection(hitUnit);                   
                     //修改选择函数  包含选择相同单位取消选择
                 }
                 else Debug.Log("不能控制非友方单位");
@@ -139,24 +142,21 @@ public class GameController : MonoBehaviour
         if (selectedUnit != null)
         {
             selectedUnit.UnitSelected(false);
+        }//取消之前 单位 的 选择
 
-        }//取消之前 单位 的 正在选择
-
-        if (selectedUnit != newSelection)
-        //不是现在的选择
+        if (selectedUnit != newSelection) 
         {
             selectedUnit = newSelection;
-        //选择现在的选择
             selectedUnit.UnitSelected(true);
-        //设置选择的单位为 正在选择单位
-        }
-
+            ChangeControlType(ControlType.unit);
+        }//不是现在的选择
         else
         {
             
             UIEvent.HideUnitInfo.Invoke();
             LineEvent.ShowUnitVisualEvent?.Invoke(new ShowUnitVisualEvent {unit=selectedUnit,show=false });
             selectedUnit = null;
+            ChangeControlType (ControlType.idle);
         }//选择相同的单位 取消选择
     }
     public void ClearSelection()
@@ -169,8 +169,9 @@ public class GameController : MonoBehaviour
             selectedUnit = null;
             //取消当前选择
         }
-    }
-    void MoveSelectedObject() {
+        ChangeControlType(ControlType.idle);
+    }//取消选择
+    void MoveSelectedUnit() {
         //移动选择的模型
         Vector2 targetPos =Camera.main.ScreenToWorldPoint(Input.mousePosition);
         //目标位置 鼠标的位置
@@ -180,23 +181,27 @@ public class GameController : MonoBehaviour
         LineEvent.ShowUnitVisualEvent?.Invoke(new ShowUnitVisualEvent 
                             { unit = selectedUnit,show=true });
         //选择的模型 返回 需要移动到的位置
-    }
+    }//设置单位移动
     public void setSupply(int supply)
     {
         Supply += supply;
         if (Supply < 0) Supply = 0;
         UIEvent.UpdateSupplyInfo?.Invoke();
-    }
-    private void BattleEnd()
+    }//设置补给
+    private void GameOver()
     {
         Debug.Log("战斗结束");
         Time.timeScale = 0;
-    }
+    }//游戏结束
     private void DefenseValueLoss(int value)
     {
         defenseValue -= value;
         if (defenseValue <= 0)
-            BattleEnd();
+            GameOver();
+    }//减少防御值
+    public void ChangeControlType(ControlType newType)
+    {
+        currentControlType = newType;
     }
     
 }
