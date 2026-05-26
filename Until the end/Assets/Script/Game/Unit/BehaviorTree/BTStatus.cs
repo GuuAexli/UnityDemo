@@ -8,6 +8,7 @@ public enum BTStatus
     Failure,//失败
     Running//运行中
 }//行为状态
+
 public class Blackboard 
 {
     private Dictionary<string,object> data= new Dictionary<string,object>();
@@ -21,4 +22,25 @@ public class Blackboard
 
     public bool HasKey(string key)=> data.ContainsKey(key);//判断键是否有值
     public void Remove(string key)=>data.Remove(key);//移除钥匙
+}
+
+public static class BlackboardKeys
+{
+    // 单位组件
+    public const string Attribute = "attribute";
+    public const string NavMove = "navMove";
+    public const string Combat = "combat";
+    public const string ItemList = "itemList";
+
+    // 行为相关
+    public const string PatrolPos = "patrolPos";
+    public const string ForcedMove = "forcedMove";
+
+    // 主动道具
+    public const string ManualUseItem = "manualUseItem";
+    public const string ManualMoveToItemRange = "manualMoveToItemRange";
+
+    // 辅助道具
+    public const string AssistantItem = "assistantItem";
+    public const string MoveToItemRange = "moveToItemRange";
 }

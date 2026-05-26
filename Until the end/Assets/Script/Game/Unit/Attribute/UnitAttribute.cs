@@ -115,6 +115,8 @@ public abstract class UnitAttribute : MonoBehaviour,ITakeDamage
         health = maxHealth;
         moveEfficiency = 1;
         combatEfficiency = 1;
+        if (unitData.isCommand)
+            GameController.Instance.CommandUnitValue++;
     }
     public virtual void ApplyLevelData() 
     {
@@ -172,6 +174,8 @@ public abstract class UnitAttribute : MonoBehaviour,ITakeDamage
             Destroy(gameObject);
             if (atkUnit != null)
                 Debug.Log(unitName + "ËÀÍö\t" + "»÷É±Õß£º" + atkUnit.unitName);
+
+            if (unitData.Corpse != null) Instantiate(unitData.Corpse);
         }
         if (UnitInfoUI.Instance.target == this)
         {

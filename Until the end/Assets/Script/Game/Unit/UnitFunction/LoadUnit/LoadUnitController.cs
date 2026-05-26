@@ -62,7 +62,7 @@ public class LoadUnitController : MonoBehaviour
 
         isSelectUnit = true;
             //进入 选择装载的单位 判断
-        GameController.Instance.isSelectedLoadUnit = true;
+
         //改变管理器的选择状态
     }//进入
 
@@ -143,7 +143,7 @@ public class LoadUnitController : MonoBehaviour
         isSelectUnit = false;
             selectedEnterUnit = false;
             selectedLoadUnit = false;
-        GameController.Instance.isSelectedLoadUnit=false;
+        
         UIEvent.RemoveAllButtonActive?.Invoke();
         UIEvent.ResetButtonState?.Invoke();
 

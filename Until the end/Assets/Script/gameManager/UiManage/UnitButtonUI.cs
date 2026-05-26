@@ -48,7 +48,7 @@ public class UnitButtonUI : MonoBehaviour
     
     public void AttackButton(UnitAttribute unit)
     {
-        if (unit.faction == Faction.Blue && GameController.Instance.canCommandValue > 0)
+        if (unit.faction == Faction.Blue && GameController.Instance.CommandUnitValue > 0)
         {
             unitAttackBtn.SetActive(true);
             unitAttackBtn.GetComponent<Button>()?.

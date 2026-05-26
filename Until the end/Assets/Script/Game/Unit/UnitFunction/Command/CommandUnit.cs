@@ -6,11 +6,11 @@ public class CommandUnit : MonoBehaviour
 {
     void Start()
     {
-        GameController.Instance.canCommandValue+=1;
+        GameController.Instance.CommandUnitValue+=1;
     }
     private void OnDestroy()
     {
-        GameController.Instance.canCommandValue -= 1;
+        GameController.Instance.CommandUnitValue -= 1;
     }
 
 }

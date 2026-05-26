@@ -37,7 +37,7 @@ public class CommandController : MonoBehaviour
     }
     public void AttackButton(UnitAttribute unit)
     {
-        GameController.Instance.isCommand = true;
+
         isSelected = true;
         atkUnit = unit;
         Debug.Log("Ñ¡Ôñ¹¥»÷Ä¿±ê");
@@ -76,7 +76,7 @@ public class CommandController : MonoBehaviour
     {
         isSelectedButton = false;
         isSelected = false;
-        GameController.Instance.isCommand = false;
+
         UIEvent.RemoveAllButtonActive?.Invoke();
         UIEvent.ResetButtonState?.Invoke();
     }

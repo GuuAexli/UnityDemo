@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6751357114011312674}
   - component: {fileID: 3151892495670763203}
   - component: {fileID: 1671338344369858550}
+  - component: {fileID: 5199948467842465309}
   m_Layer: 0
   m_HasEditorInfo: 1
   m_Name: Medkit
@@ -115,3 +116,16 @@ MonoBehaviour:
   effectPrefab: {fileID: 0}
   target: {fileID: 0}
   targetPos: {x: 0, y: 0, z: 0}
+  activeItem: 0
+--- !u!114 &5199948467842465309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7085757056771361528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 531bb3797c7811a4090a750d99139d02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

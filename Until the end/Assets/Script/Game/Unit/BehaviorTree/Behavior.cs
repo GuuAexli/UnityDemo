@@ -12,9 +12,9 @@ public class IdleBehavior : ActionNode
 
     public override BTStatus Tick()
     {
-        UnitAttribute attr = blackboard.Get<UnitAttribute>("attribute");
-        UnitNavMove move = blackboard.Get<UnitNavMove>("navMove");
-        UnitCombat combat = blackboard.Get<UnitCombat>("combat");
+        UnitAttribute attr = blackboard.Get<UnitAttribute>(BlackboardKeys.Attribute);
+        UnitNavMove move = blackboard.Get<UnitNavMove>(BlackboardKeys.NavMove);
+        UnitCombat combat = blackboard.Get<UnitCombat>(BlackboardKeys.Combat);
 
         if (attr == null || move == null) return BTStatus.Failure;
 
@@ -34,21 +34,21 @@ public class PatrolAttackBehavior : ActionNode
 
     public override BTStatus Tick()
     {
-        UnitAttribute attr = blackboard.Get<UnitAttribute>("attribute");
-        UnitNavMove move = blackboard.Get<UnitNavMove>("navMove");
-        UnitCombat combat = blackboard.Get<UnitCombat>("combat");
+        UnitAttribute attr = blackboard.Get<UnitAttribute>(BlackboardKeys.Attribute);
+        UnitNavMove move = blackboard.Get<UnitNavMove>(BlackboardKeys.NavMove);
+        UnitCombat combat = blackboard.Get<UnitCombat>(BlackboardKeys.Combat);
 
         if (attr==null||move==null) return BTStatus.Failure;
 
-        if (!blackboard.HasKey("patrolPos"))
+        if (!blackboard.HasKey(BlackboardKeys.PatrolPos))
             return BTStatus.Failure;
         //获取巡逻目标
         attr._canAttack = true;
-        move.SetMovePos(blackboard.Get<Vector3>("patrolPos"));
-        if (move.isMove == false || move.targetPos != blackboard.Get<Vector3>("patrolPos"))
+        move.SetMovePos(blackboard.Get<Vector3>(BlackboardKeys.PatrolPos));
+        if (move.isMove == false || move.targetPos != blackboard.Get<Vector3>(BlackboardKeys.PatrolPos))
         {
             Debug.Log("取消巡逻行为");
-            blackboard.Remove("patrolPos");
+            blackboard.Remove(BlackboardKeys.PatrolPos);
             return BTStatus.Success;
         }//已经不需要移动 （移动终止 到达目标点 更改位置）
 
@@ -71,15 +71,15 @@ public class ForcedMoveBehavior : ActionNode
     public ForcedMoveBehavior(Blackboard bb):base(bb) { }
     public override BTStatus Tick()
     {
-        UnitAttribute attr = blackboard.Get<UnitAttribute>("attribute");
-        UnitNavMove move = blackboard.Get<UnitNavMove>("navMove");
-        UnitCombat combat = blackboard.Get<UnitCombat>("combat");
+        UnitAttribute attr = blackboard.Get<UnitAttribute>(BlackboardKeys.Attribute);
+        UnitNavMove move = blackboard.Get<UnitNavMove>(BlackboardKeys.NavMove);
+        UnitCombat combat = blackboard.Get<UnitCombat>(BlackboardKeys.Combat);
 
         if(attr == null||combat==null||move==null) return BTStatus.Failure;
 
-        if (!blackboard.HasKey("forcedMove")){ Debug.Log("路径错误");return BTStatus.Failure; }
+        if (!blackboard.HasKey(BlackboardKeys.ForcedMove)){ Debug.Log("路径错误");return BTStatus.Failure; }
 
-        if (!move.isMove || move.targetPos != blackboard.Get<Vector3>("forcedMove"))
+        if (!move.isMove || move.targetPos != blackboard.Get<Vector3>(BlackboardKeys.ForcedMove))
         {
             Debug.Log("不在需要强制移动");
             return BTStatus.Success;
@@ -96,13 +96,13 @@ public class MoveToItemRangeBehavior : ActionNode
     float distance;
     public override BTStatus Tick()
     {
-        UnitAttribute attr = blackboard.Get<UnitAttribute>("attribute");
-        UnitNavMove move = blackboard.Get<UnitNavMove>("navMove");
-        Item item=blackboard.Get<Item>("moveToItemRange");
+        UnitAttribute attr = blackboard.Get<UnitAttribute>(BlackboardKeys.Attribute);
+        UnitNavMove move = blackboard.Get<UnitNavMove>(BlackboardKeys.NavMove);
+        Item item=blackboard.Get<Item>(BlackboardKeys.MoveToItemRange);
 
         if(attr == null||move==null||item==null) return BTStatus.Failure;
 
-        if (!blackboard.HasKey("moveToItemRange")||item.target==null) { Debug.Log("已经不需要移动到范围"); return BTStatus.Failure; }
+        if (!blackboard.HasKey(BlackboardKeys.MoveToItemRange) ||item.target==null) { Debug.Log("已经不需要移动到范围"); return BTStatus.Failure; }
 
         move.SetMovePos(item.target.transform.position);
         distance = Vector3.Distance(attr.transform.position, item.target.transform.position);
@@ -110,7 +110,7 @@ public class MoveToItemRangeBehavior : ActionNode
         {
             Debug.Log("到达范围内");
             attr.SetMove();
-            blackboard.Remove("moveToItemRange");   
+            blackboard.Remove(BlackboardKeys.MoveToItemRange);   
             distance= 0f;
             return BTStatus.Success;
         }
@@ -128,16 +128,16 @@ public class UseItemBehavior : ActionNode
     float time=0f;
     public override BTStatus Tick()
     {
-        UnitAttribute attr = blackboard.Get<UnitAttribute>("attribute");
-        UnitNavMove move = blackboard.Get<UnitNavMove>("navMove");
-        UnitCombat combat = blackboard.Get<UnitCombat>("combat");
-        Item item = blackboard.Get<Item>("assistantItem");
+        UnitAttribute attr = blackboard.Get<UnitAttribute>(BlackboardKeys.Attribute);
+        UnitNavMove move = blackboard.Get<UnitNavMove>(BlackboardKeys.NavMove);
+        UnitCombat combat = blackboard.Get<UnitCombat>(BlackboardKeys.Combat);
+        Item item = blackboard.Get<Item>(BlackboardKeys.AssistantItem);
 
         if (attr == null || move == null||combat==null) return BTStatus.Failure;
-        if (!blackboard.HasKey("assistantItem")|| item.target == null) 
+        if (!blackboard.HasKey(BlackboardKeys.AssistantItem) || item.target == null) 
         { 
             Debug.Log("已经无法使用道具");
-            blackboard.Remove("assistantItem");
+            blackboard.Remove(BlackboardKeys.AssistantItem);
             return BTStatus.Failure;
         }//目标被销毁 行为失败
         time += 1 * Time.deltaTime;
@@ -153,7 +153,7 @@ public class UseItemBehavior : ActionNode
         time = 0f;
         attr._canAttack = true;
         attr._canMove = true;
-        blackboard.Remove("assistantItem");
+        blackboard.Remove(BlackboardKeys.AssistantItem);
         return BTStatus.Success;
     }//使用道具
 }//使用道具（自动）
@@ -163,14 +163,14 @@ public class ManualMoveToItemRangeBehavior : ActionNode
     float distance;
     public override BTStatus Tick()
     {
-        UnitAttribute attr = blackboard.Get<UnitAttribute>("attribute");
-        UnitNavMove move = blackboard.Get<UnitNavMove>("navMove");
-        Item item = blackboard.Get<Item>("manualMoveToItemRange");
+        UnitAttribute attr = blackboard.Get<UnitAttribute>(BlackboardKeys.Attribute);
+        UnitNavMove move = blackboard.Get<UnitNavMove>(BlackboardKeys.NavMove);
+        Item item = blackboard.Get<Item>(BlackboardKeys.ManualMoveToItemRange);
 
         if (attr == null || move == null || item == null) return BTStatus.Failure;
         attr._canAttack = true;
         attr._canMove = true;
-        if (!blackboard.HasKey("manualMoveToItemRange")) { Debug.Log("已经不需要移动到范围"); return BTStatus.Failure; }
+        if (!blackboard.HasKey(BlackboardKeys.ManualMoveToItemRange)) { Debug.Log("已经不需要移动到范围"); return BTStatus.Failure; }
 
         move.SetMovePos(item.target.transform.position);
         distance = Vector3.Distance(attr.transform.position, item.target.transform.position);
@@ -178,7 +178,7 @@ public class ManualMoveToItemRangeBehavior : ActionNode
         {
             Debug.Log("到达范围内");
             attr.SetMove();
-            blackboard.Remove("manualMoveToItemRange");
+            blackboard.Remove(BlackboardKeys.ManualMoveToItemRange);
             return BTStatus.Success;
         }
 
@@ -195,16 +195,16 @@ public class ManualUseItemBehavior : ActionNode
     float time = 0f;
     public override BTStatus Tick()
     {
-        UnitAttribute attr = blackboard.Get<UnitAttribute>("attribute");
-        UnitNavMove move = blackboard.Get<UnitNavMove>("navMove");
-        UnitCombat combat = blackboard.Get<UnitCombat>("combat");
-        Item item = blackboard.Get<Item>("manualUseItem");
+        UnitAttribute attr = blackboard.Get<UnitAttribute>(BlackboardKeys.Attribute);
+        UnitNavMove move = blackboard.Get<UnitNavMove>(BlackboardKeys.NavMove);
+        UnitCombat combat = blackboard.Get<UnitCombat>(BlackboardKeys.Combat);
+        Item item = blackboard.Get<Item>(BlackboardKeys.ManualUseItem);
 
         if (attr == null || move == null || combat == null) return BTStatus.Failure;
-        if (!blackboard.HasKey("manualUseItem") || item.target == null)
+        if (!blackboard.HasKey(BlackboardKeys.ManualUseItem) || item.target == null)
         {
             Debug.Log("已经无法使用道具");
-            blackboard.Remove("manualUseItem");
+            blackboard.Remove(BlackboardKeys.ManualUseItem);
             return BTStatus.Failure;
         }//目标被销毁 行为失败
         time += 1 * Time.deltaTime;
@@ -220,7 +220,7 @@ public class ManualUseItemBehavior : ActionNode
         time = 0f;
         attr._canAttack = true;
         attr._canMove = true;
-        blackboard.Remove("manualUseItem");
+        blackboard.Remove(BlackboardKeys.ManualUseItem);
         return BTStatus.Success;
     }//使用道具
 }//主动使用道具

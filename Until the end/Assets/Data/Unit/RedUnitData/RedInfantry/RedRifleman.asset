@@ -17,6 +17,7 @@ MonoBehaviour:
   costValue: 0
   description: 
   isVehicle: 0
+  isCommand: 0
   buttonIcon: {fileID: 0}
   unitIcon: {fileID: 0}
   unitFaction: 1
@@ -24,4 +25,5 @@ MonoBehaviour:
   destroyValue: 20
   weapon:
   - {fileID: 11400000, guid: 736678fa1ed944a489787aa5271bf62c, type: 2}
+  Corpse: {fileID: 1514830048049847672, guid: 52fffc4d99cbd29498728db535bf93ba, type: 3}
   canEnterObject: 0

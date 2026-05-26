@@ -43,8 +43,9 @@ public class DefenseZone : MonoBehaviour
 
 
     }
-    private void OnTriggerEnter2D(Collider2D col)
+    public void OnTriggerEnter2D(Collider2D col)
     {
+        Debug.Log("0");
         UnitAttribute unit = col.GetComponent<UnitAttribute>();
         if (unit != null && unit.faction==Faction.Red)
         {

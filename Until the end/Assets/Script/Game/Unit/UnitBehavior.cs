@@ -89,13 +89,13 @@ public class UnitBehavior : MonoBehaviour
             //优先级1
             new SequenceNode(blackboard,new List<BTNode>
             {
-                new ConditionNode(blackboard,()=>blackboard.HasKey("manualUseItem")),
+                new ConditionNode(blackboard,()=>blackboard.HasKey(BlackboardKeys.ManualUseItem)),
                     new SelectorNode(blackboard,new List<BTNode>
                     {
                         new SequenceNode(blackboard,new List<BTNode>
                         {
                             new ConditionNode(blackboard,()=>
-                                        blackboard.HasKey("manualMoveToItemRange")),
+                                        blackboard.HasKey(BlackboardKeys.ManualMoveToItemRange)),
                             new ManualMoveToItemRangeBehavior(blackboard),
                             new ManualUseItemBehavior(blackboard)
                         }),
@@ -105,13 +105,13 @@ public class UnitBehavior : MonoBehaviour
             //优先级2
             new SequenceNode(blackboard,new List<BTNode>
             {
-                new ConditionNode(blackboard,()=>blackboard.HasKey("assistantItem")),
+                new ConditionNode(blackboard,()=>blackboard.HasKey(BlackboardKeys.AssistantItem)),
                     new SelectorNode(blackboard,new List<BTNode>
                     {
                         new SequenceNode(blackboard,new List<BTNode>
                         {
                            new ConditionNode(blackboard,
-                                ()=>blackboard.HasKey("moveToItemRange")),
+                                ()=>blackboard.HasKey(BlackboardKeys.ManualUseItem)),
                            new MoveToItemRangeBehavior(blackboard),
                            new UseItemBehavior(blackboard)
                         }),//不在使用范围 顺序节点 先移动后使用
@@ -122,7 +122,7 @@ public class UnitBehavior : MonoBehaviour
             new SequenceNode(blackboard,new List<BTNode>
             {
                 new ConditionNode(blackboard,
-                        ()=>blackboard.HasKey("patrolPos")),
+                        ()=>blackboard.HasKey(BlackboardKeys.PatrolPos)),
                 new PatrolAttackBehavior(blackboard)        
             }),//巡逻
 
@@ -164,7 +164,7 @@ public class UnitBehavior : MonoBehaviour
 
         movePos = unitNavMove.targetPos;
         Debug.Log("开始巡逻,巡逻位置：" + movePos);
-        blackboard.Set("patrolPos", movePos.Value);
+        blackboard.Set(BlackboardKeys.PatrolPos, movePos.Value);
     }//设置巡逻位置
     public IEnumerator WaitForUseItem(float range,Faction faction,Item item)
     {
@@ -187,7 +187,7 @@ public class UnitBehavior : MonoBehaviour
         float distance=Vector2.Distance(transform.position, pos);
         if (distance < range)
         {
-            blackboard.Set("manualUseItem", item);
+            blackboard.Set(BlackboardKeys.ManualUseItem, item);
             Debug.Log("正在使用" + item.name);
         }//可以使用道具
         else
@@ -198,20 +198,20 @@ public class UnitBehavior : MonoBehaviour
 
             movePos = unitNavMove.targetPos;
             Debug.Log("移动到使用范围中，位置：" + movePos);
-            blackboard.Set("manualMoveToItemRange",item );
-            blackboard.Set("manualUseItem", item);
+            blackboard.Set(BlackboardKeys.ManualMoveToItemRange,item );
+            blackboard.Set(BlackboardKeys.ManualUseItem, item);
         }//需要移动
     }//使用道具
     public IEnumerator AssistantItemBehavior(AssistantItem item)
     {
         while (item != null && item.activeItem)
         {
-            while(blackboard.HasKey("manualUseItem")) 
+            while(blackboard.HasKey(BlackboardKeys.ManualUseItem)) 
             {
                 Debug.Log("正在使用主动道具，暂停辅助道具");
                 yield return new WaitForSeconds(5f);
             }
-            if (!blackboard.HasKey("assistantItem"))
+            if (!blackboard.HasKey(BlackboardKeys.AssistantItem))
             {
                 UnitAttribute unit = null;
                 while(unit == null) 
@@ -229,31 +229,34 @@ public class UnitBehavior : MonoBehaviour
                 float distance = Vector3.Distance(transform.position, unit.transform.position);
                 if (distance <= item._useRange)
                 {
-                    blackboard.Set("assistantItem", item);
+                    blackboard.Set(BlackboardKeys.AssistantItem, item);
                     Debug.Log("正在执行"+item._itemName);
                 }//范围内直接使用
                 else
                 {
                     attr.SetMove(true);
                     unitNavMove.SetMovePos(unit.transform.position);
-                    blackboard.Set("moveToItemRange", item);
-                    blackboard.Set("assistantItem", item);
+                    blackboard.Set(BlackboardKeys.MoveToItemRange, item);
+                    blackboard.Set(BlackboardKeys.AssistantItem, item);
                     Debug.Log("正在移动并执行" + item._itemName+"位置"+unitNavMove.targetPos);
                 }//范围外 需要移动
             }//没有执行辅助行为
             yield return new WaitForSeconds(3f);
         }
-        Debug.Log("取消自动行为");
-        blackboard.Remove("assitstantItem");
     }
 
     public void ClearAllBehavior()
     {
-        blackboard.Remove("forcedMove");
-        blackboard.Remove("patrolPos");
-        blackboard.Remove("assistantItem");
-        blackboard.Remove("moveToItemRange");
-        blackboard.Remove("manualUseItem");
-        blackboard.Remove("manualMoveToItemRange");
+        blackboard.Remove(BlackboardKeys.ForcedMove);
+        blackboard.Remove(BlackboardKeys.PatrolPos);
+        blackboard.Remove(BlackboardKeys.AssistantItem);
+        blackboard.Remove(BlackboardKeys.MoveToItemRange);
+        blackboard.Remove(BlackboardKeys.ManualMoveToItemRange);
+        blackboard.Remove(BlackboardKeys.ManualUseItem);
     }//清除所有行为
+    public void ClearAssistantItemBehavior()
+    {
+        blackboard.Remove(BlackboardKeys.AssistantItem);
+        blackboard.Remove(BlackboardKeys.MoveToItemRange);
+    }
 }

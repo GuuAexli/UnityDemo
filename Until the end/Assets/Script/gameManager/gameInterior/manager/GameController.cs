@@ -8,10 +8,12 @@ using UnityEngine.UI;
 using static UnityEngine.Rendering.HableCurve;
 public enum ControlType
 {
-    idle,
-    unit,
-    building
-}
+    idle,//闲置
+    unit,//单位
+    weapon,//武器
+    building,//建筑
+    supply//支援
+}//当前控制
 public class GameController : MonoBehaviour
     //游戏管理
 {
@@ -24,12 +26,8 @@ public class GameController : MonoBehaviour
 
     public int Supply;
     public int Inning;
-    [Header("状态")]
-    public bool isSelectedLoadUnit;
-    //正在选择装载单位
-    public bool isCommand;
-    //正在指挥
-    public int canCommandValue;
+    [Header("特殊")]
+    public int CommandUnitValue;
     //指挥类型单位 的数量
     [Header("防御值")]
     [SerializeField]private int defenseValue;

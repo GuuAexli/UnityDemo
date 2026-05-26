@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -59,22 +60,13 @@ public class Bullet : MonoBehaviour
         {
             rb.velocity = transform.up * bulletSpeed;
             if (bulletFlightDistance < Vector3.Distance(fierPos, transform.position))
-            {              
+            {   
+                BulletTraces();
                 Destroy(gameObject); 
             }
         }//没有命中目标
     }//未命中
-    private void OnDestroy()
-    {
-        if (explosion != null)
-        {     
-            Instantiate(explosion, transform.position,transform.rotation);
-        }
-        if (traces != null)
-        {
-            Instantiate(traces, transform.position, transform.rotation);
-        }
-    }//销毁效果
+
     private void OnTriggerEnter2D(Collider2D col)
     {
 
@@ -131,9 +123,10 @@ public class Bullet : MonoBehaviour
         ITakeDamage damageable=hitTarget.GetComponent<ITakeDamage>();
         if (damageable == null)
         {
+            BulletTraces();
             Destroy(gameObject);
             return;
-        }//有伤害接口
+        }//没有伤害接口
 
         DamageInfo info = new DamageInfo
         {
@@ -147,6 +140,7 @@ public class Bullet : MonoBehaviour
         //
         if (isProbability)
         {
+            BulletTraces();
             Destroy(gameObject);
         }
         else
@@ -188,6 +182,17 @@ public class Bullet : MonoBehaviour
         fierPos = transform.position;
         Destroy(gameObject,2);
     }//跳弹
+    public void BulletTraces()
+    {
+        if (explosion != null)
+        {
+            Instantiate(explosion, transform.position, transform.rotation);
+        }
+        if (traces != null)
+        {
+            Instantiate(traces, transform.position, transform.rotation);
+        }
+    }//销毁效果
     private void ApplyData()
     {
         bulletDamage = bulletData.bulletDamage;//伤害
