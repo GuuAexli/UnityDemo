@@ -18,7 +18,7 @@ public class UnitData : Data
     public UnitLevelData level;                             //对应 单位的等级数据类
     public int destroyValue;                                //破坏值(进入防御点扣除的健康值)
     public WeaponData[] weapon;                             //初始 武器  武器组里随机使用一个武器
-    public GameObject Corpse;
+    public GameObject Corpse;                               //尸体
 
     public bool canEnterObject;                             //可以进入对象（模型/掩体）
 

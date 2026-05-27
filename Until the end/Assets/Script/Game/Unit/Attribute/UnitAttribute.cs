@@ -171,11 +171,14 @@ public abstract class UnitAttribute : MonoBehaviour,ITakeDamage
     {
         if ((health -= damage) <= 0)
         {
-            Destroy(gameObject);
+            
             if (atkUnit != null)
+            {
                 Debug.Log(unitName + "ËÀÍö\t" + "»÷É±Õß£º" + atkUnit.unitName);
-
-            if (unitData.Corpse != null) Instantiate(unitData.Corpse);
+                UIEvent.OnUnitDied?.Invoke(atkUnit, this);
+            }
+            if (unitData.Corpse != null) Instantiate(unitData.Corpse,transform);
+            Destroy(gameObject);
         }
         if (UnitInfoUI.Instance.target == this)
         {

@@ -17,13 +17,11 @@ public class GameInfo : MonoBehaviour
 
         UIEvent.UpdateSupplyInfo += UpdateSupplyInfo;
         UIEvent.UpdateInningInfo += UpdateInningInfo;
-        UIEvent.UpdateDescriptionInfo += UpdateDescriptionInfo;
     }
     private void OnDestroy()
     {
         UIEvent.UpdateSupplyInfo -= UpdateSupplyInfo;
         UIEvent.UpdateInningInfo -= UpdateInningInfo;
-        UIEvent .UpdateDescriptionInfo -= UpdateDescriptionInfo;
     }
 
     void UpdateSupplyInfo()
@@ -33,9 +31,5 @@ public class GameInfo : MonoBehaviour
     void UpdateInningInfo()
     {
         InningText.text = $"{gc.Inning}";
-    }
-    void UpdateDescriptionInfo(Data data)
-    {
-        descriptionText.text = $"{data.description}";
     }
 }

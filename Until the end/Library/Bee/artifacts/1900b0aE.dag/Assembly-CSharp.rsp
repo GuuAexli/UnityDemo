@@ -459,6 +459,7 @@
 "Assets/Script/Game/Weapon/Weapon/c_weapon.cs"
 "Assets/Script/Game/Weapon/WeaponAssigner.cs"
 "Assets/Script/Game/Weapon/WeaponDragController.cs"
+"Assets/Script/gameManager/AnnouncerManager/AnnouncerManager.cs"
 "Assets/Script/gameManager/Camera/CameraDragZoomController.cs"
 "Assets/Script/gameManager/DrawManager/DrawManager.cs"
 "Assets/Script/gameManager/gameInterior/Event/Bad/MortarStrikes_80mm.cs"

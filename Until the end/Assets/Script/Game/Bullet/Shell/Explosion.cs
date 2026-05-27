@@ -25,9 +25,7 @@ public class Explosion : MonoBehaviour
     }
     private void OnDestroy()
     {
-        ExitEffect();
-        LineEvent.ShowExplosEvent(new ShowExplosionEvent 
-                                { explosion = this,pos= transform.position,show=false});
+        
     }
     protected void EnterEffect()
     {
@@ -55,8 +53,11 @@ public class Explosion : MonoBehaviour
             {
                 inf.AddFear(fear);
             }//Ôö¼Ó¿Ö¾å
-        }
-        Destroy(gameObject,1);
+        }        
+        ExitEffect();
+        LineEvent.ShowExplosEvent(new ShowExplosionEvent
+            { explosion = this, pos = transform.position, show = false });
+        Destroy(gameObject, 1);
     }
     protected void ExitEffect()
     {

@@ -76,7 +76,7 @@ public class Bullet : MonoBehaviour
             //获取目标的脚本
             if (hitTarget != null&&hitTarget==target)  
             {
-                Damage(hitTarget);
+                Damage(hitTarget,shooter);
             }//不是空的
         }//碰撞的是打击目标  否则穿过
     }//碰撞
@@ -135,7 +135,6 @@ public class Bullet : MonoBehaviour
             atkUnit=unit,//攻击发起者
             penetration=bulletPenetration//穿透率
         };//伤害信息
-
         bool isProbability=damageable.TakeDamage(info);
         //
         if (isProbability)

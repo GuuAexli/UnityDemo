@@ -1,7 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnitButtonUI;
+
+public class TextEvent 
+{
+    public string killerName;//击杀者
+    public string victimName;//被害者
+
+}
 
 public static class UIEvent 
 {
@@ -24,4 +32,7 @@ public static class UIEvent
     public static System.Action<ActiveButtonType, UnitAttribute> OnActiveButton;//激活按钮
     public static System.Action RemoveAllButtonActive;//移除所以按钮的选择状态
     public static System.Action ResetButtonState;//重置选择按钮的状态
+
+    //Text
+    public static Action<UnitAttribute, UnitAttribute> OnUnitDied;
 }
