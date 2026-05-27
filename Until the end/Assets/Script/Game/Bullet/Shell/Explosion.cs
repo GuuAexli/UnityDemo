@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -57,7 +58,7 @@ public class Explosion : MonoBehaviour
         ExitEffect();
         LineEvent.ShowExplosEvent(new ShowExplosionEvent
             { explosion = this, pos = transform.position, show = false });
-        Destroy(gameObject, 1);
+        Destroy(gameObject, delay);
     }
     protected void ExitEffect()
     {
@@ -68,6 +69,10 @@ public class Explosion : MonoBehaviour
         float distance = Vector2.Distance(col.transform.position,transform.position);
 
     }//æ‡¿Î
+    public void NoHit()
+    {
+        damage *= 0.4f;
+    }
     private void ApplyData()
     {
         range = data.range;

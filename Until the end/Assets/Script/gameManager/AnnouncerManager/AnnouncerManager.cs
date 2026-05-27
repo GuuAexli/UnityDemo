@@ -33,10 +33,12 @@ public class AnnouncerManager : MonoBehaviour
     public void OnEnable()
     {
         UIEvent.OnUnitDied += OnUnitKilled;
+        UIEvent.OnMessageText += ShowMessage;
     }
     public void OnDisable()
     {
         UIEvent.OnUnitDied -= OnUnitKilled;
+        UIEvent.OnMessageText -= ShowMessage;
     }
     public void OnUnitKilled(UnitAttribute killer,UnitAttribute victim)
     {

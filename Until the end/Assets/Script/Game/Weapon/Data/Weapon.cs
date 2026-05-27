@@ -8,7 +8,7 @@ using static UnityEngine.GraphicsBuffer;
 public  class Weapon : MonoBehaviour
 {
     [SerializeField] private WeaponData data;
-    
+    public AudioSource weaponAudio;
     public UnitCombat owner { get; protected set; }//武器拥有者
     [Header("武器UI")]
     public string weaponName;
@@ -25,11 +25,11 @@ public  class Weapon : MonoBehaviour
     /////////////////////////武器属性///////////////////////////
     [SerializeField] protected Transform fierPos;//发射位置
     public GameObject bullet { get; protected set; }//子弹
-    public int bulletNumber;
+    public int bulletNumber;//单次射击的子弹数
     public float suppressionValue { get; protected set; }//压制值
     public float attackRange { get; protected set; }//攻击半径
     public float duffusion { get; protected set; }//散布
-
+    
     ///////////////////////////精准度///////////////////////////
     public float closeRangeAccurracy { get; protected set; }//近距离精准度
     public float mediumRangeAccurracy { get; protected set; }//中距离精准度
@@ -52,6 +52,7 @@ public  class Weapon : MonoBehaviour
         if (weaponRenderer == null)
             weaponRenderer.AddComponent<SpriteRenderer>();
         ApplyWeaponData();
+        weaponAudio = GetComponent<AudioSource>();
     }
     public void Attack(UnitAttribute target, UnitAttribute shooter,float targetDistance)
         //                         目标           所有者                 距离
@@ -64,13 +65,16 @@ public  class Weapon : MonoBehaviour
                     //攻击持续时间>现在持续时间>瞄准射击
                     if ((currentAttackTime += Time.deltaTime) >= attackInterval&&owner.isTowardsTarget)     
                     {
-                        for(int i= 0;i<bulletNumber;i++) 
+                        if (weaponAudio != null) weaponAudio.PlayOneShot(RandomClip(), 1f);
+                        for (int i= 0;i<bulletNumber;i++) 
                         {
+
                             GameObject newBullet = Instantiate(bullet, fierPos.position,
                                                                     fierPos.rotation);
                             SetBullet(newBullet, target, shooter, targetDistance,
                                                     fierPos.position);
                         }
+ 
                         target.GetComponent<IFear>()?.AddFear(suppressionValue);
                             //增加目标恐惧值 如果是步兵类型
                             currentAttackTime = 0;
@@ -136,6 +140,10 @@ public  class Weapon : MonoBehaviour
             //Debug.Log("未命中");
             return false; 
         } 
+    }
+    public AudioClip RandomClip()
+    {
+        return data.audioClips[Random.Range(0, data.audioClips.Count)];
     }
     public void ApplyWeaponData()
     {

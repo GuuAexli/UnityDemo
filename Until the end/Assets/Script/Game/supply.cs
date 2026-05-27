@@ -23,7 +23,7 @@ public class supply : MonoBehaviour
     {
         if ((GameController.Instance!=null))
         {
-            GameController.Instance.setSupply(1);
+            GameController.Instance.setCost(1);
         }
     }
 }

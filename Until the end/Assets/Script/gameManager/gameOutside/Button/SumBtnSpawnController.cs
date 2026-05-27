@@ -14,18 +14,21 @@ public class SumBtnSpawnController : MonoBehaviour
 
     private void Start()
     {
-        foreach(var unitData in availableUnits)
+        foreach(var data in availableUnits)
         {
             Button newBtn = Instantiate(subButtonPrefab, subButtonPos);
             //生成子按钮                 子按钮的预制体  子按钮挂载点（容器）
-            newBtn.GetComponentInChildren<Text>().text = unitData.prefabName;
+            newBtn.GetComponentInChildren<Text>().text = data.prefabName;
             //获取更改生成的按钮内文本文字
             //newBtn.image.sprite = unitData.buttonIcon;
             //获取生成相应的图片
 
             //绑定点击事件
-            newBtn.onClick.AddListener(() => SpawnPrefab(unitData));
+            newBtn.onClick.AddListener(() => SpawnPrefab(data));
             //为每一个按钮绑定
+
+            ButtonHoverTip tip=newBtn.GetComponentInChildren<ButtonHoverTip>();
+            if(tip!=null) tip.SetData(data);//设置悬停提示
         }//历遍每个数据 为他们生成按钮和监听事件
     }
     public void SpawnPrefab(Data data)
@@ -34,9 +37,9 @@ public class SumBtnSpawnController : MonoBehaviour
         if (data == null) return;
 
         if (GameController.Instance != null)
-            if (GameController.Instance.Supply >= data.costValue)
+            if (GameController.Instance.cost >= data.costValue)
             {
-                GameController.Instance.setSupply(-data.costValue);
+                GameController.Instance.setCost(-data.costValue);
                 
                 data.Spawn();//统一生成
             }

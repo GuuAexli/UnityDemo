@@ -7,7 +7,7 @@ public class GameInfo : MonoBehaviour
 {
     public Text supplyText;//²¹¸ø
     public Text InningText;//»ØºÏ
-    public Text descriptionText;//ÃèÊö
+    public Text hoverTip;//ÃèÊö
     GameController gc;
     private void Start()
     {
@@ -17,16 +17,21 @@ public class GameInfo : MonoBehaviour
 
         UIEvent.UpdateSupplyInfo += UpdateSupplyInfo;
         UIEvent.UpdateInningInfo += UpdateInningInfo;
+        UIEvent.OnHoverTip += OnHoverTip;
     }
     private void OnDestroy()
     {
         UIEvent.UpdateSupplyInfo -= UpdateSupplyInfo;
         UIEvent.UpdateInningInfo -= UpdateInningInfo;
+        UIEvent.OnHoverTip -= OnHoverTip;
     }
-
+    void OnHoverTip(string tip)
+    {
+        hoverTip.text = tip;
+    }
     void UpdateSupplyInfo()
     {
-        supplyText.text = $"{gc.Supply}";
+        supplyText.text = $"{gc.cost}";
     }
     void UpdateInningInfo()
     {

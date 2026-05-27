@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 //存储的武器数据
 [CreateAssetMenu(menuName = "WaeponData/weaponData")]
@@ -30,8 +31,8 @@ public class WeaponData : Data
     [Header("载具")]
     public float barbetteRotatSpeed;            //载具炮台旋转速度
     //public GameObject barbette;                 //载具炮台
-
-    //public LayerMask targetLayer;             //目标图层
+    
+    public List<AudioClip> audioClips = new List<AudioClip>();
 
     public override void Spawn()
     {

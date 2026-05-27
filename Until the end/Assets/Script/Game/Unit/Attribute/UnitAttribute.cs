@@ -176,8 +176,13 @@ public abstract class UnitAttribute : MonoBehaviour,ITakeDamage
             {
                 Debug.Log(unitName + "ËÀÍö\t" + "»÷É±Õß£º" + atkUnit.unitName);
                 UIEvent.OnUnitDied?.Invoke(atkUnit, this);
+                atkUnit.AddExp(unitData.killExp);
             }
-            if (unitData.Corpse != null) Instantiate(unitData.Corpse,transform);
+            else
+            {
+                UIEvent.OnMessageText?.Invoke(unitName+"±»ÏûÃð");
+            }
+            if (unitData.Corpse != null) Instantiate(unitData.Corpse,transform.position,transform.rotation);
             Destroy(gameObject);
         }
         if (UnitInfoUI.Instance.target == this)

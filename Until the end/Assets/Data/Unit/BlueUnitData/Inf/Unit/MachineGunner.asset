@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344bfb921c80a9042a33bb79c9918008, type: 3}
+  m_Name: MachineGunner
+  m_EditorClassIdentifier: 
+  prefabName: "\u673A\u67AA\u5175"
+  prefab: {fileID: 1664520714233397315, guid: cd2f3f070ca4d874db13c949c815b70b, type: 3}
+  costValue: 2
+  description: "\u88C5\u5907\u4E86\u673A\u67AA\u7684\u58EB\u5175\uFF0C\u64C5\u957F\u538B\u5236\u654C\u519B"
+  isVehicle: 0
+  isCommand: 0
+  buttonIcon: {fileID: 0}
+  unitIcon: {fileID: 0}
+  unitFaction: 0
+  level: {fileID: 11400000, guid: 33747d341c64adc4d936323384a0e64b, type: 2}
+  destroyValue: 0
+  weapon:
+  - {fileID: 11400000, guid: 6c38852506c2d4b4a871ed221de468a6, type: 2}
+  Corpse: {fileID: 0}
+  killExp: 10
+  canEnterObject: 0

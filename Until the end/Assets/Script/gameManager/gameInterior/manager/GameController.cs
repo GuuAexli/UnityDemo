@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour
     UnitAttribute hitUnit;//触碰的单位
     public UnitAttribute selectedUnit;
 
-    public int Supply;
+    public int cost=10;
     public int Inning;
     [Header("特殊")]
     public int CommandUnitValue;
@@ -55,7 +55,7 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
-        Supply = 0;
+        cost =10;
         UIEvent.UpdateSupplyInfo?.Invoke();
     }
 
@@ -180,10 +180,10 @@ public class GameController : MonoBehaviour
                             { unit = selectedUnit,show=true });
         //选择的模型 返回 需要移动到的位置
     }//设置单位移动
-    public void setSupply(int supply)
+    public void setCost(int Cost)
     {
-        Supply += supply;
-        if (Supply < 0) Supply = 0;
+        cost += Cost;
+        if (cost < 0) cost = 0;
         UIEvent.UpdateSupplyInfo?.Invoke();
     }//设置补给
     private void GameOver()

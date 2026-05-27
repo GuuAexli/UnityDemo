@@ -47,11 +47,12 @@ public class GeneratingEnemy : MonoBehaviour
     }
     IEnumerator Available()
     {
+        yield return new WaitForSeconds(1);
         while (true)
         {
             GameController.Instance.Inning++;
             UIEvent.UpdateInningInfo?.Invoke();
-            GameController.Instance.setSupply(Random.Range(0,2));
+            GameController.Instance.setCost(Random.Range(0,2));
             currentCost += Cost;
 
             for (currentNumder = 0; currentNumder < generatingEnemyNumder; currentNumder++)

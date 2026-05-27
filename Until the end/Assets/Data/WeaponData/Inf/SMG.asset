@@ -19,12 +19,12 @@ MonoBehaviour:
   menuIcon: {fileID: 0}
   weaponIcon: {fileID: 0}
   aimTime: 1.8
-  attackInterval: 0.15
+  attackInterval: 0.16
   attackCooling: 3.5
   closeRangeAccurracy: 0.8
   mediumRangeAccurracy: 0.4
   longRangeAccurracy: 0.2
-  attackDuration: 3
+  attackDuration: 5
   bullet: {fileID: 7141174930487616046, guid: d7be98fac8447cb4481c81362eec4536, type: 3}
   bulletNumber: 1
   suppressionValue: 8
@@ -33,3 +33,8 @@ MonoBehaviour:
   penetrationMultiplier: 1
   damageMultiplier: 1
   barbetteRotatSpeed: 0
+  audioClips:
+  - {fileID: 8300000, guid: 317fedd7b3849d348b6be3dc7f9693ae, type: 3}
+  - {fileID: 8300000, guid: 347724a22e40cf74c9c1a6c46c48ea23, type: 3}
+  - {fileID: 8300000, guid: c5abb86a900222e44a2c0ef92f7af958, type: 3}
+  - {fileID: 8300000, guid: 91dc903d644e77841a87f11501cefeee, type: 3}

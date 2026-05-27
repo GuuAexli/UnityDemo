@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//[CreateAssetMenu(fileName ="UnitData",menuName ="UnitData/UnitData")]
+[CreateAssetMenu(fileName ="UnitData",menuName ="UnitData/UnitData")]
 
 
 //order在Assets里面的排列顺序（Int）越小越前
@@ -19,6 +19,7 @@ public class UnitData : Data
     public int destroyValue;                                //破坏值(进入防御点扣除的健康值)
     public WeaponData[] weapon;                             //初始 武器  武器组里随机使用一个武器
     public GameObject Corpse;                               //尸体
+    public int killExp;
 
     public bool canEnterObject;                             //可以进入对象（模型/掩体）
 
@@ -29,7 +30,7 @@ public class UnitData : Data
                                 Random.Range(0, GameController.Instance.defenseZone.walkableCell.Count)];
         Vector3 spawnPos=GridManager.Instance.CellToWorld(pos);
         GameObject unit= Instantiate(prefab, spawnPos,Quaternion.identity);
-        unit.GetComponent<UnitAttribute>().SetUnitMovePos(spawnPos+new Vector3(0,5));
+        unit.GetComponent<UnitAttribute>().SetUnitMovePos(spawnPos+new Vector3(0,8));
         
     }
 }

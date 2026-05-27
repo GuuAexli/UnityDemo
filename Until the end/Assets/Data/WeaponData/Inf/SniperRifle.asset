@@ -22,14 +22,19 @@ MonoBehaviour:
   attackInterval: 0
   attackCooling: 4
   closeRangeAccurracy: 0.4
-  mediumRangeAccurracy: 0.7
+  mediumRangeAccurracy: 0.8
   longRangeAccurracy: 0.9
   attackDuration: 0
   bullet: {fileID: 6878576729818197845, guid: 4e05598462b385246a425047df7f7801, type: 3}
   bulletNumber: 1
-  suppressionValue: 30
+  suppressionValue: 50
   attackRange: 25
   duffusion: 4
   penetrationMultiplier: 1
   damageMultiplier: 1
   barbetteRotatSpeed: 0
+  audioClips:
+  - {fileID: 8300000, guid: 426b82cd8da76424ab12de8d43cf7d49, type: 3}
+  - {fileID: 8300000, guid: d5a31d2d754f22b4a9313ca0551a6b7c, type: 3}
+  - {fileID: 8300000, guid: be1a69dafedaada428b2d63213e1f6b8, type: 3}
+  - {fileID: 8300000, guid: 5ed7a695227ebb541b168f5ba2786060, type: 3}

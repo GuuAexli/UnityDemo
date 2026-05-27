@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344bfb921c80a9042a33bb79c9918008, type: 3}
+  m_Name: Assault
+  m_EditorClassIdentifier: 
+  prefabName: "\u7A81\u51FB\u5175"
+  prefab: {fileID: 7422387916989699417, guid: a15b5cf684604164dadf2ac1744d9031, type: 3}
+  costValue: 1
+  description: "\u64C5\u957F\u8FD1\u8DDD\u79BB\u4F5C\u6218\u7684\u58EB\u5175"
+  isVehicle: 0
+  isCommand: 0
+  buttonIcon: {fileID: 0}
+  unitIcon: {fileID: 0}
+  unitFaction: 0
+  level: {fileID: 11400000, guid: e223c9fd5e3eec540bc208d17303fa2a, type: 2}
+  destroyValue: 0
+  weapon:
+  - {fileID: 11400000, guid: 736678fa1ed944a489787aa5271bf62c, type: 2}
+  - {fileID: 11400000, guid: db2a5f3a04c82ee459f22d7d7c45e2cc, type: 2}
+  Corpse: {fileID: 0}
+  killExp: 10
+  canEnterObject: 0

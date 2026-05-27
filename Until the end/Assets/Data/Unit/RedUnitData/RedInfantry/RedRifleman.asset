@@ -22,8 +22,9 @@ MonoBehaviour:
   unitIcon: {fileID: 0}
   unitFaction: 1
   level: {fileID: 11400000, guid: b00010e5e0fa10642b49482aa2b96f5f, type: 2}
-  destroyValue: 20
+  destroyValue: 1
   weapon:
   - {fileID: 11400000, guid: 736678fa1ed944a489787aa5271bf62c, type: 2}
   Corpse: {fileID: 1514830048049847672, guid: 52fffc4d99cbd29498728db535bf93ba, type: 3}
+  killExp: 50
   canEnterObject: 0

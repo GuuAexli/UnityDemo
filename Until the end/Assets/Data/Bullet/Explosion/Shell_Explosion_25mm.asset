@@ -16,4 +16,5 @@ MonoBehaviour:
   range: 2
   damage: 10
   penetration: 10
-  delay: 0
+  delay: 1
+  fear: 0

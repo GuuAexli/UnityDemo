@@ -184,8 +184,10 @@ public class Bullet : MonoBehaviour
     public void BulletTraces()
     {
         if (explosion != null)
-        {
-            Instantiate(explosion, transform.position, transform.rotation);
+        {            
+            GameObject obj=Instantiate(explosion, transform.position, transform.rotation);
+            if (!hitTarget)
+                obj.GetComponent<Explosion>().NoHit();
         }
         if (traces != null)
         {

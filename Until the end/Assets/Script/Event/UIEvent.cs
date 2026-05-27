@@ -35,4 +35,6 @@ public static class UIEvent
 
     //Text
     public static Action<UnitAttribute, UnitAttribute> OnUnitDied;
+    public static Action<string> OnMessageText;
+    public static Action<string> OnHoverTip;
 }

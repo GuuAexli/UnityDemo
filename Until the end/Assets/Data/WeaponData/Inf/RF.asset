@@ -33,3 +33,8 @@ MonoBehaviour:
   penetrationMultiplier: 1
   damageMultiplier: 1
   barbetteRotatSpeed: 0
+  audioClips:
+  - {fileID: 8300000, guid: 3953801d3f24ebf4b82bd21c557f761f, type: 3}
+  - {fileID: 8300000, guid: c84956f1ac1568841ba88f65fbea5a4d, type: 3}
+  - {fileID: 8300000, guid: eb3a7fc998d9c1c49b11881632ca2836, type: 3}
+  - {fileID: 8300000, guid: d9b3c646a7551d443b2743614a386cae, type: 3}

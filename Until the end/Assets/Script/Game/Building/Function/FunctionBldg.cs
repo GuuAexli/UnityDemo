@@ -26,7 +26,7 @@ public  class FunctionBldg : Building
         while (true)
         {
             yield return new WaitForSeconds(effectValue_F);
-            GameController.Instance.setSupply(effectValue_I);
+            GameController.Instance.setCost(effectValue_I);
         }
     }
 
