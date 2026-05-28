@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HunterLevel
   m_EditorClassIdentifier: 
   levels:
-  - health: 120
+  - health: 150
     moveSpeed: 1
     rotationSpeed: 40
     accurracy: 0.2
@@ -21,7 +21,7 @@ MonoBehaviour:
     armor: 3
     nextLevelExp: 300
     decayFear: 0
-  - health: 120
+  - health: 150
     moveSpeed: 1.2
     rotationSpeed: 40
     accurracy: 0.2
@@ -29,7 +29,7 @@ MonoBehaviour:
     armor: 5
     nextLevelExp: 600
     decayFear: 0
-  - health: 120
+  - health: 150
     moveSpeed: 1.5
     rotationSpeed: 50
     accurracy: 0.2
@@ -37,7 +37,7 @@ MonoBehaviour:
     armor: 5
     nextLevelExp: 1000
     decayFear: 0
-  - health: 120
+  - health: 180
     moveSpeed: 1.8
     rotationSpeed: 50
     accurracy: 0.3

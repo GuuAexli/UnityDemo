@@ -182,7 +182,8 @@ public  class Weapon : MonoBehaviour
         get { return isSelected; }
         set { isSelected = value; }
     }
-    }
+    public WeaponData _weaponData => data;
+}
     
     
 

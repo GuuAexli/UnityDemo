@@ -1,18 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class WeaponAssigner : MonoBehaviour
 {
     public Weapon weapon;
 
-    public void OnSelector(GameObject target)
-    {
-        UnitCombat combat = target.GetComponent<UnitCombat>();
-        if (combat == null||combat.attr.faction!=Faction.Blue) { Debug.Log("没有合适单位"); return; }
-
-        combat.SetWeapon(gameObject);
-    }
     void Start()
     {
         weapon = gameObject.GetComponent<Weapon>();
@@ -23,6 +17,7 @@ public class WeaponAssigner : MonoBehaviour
         else
         {
             UIEvent.OnMessageText?.Invoke("选择单位");
+            GameController.Instance.ChangeControlType(ControlType.weapon);
         }
     }
 
@@ -49,7 +44,13 @@ public class WeaponAssigner : MonoBehaviour
                 UnitAttribute unit = hit.GetComponent<UnitAttribute>();
                 if (unit == null) { UIEvent.OnMessageText?.Invoke("没有目标"); return; }
 
-                if (unit.faction != Faction.Blue) { UIEvent.OnMessageText?.Invoke("不能给敌方装备"); return; }
+                if (unit.faction != Faction.Blue) 
+                { 
+                    UIEvent.OnMessageText?.Invoke("不能给敌方装备");
+                    GameController.Instance.setCost(weapon._weaponData.costValue);
+                    GameController.Instance.ChangeControlType(ControlType.idle);
+                    return;
+                }
 
                 UnitCombat combatWeapon = hit.GetComponent<UnitCombat>();
                 //获取碰撞物上需要的脚本 
@@ -68,14 +69,16 @@ public class WeaponAssigner : MonoBehaviour
             else
             {
                 Debug.Log("没有目标");
-                UIEvent.OnMessageText?.Invoke("没有目标");
+                UIEvent.OnMessageText?.Invoke("没有目标");      
             }
+            GameController.Instance.ChangeControlType(ControlType.idle);
+            GameController.Instance.setCost(weapon._weaponData.costValue);
             Destroy(gameObject);
             //点击事件结束最后删除模型
         }
         if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log("取消选择");
+            GameController.Instance.ChangeControlType(ControlType.idle);
             UIEvent.OnMessageText?.Invoke("取消选择");
             Destroy(gameObject);
         }

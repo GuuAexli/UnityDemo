@@ -40,10 +40,9 @@ public class SumBtnSpawnController : MonoBehaviour
             if (GameController.Instance.cost >= data.costValue)
             {
                 GameController.Instance.setCost(-data.costValue);
-                
                 data.Spawn();//统一生成
             }
-            else Debug.Log("补给不足");
+            else { UIEvent.OnMessageText?.Invoke("花费不足");  }
         else Debug.Log("管理器错误");
     }
 

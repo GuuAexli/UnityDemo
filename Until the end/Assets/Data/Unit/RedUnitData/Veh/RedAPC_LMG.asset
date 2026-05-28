@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d8cc9ab024ce304fa4da6e6c5c87112, type: 3}
+  m_Name: RedAPC_LMG
+  m_EditorClassIdentifier: 
+  prefabName: APC_LMG
+  prefab: {fileID: 1747129075573973740, guid: b846e6da1fb2e01429908db5015e1554, type: 3}
+  costValue: 0
+  description: 
+  isVehicle: 0
+  isCommand: 0
+  buttonIcon: {fileID: 0}
+  unitIcon: {fileID: 0}
+  unitFaction: 1
+  level: {fileID: 11400000, guid: fc2aefaa939c0924eb150dfc7f7df793, type: 2}
+  destroyValue: 0
+  weapon:
+  - {fileID: 11400000, guid: dde095e35765c084ba10ed6229c1cfff, type: 2}
+  Corpse: {fileID: 3661785161240503920, guid: e2af6ce78b1c5734dac6f92cc173082e, type: 3}
+  killExp: 0
+  canEnterObject: 0
+  loadList: []
+  maxLoad: 0

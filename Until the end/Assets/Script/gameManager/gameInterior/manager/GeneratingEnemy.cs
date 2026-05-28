@@ -18,7 +18,7 @@ public class GeneratingEnemy : MonoBehaviour
 
     public int currentCost=0;     //现在点数
     public int Cost=1;      //阶段点数
-    public float time = 60; //生成间隔
+    public float time = 45; //生成间隔
 
     [SerializeField] private int generatingEnemyNumder=1;
     [SerializeField] private int currentNumder;

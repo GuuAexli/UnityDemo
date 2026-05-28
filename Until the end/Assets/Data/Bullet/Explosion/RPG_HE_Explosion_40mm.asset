@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionPrefab: {fileID: 2212062484607625923, guid: 4a5ff356af58c7748b99d245a7492cb5, type: 3}
   range: 3
-  damage: 50
+  damage: 60
   penetration: 5
-  delay: 1
+  delay: 0.5
   fear: 40
+  clip: {fileID: 8300000, guid: abcf3a6de9f32ae41a71ae42f3a70bc1, type: 3}

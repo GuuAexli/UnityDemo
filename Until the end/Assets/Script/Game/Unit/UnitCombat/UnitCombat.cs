@@ -25,8 +25,7 @@ public  class UnitCombat : MonoBehaviour//执行战斗的脚本
     public bool isTowardsTarget { get; protected set; }//朝向目标
     [SerializeField] protected List<UnitAttribute> targetList = new List<UnitAttribute>();//目标组
     [SerializeField] protected UnitAttribute target;//选中的目标
-    [SerializeField] protected UnitAttribute priorityTarget;//优先目标
-    public UnitAttribute _priorityTarget{ get {return priorityTarget;} set { priorityTarget = value; } }
+    public UnitAttribute priorityTarget { get; protected set; }//优先目标
 
     private void Start()
     {
@@ -64,38 +63,35 @@ public  class UnitCombat : MonoBehaviour//执行战斗的脚本
     {
             if (ClosestTarget() != null)
             {
-                if (!attr.isAction)
-                {
                     AttackTarget(target);
-                }//不在使用道具 就使用武器攻击
             }//有目标    
             else attr.isAttack = false;
     }//攻击行为
-    protected virtual void AttackTarget(UnitAttribute target)
+    protected virtual void AttackTarget(UnitAttribute attackTarget)
     {
-        if (target == null) return;
+        if (attackTarget == null) return;
 
-        Transform targetTransform = target.transform;
-        targetDistance = Vector3.Distance(target.transform.position,
+        Transform targetTransform = attackTarget.transform;
+        targetDistance = Vector3.Distance(attackTarget.transform.position,
             gameObject.transform.position);
-        if(attr is InfantryAttribute inf&&inf.isAttack)
+        if (attr is InfantryAttribute inf && inf.isAttack)
+        {
             transform.rotation = RotateHelper.RotateToUnit(transform, targetTransform,
                                                 rotateSpeed);
-        target.underAttack = true;//被攻击
-        WeaponAttack();
-    }//攻击逻辑
-    protected virtual void WeaponAttack()
+        }
+        attackTarget.underAttack = true;//被攻击
+
+        WeaponAttack(attackTarget);
+    }//攻击逻辑\
+    protected virtual void WeaponAttack(UnitAttribute unit)
     {
-        if (!attr.isAction)
-        {
-            attr.isAttack = true;
-        }//不在行动状态
         if (weapon._isAttackCooling)
         {
             attr.isAttack = false;
         }//武器冷却时 停止攻击
-        TowardsTarget(target);//朝向目标
-        weapon.Attack(target, attr, targetDistance);//目标 攻击者 距离
+
+        TowardsTarget(unit);//朝向目标
+        weapon.Attack(unit, attr, targetDistance);//目标 攻击者 距离
     }
     protected virtual void TowardsTarget(UnitAttribute target)
     {
@@ -115,21 +111,6 @@ public  class UnitCombat : MonoBehaviour//执行战斗的脚本
     public UnitAttribute ClosestTarget()
     {
         GetTargetList();
-        if(priorityTarget != null)
-        {
-            attr.SetUnitMovePos(priorityTarget.transform.position);//移动到优先目标
-            foreach (UnitAttribute Target in targetList)
-            {
-                if (priorityTarget == Target)
-                {
-                    target = priorityTarget;
-                    priorityTarget = null;
-                    attr.SetMove();
-                    targetDistance = Vector3.Distance(target.transform.position, gameObject.transform.position);
-                    return target;
-                }//优先目标在范围内 停止移动 取消优先目标
-            }
-        }//如果有优先目标
         if (target != null)
         {
             foreach (UnitAttribute Target in targetList)
@@ -137,7 +118,9 @@ public  class UnitCombat : MonoBehaviour//执行战斗的脚本
                 if (target==Target)
                 {
                     targetDistance = Vector3.Distance(target.transform.position, gameObject.transform.position);
+                    attr.isAttack = true;
                     return target;
+
                 }
             }//目标还在攻击范围
             target = null;
@@ -154,12 +137,32 @@ public  class UnitCombat : MonoBehaviour//执行战斗的脚本
 
                     minDistance = targetDistance;
                     this.target = target;
+                    attr.isAttack=true;
                 }
             }//寻找攻击范围内的最近目标
             return target;
         }//假如 没有/丢失 目标 寻找新目标
         return null;//没有目标
     }//选择目标
+    public void SetPriorityTarget(UnitAttribute target)
+    {
+        priorityTarget = target;
+    }
+    public bool AttackPriorityTarget()
+    {
+        if (priorityTarget == null) return false;
+        GetTargetList();
+        foreach(UnitAttribute priority in targetList)
+        {
+            if(priorityTarget == priority)
+            {
+                attr.isAttack = true;
+                AttackTarget(priorityTarget);
+                return true;
+            }
+        }
+        return false;
+    }
     public virtual void SetWeapon(GameObject newInstantiate)
     {
         Weapon newWeapon = newInstantiate.GetComponent<Weapon>();

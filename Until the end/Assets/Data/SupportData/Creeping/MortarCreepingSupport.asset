@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ee7310d8e3efef4cb6d1bf5318ac5bd, type: 3}
   m_Name: MortarCreepingSupport
   m_EditorClassIdentifier: 
-  prefabName: MoterCreepingSuppout
+  prefabName: "\u8FEB\u51FB\u70AE\u5F90\u8FDB\u652F\u63F4"
   prefab: {fileID: 6361356724023819802, guid: c22050914da919d42a78eacfb11ecb0a, type: 3}
-  costValue: 0
-  description: 
+  costValue: 5
+  description: "\u6765\u81EA\u5730\u56FE\u5916\u7684\u8FEB\u51FB\u70AE\u5C06\u4EE5\u5F90\u8FDB\u65B9\u5F0F\u8F70\u70B8\u6307\u5B9A\u533A\u57DF"
   canDraw: 1
   canRotate: 1
   canExtend: 1

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabName: RPG
   prefab: {fileID: 9084865756028003220, guid: 42cfd57771e88a145909cc274a21e1d1, type: 3}
-  costValue: 0
-  description: 
+  costValue: 2
+  description: "\u5411\u76EE\u6807\u53D1\u5C04\u4E00\u9897\u706B\u7BAD\u5F39"
   repeatable: 1
   requireTarget: 1
   targetFaction: 1
@@ -25,3 +25,4 @@ MonoBehaviour:
   cooling: 10
   useNumber: 1
   effectPrefab: {fileID: 7989176797132129879, guid: d0406b506077c5741a96f2b842145afe, type: 3}
+  searchRange: 0

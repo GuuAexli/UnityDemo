@@ -41,13 +41,14 @@ public class DefenseZone : MonoBehaviour
     public IEnumerator SpawnDefenseUnit()
     {
         yield return new WaitForSeconds(1);
+        int cost = 6;
         for(int i=0;i<4;i++)
         {
-            if (GameController.Instance.cost <= 0) yield break; 
+            if (cost <= 0) yield break; 
             List<UnitData> list = new List<UnitData>();
             foreach (UnitData unit in unitList)
             {
-                if (unit.costValue <= GameController.Instance.cost)
+                if (unit.costValue <= cost)
                 {
                     list.Add(unit);
                 }
@@ -55,7 +56,7 @@ public class DefenseZone : MonoBehaviour
             if(list.Count == 0) yield break;
             int a = Random.Range(0, list.Count);
             list[a].Spawn();
-            GameController.Instance.setCost(-list[a].costValue);
+            cost-=list[a].costValue;
             yield return new WaitForSeconds(1f);
         }
     }

@@ -111,8 +111,10 @@ public class Support : MonoBehaviour
         }//确认起始点
         if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log("取消选择");
+
+            UIEvent.OnMessageText?.Invoke("取消选择");
             Destroy(gameObject);
+            GameController.Instance.setCost(supplyData.costValue);
             return;
         }//取消选择
     }//选择范围
@@ -143,8 +145,9 @@ public class Support : MonoBehaviour
         }//确认角度
         if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log("取消选择");
+            UIEvent.OnMessageText?.Invoke("取消选择");
             Destroy(gameObject);
+            GameController.Instance.setCost(supplyData.costValue);
             return;
         }//取消选择
     }//选择方向
@@ -177,8 +180,9 @@ public class Support : MonoBehaviour
         }//确认延伸
         if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log("取消选择");
+            UIEvent.OnMessageText?.Invoke("取消选择");
             Destroy(gameObject);
+            GameController.Instance.setCost(supplyData.costValue);
             return;
         }//取消选择 
     }//选择延伸

@@ -61,7 +61,8 @@ public class UnitButtonUI : MonoBehaviour
     }//显示攻击按钮并监听事件
     public void EnterButton(UnitAttribute unit)
     {
-        if (unit.tag != "red_tag" && unit._canEnterObject||unit.TryGetComponent<ILoadUnit>(out var transport))//可以装载的单位 运输的载具
+        
+        if (unit.faction==Faction.Green && unit._canEnterObject||unit.TryGetComponent<ILoadUnit>(out var transport))//可以装载的单位 运输的载具
         {
             unitEnterBtn.SetActive(true);
             unitEnterBtn.GetComponent<Button>()?.
@@ -72,10 +73,10 @@ public class UnitButtonUI : MonoBehaviour
 
             return;
         }
-    }//进入按钮
+    }//进入按钮//没有重构完成
     public void ExitButton(UnitAttribute unit)
     {
-        if (unit.tag != "red_tag" && unit.TryGetComponent<ILoadUnit>(out var transport))//运输的载具
+        if (unit.faction==Faction.Green && unit.TryGetComponent<ILoadUnit>(out var transport))//运输的载具
         {
             unitExitBtn.SetActive(true);
             unitExitBtn.GetComponent<Button>()?.onClick.AddListener(() =>
@@ -83,7 +84,7 @@ public class UnitButtonUI : MonoBehaviour
                 ActiveButton(ActiveButtonType.Exit, unit);
             });
         }
-    }//离开按钮
+    }//离开按钮//没有重构完成
     public void ItemButton(UnitAttribute unit)
     {
         ItemList itemList=unit.GetComponent<ItemList>();
@@ -116,15 +117,14 @@ public class UnitButtonUI : MonoBehaviour
     }//功能道具按钮
     private void ActiveButton(ActiveButtonType buttonType,UnitAttribute unit)
     {
+        RemoveAllButtonActive();//关闭全部按钮选择状态
         if (currentButtonType == buttonType)
-        {
-            RemoveAllButtonActive();//关闭全部按钮选择状态
+        {        
             currentButtonType = ActiveButtonType.None;//重置选择按钮Type
             Debug.Log("取消相同选择");
         }//是之前的选择 重置 选择按钮Type
         else
         {
-            RemoveAllButtonActive();
             currentButtonType = buttonType;
             //Debug.Log("清除所有选择");
 
@@ -133,6 +133,7 @@ public class UnitButtonUI : MonoBehaviour
 
                 case ActiveButtonType.Attack:
                     UIEvent.OnActiveButton?.Invoke(currentButtonType,unit);
+                    //unitAttackBtn.GetComponent<Image>().color.
                     //Debug.Log("攻击选择");
                     break;
                 case ActiveButtonType.Enter:
@@ -142,15 +143,13 @@ public class UnitButtonUI : MonoBehaviour
                 case ActiveButtonType.Exit:
                     UIEvent.OnActiveButton?.Invoke(currentButtonType, unit);
                     //Debug.Log("离开选择");
-                    break;
-            
+                    break;           
             }
 
         }
     }//判断激活的按钮
     public void RemoveAllButtonActive()
     {
-        GetComponent<CommandController>().isSelectedButton = false;
         //GetComponent<LoadUnitController>().isSelectedButton = false;
     }//移除所有的按钮激活
     public void RemoveButtonHide()

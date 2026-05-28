@@ -4,7 +4,7 @@ using UnityEngine;
 
 public  class Building : MonoBehaviour,ITakeDamage
 {
-    [SerializeField] protected BuildingData data;
+    public BuildingData data;
     [SerializeField] protected float maxHealth;
     [SerializeField] protected float effectValue_F;
     [SerializeField] protected int effectValue_I;

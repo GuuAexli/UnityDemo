@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d8cc9ab024ce304fa4da6e6c5c87112, type: 3}
   m_Name: Hunter
   m_EditorClassIdentifier: 
-  prefabName: Hunter
+  prefabName: APC_LMG
   prefab: {fileID: 4644748188699385847, guid: b73eabac311303540bf4bb565a7c2840, type: 3}
   costValue: 2
-  description: 
+  description: "\u88C5\u5907\u4E86\u8F7B\u673A\u67AA\u7684\u88C5\u7532\u8F66"
   isVehicle: 1
   isCommand: 0
   buttonIcon: {fileID: 0}
@@ -25,7 +25,7 @@ MonoBehaviour:
   destroyValue: 0
   weapon:
   - {fileID: 11400000, guid: dde095e35765c084ba10ed6229c1cfff, type: 2}
-  Corpse: {fileID: 0}
+  Corpse: {fileID: 5743089547117796286, guid: 3903b5cd6e6c0994aa02a4bb0f3e726e, type: 3}
   killExp: 100
   canEnterObject: 0
   loadList: []

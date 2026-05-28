@@ -43,7 +43,7 @@ public class DrawManager : MonoBehaviour
     [SerializeField] private LineStyle attackLineStyle;
     [SerializeField] private LineStyle moveLineStyle;
 
-    public UnitAttribute unitShow;
+    public UnitAttribute showUnit;
     [SerializeField] private Dictionary<UnitAttribute, LineRenderer> 
                                 activeAttackRange = new Dictionary<UnitAttribute, LineRenderer>();
     [SerializeField] private Dictionary<UnitAttribute,LineRenderer> 
@@ -53,14 +53,16 @@ public class DrawManager : MonoBehaviour
     private void OnEnable()
     {
         LineEvent.ShowUnitVisualEvent += HandleShowUnitVisual;
-        LineEvent.UpdateMovePathEvent += UpdateMovePath;
+        LineEvent.UpdateDynamicMovePathEvent += UpdateDynamicMovePath;
+        LineEvent.UpdateMovePathEvent += ShowMovePathLine;
         LineEvent.HideDestroyUnitEvent += RecycleUnitLine;
         LineEvent.ShowExplosEvent += HandleShowExplosion;
     }
     private void OnDestroy()
     {
         LineEvent.ShowUnitVisualEvent -= HandleShowUnitVisual;
-        LineEvent.UpdateMovePathEvent-= UpdateMovePath;
+        LineEvent.UpdateDynamicMovePathEvent-= UpdateDynamicMovePath;
+        LineEvent.UpdateMovePathEvent -= ShowMovePathLine;
         LineEvent.HideDestroyUnitEvent -= RecycleUnitLine;
         LineEvent.ShowExplosEvent-= HandleShowExplosion;
     }
@@ -73,30 +75,32 @@ public class DrawManager : MonoBehaviour
     }
     private void Update()
     {
-        if(unitShow!=null)
+        if(showUnit!=null)
         {
-            activeAttackRange.TryGetValue(unitShow, out LineRenderer lr);
-            DrawUnitAttackRangeOnLine(unitShow, lr);
+            activeAttackRange.TryGetValue(showUnit, out LineRenderer lr);
+            DrawUnitAttackRangeOnLine(showUnit, lr);
         }
     }
     #region 事件处理
     private void HandleShowUnitVisual(ShowUnitVisualEvent evt)
     {
+        if (evt.unit == null) return;
+
         if (evt.show)
         {
-            if (unitShow != null && unitShow != evt.unit)
+            if (showUnit != null && showUnit != evt.unit)
             {
-                HideAttackRange(unitShow);
-                HideMovePathLine(unitShow);
+                HideAttackRange(showUnit);
+                HideMovePathLine(showUnit);
             }//如果之前显示了其他单位 隐藏其他单位
-            unitShow = evt.unit;
+            showUnit = evt.unit;
             ShowAttackRange(evt.unit);
-            if (unitShow._unitNavMove.path != null)
-                ShowMovePathLine(unitShow);
+            if (showUnit._unitNavMove.path != null)
+                ShowMovePathLine(showUnit);
         }
         else
         {
-            unitShow = null;
+            showUnit = null;
             HideAttackRange(evt.unit);
             HideMovePathLine(evt.unit);
         }
@@ -116,6 +120,7 @@ public class DrawManager : MonoBehaviour
     #region 显示/隐藏
     private void ShowAttackRange(UnitAttribute unit)
     {
+        if (unit == null) return;
         if (unit._unitCombat == null||unit._unitCombat.weapon==null) { Debug.Log(unit.unitName + "没有武器"); return; }
 
         if (activeAttackRange.TryGetValue(unit, out LineRenderer lr))
@@ -128,16 +133,19 @@ public class DrawManager : MonoBehaviour
         if (activeAttackRange.TryGetValue(unit, out LineRenderer lr))
             RecycleLineKey(lr, activeAttackRange, unit);
     }//隐藏攻击范围
-    private void ShowMovePathLine(UnitAttribute unit)
+    public void ShowMovePathLine(UnitAttribute unit)
     {
         if(unit==null) return;
 
-        if (activeMovePath.TryGetValue(unit, out LineRenderer existing))
-            RecycleLineKey(existing,activeMovePath,unit);
-        //如果之前有先回收
-        List<Vector3> path=unit._unitNavMove.path;
-        DrawMovePath(unit, path);
-    }
+        if (unit == showUnit)
+        {
+            if (activeMovePath.TryGetValue(unit, out LineRenderer existing))
+                RecycleLineKey(existing, activeMovePath, unit);
+            //如果之前有先回收
+            List<Vector3> path = unit._unitNavMove.path;
+            DrawMovePath(unit, path);
+        }
+    }//显示移动路径
     private void HideMovePathLine(UnitAttribute unit)
     {
         if (activeMovePath.TryGetValue(unit, out LineRenderer lr))
@@ -194,12 +202,18 @@ public class DrawManager : MonoBehaviour
             lr.SetPosition(i, unit.transform.TransformPoint(offset));
         }
     }//绘制圆 
-    private void UpdateMovePath(UnitAttribute unit)
+    private void UpdateDynamicMovePath(UnitAttribute unit)
     {
-        if (unitShow == null || unit != unitShow) return;
+        if (showUnit == null || unit != showUnit) return;
         activeMovePath.TryGetValue(unit, out LineRenderer lr);
+        if(lr==null)
+        {
+            LineRenderer Lr = GetLine();
+            ApplyStyle(Lr, moveLineStyle);
+            activeMovePath[unit] = Lr;
+        }
         DrawMovePathOnLine(unit,lr ,unit._unitNavMove.path);
-    }
+    }//更新移动路线的减少
     private void DrawMovePath(UnitAttribute unit,List<Vector3> path)
     {
         LineRenderer lr=GetLine();
@@ -264,9 +278,9 @@ public class DrawManager : MonoBehaviour
     }//回收指定线条 通过字典确认
     public void RecycleUnitLine(UnitAttribute unit)
     {
-        if (unit==unitShow)
+        if (unit==showUnit)
         {
-            unitShow = null;
+            showUnit = null;
         }
         activeAttackRange.TryGetValue(unit, out var lr);
         RecycleLineKey(lr, activeAttackRange, unit);

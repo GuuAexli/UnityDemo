@@ -15,7 +15,7 @@ MonoBehaviour:
   prefabName: "\u6B65\u67AA"
   prefab: {fileID: 6371437386349748561, guid: 8d28e5295252088429f2a05de403d4c7, type: 3}
   costValue: 0
-  description: 
+  description: "\u4E00\u628A\u5236\u5F0F\u6B65\u67AA\uFF0C\u9002\u5408\u591A\u79CD\u73AF\u5883"
   menuIcon: {fileID: 0}
   weaponIcon: {fileID: 0}
   aimTime: 2

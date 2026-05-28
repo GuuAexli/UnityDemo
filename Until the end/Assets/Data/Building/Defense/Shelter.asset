@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabName: "\u6C99\u888B"
   prefab: {fileID: 1577313322005239774, guid: 211e9fdfe8ef43d41be687c49f1a90d2, type: 3}
-  costValue: 0
-  description: 
+  costValue: 1
+  description: "\u80FD\u4E3A\u6B65\u5175\u63D0\u4F9B\u4E00\u5B9A\u7684\u63A9\u62A4"
   effectValue_F: 0.8
   effectValue_I: 0
   maxHealth: 0

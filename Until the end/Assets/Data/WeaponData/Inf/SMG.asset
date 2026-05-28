@@ -15,7 +15,7 @@ MonoBehaviour:
   prefabName: "\u51B2\u950B\u67AA"
   prefab: {fileID: 615246794536754578, guid: 649960664dd39324fbaae76179de6700, type: 3}
   costValue: 0
-  description: 
+  description: "\u975E\u5E38\u9002\u5408\u8FD1\u8DDD\u79BB\u4F5C\u6218"
   menuIcon: {fileID: 0}
   weaponIcon: {fileID: 0}
   aimTime: 1.8
@@ -24,7 +24,7 @@ MonoBehaviour:
   closeRangeAccurracy: 0.8
   mediumRangeAccurracy: 0.4
   longRangeAccurracy: 0.2
-  attackDuration: 5
+  attackDuration: 6
   bullet: {fileID: 7141174930487616046, guid: d7be98fac8447cb4481c81362eec4536, type: 3}
   bulletNumber: 1
   suppressionValue: 8

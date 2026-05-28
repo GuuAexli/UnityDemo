@@ -42,13 +42,14 @@ GameObject:
   m_Component:
   - component: {fileID: 5462766627478061092}
   - component: {fileID: 4136634050093391227}
+  - component: {fileID: -4976245030631252045}
   - component: {fileID: 5136676242434292350}
   - component: {fileID: 4566362461720959266}
   - component: {fileID: 1213639401626932981}
   - component: {fileID: 4873414505835191987}
   - component: {fileID: 163491570807253940}
   - component: {fileID: 7247807578645940208}
-  - component: {fileID: 4163238774100928028}
+  - component: {fileID: 7763654796478458470}
   m_Layer: 6
   m_HasEditorInfo: 1
   m_Name: APC_25
@@ -130,6 +131,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-4976245030631252045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3661785161240503920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d7236b9de3ea164e8904d642dc19062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attr: {fileID: 0}
+  unitCombat: {fileID: 0}
+  unitNavMove: {fileID: 0}
+  itemList: {fileID: 0}
 --- !u!114 &5136676242434292350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +214,6 @@ MonoBehaviour:
   targetDistance: 0
   targetList: []
   target: {fileID: 0}
-  priorityTarget: {fileID: 0}
   barbette: {fileID: 0}
   targetAngle: 0
 --- !u!114 &1213639401626932981
@@ -236,7 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLoad: 0
-  LoadRange: {fileID: 4163238774100928028}
+  LoadRange: {fileID: 0}
   unitList: []
   targetUnit: []
   maxLoad: 0
@@ -312,41 +328,102 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.27, y: 1.57}
   m_EdgeRadius: 0
---- !u!58 &4163238774100928028
-CircleCollider2D:
+--- !u!82 &7763654796478458470
+AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3661785161240503920}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.6
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
     serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
     serializedVersion: 2
-    m_Bits: 256
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
     serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
     serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &4225911352550367135
 GameObject:
   m_ObjectHideFlags: 0

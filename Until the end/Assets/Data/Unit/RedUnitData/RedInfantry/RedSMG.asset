@@ -22,7 +22,7 @@ MonoBehaviour:
   unitIcon: {fileID: 0}
   unitFaction: 1
   level: {fileID: 11400000, guid: efdcd643228cea14d9be1b4c47ea1ff8, type: 2}
-  destroyValue: 1
+  destroyValue: 5
   weapon:
   - {fileID: 11400000, guid: 736678fa1ed944a489787aa5271bf62c, type: 2}
   - {fileID: 11400000, guid: db2a5f3a04c82ee459f22d7d7c45e2cc, type: 2}

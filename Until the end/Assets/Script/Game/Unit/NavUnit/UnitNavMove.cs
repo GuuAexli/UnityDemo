@@ -83,7 +83,7 @@ public class UnitNavMove : MonoBehaviour
                 attr.SetMove();
                 return;
             }//到达最后一个路径点
-            LineEvent.UpdateMovePathEvent?.Invoke(attr);
+            LineEvent.UpdateDynamicMovePathEvent?.Invoke(attr);
             Vector2Int pos = GridManager.Instance.WorldToCell(path[pathIndex]);
             currentPathPos = path[pathIndex];
         }//到达最小停止距离
@@ -102,7 +102,7 @@ public class UnitNavMove : MonoBehaviour
         {
             return;
         }
-
+        
         path = AStarPathfinder.FindPath(transform.position, target,this);
         if (path != null && path.Count > 0)
         {
@@ -110,6 +110,7 @@ public class UnitNavMove : MonoBehaviour
             pathIndex = 0;
             currentPathPos = path[pathIndex];
             attr.SetMove(true);
+            LineEvent.UpdateMovePathEvent?.Invoke(attr);
         }//设置路径序列
         else
         {

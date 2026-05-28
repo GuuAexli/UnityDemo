@@ -69,8 +69,6 @@ public class LoadUnitController : MonoBehaviour
     public void MoveToLoadUnit(VehicleAttribute unit)
     {
 
-        enterUnit.isAction=true;
-        loadUnit.isAction = true;
         //通知装载双方
 
         loadUnit.LoadUnit(enterUnit.gameObject);
@@ -80,7 +78,6 @@ public class LoadUnitController : MonoBehaviour
     }//进入方 移动到 装载方 进入方停止攻击（isLoad） 装载方开始检测范围内的进入目标（isLoad）
     public void MoveToEnterUnit(UnitAttribute unit)
     {
-        loadUnit.isAction = true;
         loadUnit.LoadUnit(enterUnit.gameObject);
         //loadUnit.unitMove.MoveToLoadUnit(unit,unit.transform.position);
     }//装载方 移动到 进入方 只需要装载方移动并检测进入目标（isLoad）

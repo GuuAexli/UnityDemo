@@ -11,5 +11,6 @@ public class ExplosionData : ScriptableObject
     public float penetration;//´©Éî
     public float delay;//ÑÓ³Ù
     public float fear;//¿Ö¾å
+    public AudioClip clip;
 
 }

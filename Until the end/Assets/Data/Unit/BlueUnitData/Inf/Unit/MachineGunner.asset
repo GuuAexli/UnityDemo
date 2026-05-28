@@ -25,6 +25,6 @@ MonoBehaviour:
   destroyValue: 0
   weapon:
   - {fileID: 11400000, guid: 6c38852506c2d4b4a871ed221de468a6, type: 2}
-  Corpse: {fileID: 0}
-  killExp: 10
+  Corpse: {fileID: 1514830048049847672, guid: 52fffc4d99cbd29498728db535bf93ba, type: 3}
+  killExp: 50
   canEnterObject: 0

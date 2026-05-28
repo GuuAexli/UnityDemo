@@ -16,5 +16,6 @@ MonoBehaviour:
   range: 3
   damage: 50
   penetration: 30
-  delay: 1
+  delay: 0.5
   fear: 20
+  clip: {fileID: 8300000, guid: abcf3a6de9f32ae41a71ae42f3a70bc1, type: 3}

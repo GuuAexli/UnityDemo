@@ -1,19 +1,22 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class Start_Quit : MonoBehaviour
 {
-    //需要存在场景中
-    //并将挂载这个脚本的物体拖入需要的按钮的OnClick上
-    //选择对应的脚本
-    //选择载入场景选项 输入对应的 场景名
-    public void LoadScene(string sceneName)
+
+    public Button start;
+    public Button quit;
+    private void Start()
     {
-        SceneManager.LoadScene(sceneName);
+        LoadScene();
+        Quit();
+    }
+    public void LoadScene()
+    {
+        start.onClick.AddListener(() => SceneManager.LoadScene("Game")); 
     }
     public void Quit()
     {
-        Debug.Log("1");
-        Application.Quit();
-        Debug.Log("2");
+        quit.onClick.AddListener(() => Application.Quit());
     }
 }

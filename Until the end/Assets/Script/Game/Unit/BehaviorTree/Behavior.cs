@@ -21,6 +21,8 @@ public class IdleBehavior : ActionNode
         attr._canAttack = true;
         attr._canMove = true;
 
+        if (combat.priorityTarget != null)
+            combat.SetPriorityTarget(null);
         return BTStatus.Running;
     }
 }//闲置 正常移动与攻击
@@ -224,3 +226,42 @@ public class ManualUseItemBehavior : ActionNode
         return BTStatus.Success;
     }//使用道具
 }//主动使用道具
+
+public class AttackPriorityTaregtBehavior :ActionNode//攻击优先目标
+{
+    public AttackPriorityTaregtBehavior(Blackboard bb) : base(bb) { }
+
+    public override BTStatus Tick()
+    {
+        UnitAttribute attr = blackboard.Get<UnitAttribute>(BlackboardKeys.Attribute);
+        UnitCombat combat = blackboard.Get<UnitCombat>(BlackboardKeys.Combat);
+        UnitNavMove navMove = blackboard.Get<UnitNavMove>(BlackboardKeys.NavMove);
+
+        
+        
+        if (!blackboard.HasKey(BlackboardKeys.AttackPriorityTarget))
+        {
+            combat.SetPriorityTarget(null);
+            return BTStatus.Failure;           
+        }//取消行为
+        if(combat.priorityTarget == null)
+        {
+            blackboard.Remove(BlackboardKeys.AttackPriorityTarget);
+            combat.SetPriorityTarget(null);
+            return BTStatus.Success;
+        }//目标消失 成功
+
+        if (combat.AttackPriorityTarget())
+        {
+            attr.SetMove();
+            attr._canAttack = false;
+            return BTStatus.Running;
+        }//在范围内
+        else
+        {
+            navMove.SetMovePos(
+                blackboard.Get<UnitAttribute>(BlackboardKeys.AttackPriorityTarget).transform.position);
+            return BTStatus.Running;
+        }//不在范围 移动
+    }
+}

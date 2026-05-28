@@ -30,6 +30,7 @@ public class Explosion : MonoBehaviour
     }
     protected void EnterEffect()
     {
+        if(data.clip!=null) GetComponent<AudioSource>().PlayOneShot(data.clip);
         HashSet<GameObject> processedUnit=new HashSet<GameObject>();
         //单位可能有碰撞体和触发器 导致判断两次
         Collider2D[] col = Physics2D.OverlapCircleAll(transform.position,

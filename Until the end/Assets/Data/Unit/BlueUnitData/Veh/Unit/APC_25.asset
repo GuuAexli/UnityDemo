@@ -15,7 +15,7 @@ MonoBehaviour:
   prefabName: APC-25
   prefab: {fileID: 3661785161240503920, guid: e2af6ce78b1c5734dac6f92cc173082e, type: 3}
   costValue: 4
-  description: 
+  description: "\u5C06\u539F\u6765\u7684\u8F7B\u673A\u67AA\u62C6\u4E0B\u6362\u88C5\u4E8625mm\u70AE\u7684\u6539\u9020\u7248"
   isVehicle: 1
   isCommand: 0
   buttonIcon: {fileID: 0}
@@ -25,7 +25,7 @@ MonoBehaviour:
   destroyValue: 0
   weapon:
   - {fileID: 11400000, guid: 0b566ff962f554c4b835628e5b5adc9d, type: 2}
-  Corpse: {fileID: 0}
+  Corpse: {fileID: 5743089547117796286, guid: 3903b5cd6e6c0994aa02a4bb0f3e726e, type: 3}
   killExp: 0
   canEnterObject: 0
   loadList: []

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344bfb921c80a9042a33bb79c9918008, type: 3}
+  m_Name: Captain
+  m_EditorClassIdentifier: 
+  prefabName: "\u961F\u957F"
+  prefab: {fileID: 2058197852756069186, guid: 7d7d5aa0f8aa245498ecd8eef53fed4f, type: 3}
+  costValue: 3
+  description: "\u56E2\u961F\u7684\u6838\u5FC3\uFF0C\u5B83\u5C06\u6307\u6325\u5176\u4ED6\u961F\u5458"
+  isVehicle: 0
+  isCommand: 1
+  buttonIcon: {fileID: 0}
+  unitIcon: {fileID: 0}
+  unitFaction: 0
+  level: {fileID: 11400000, guid: 39d92ead0e4989d49b32337d2a1d3909, type: 2}
+  destroyValue: 0
+  weapon:
+  - {fileID: 11400000, guid: 6c38852506c2d4b4a871ed221de468a6, type: 2}
+  - {fileID: 11400000, guid: 736678fa1ed944a489787aa5271bf62c, type: 2}
+  - {fileID: 11400000, guid: db2a5f3a04c82ee459f22d7d7c45e2cc, type: 2}
+  Corpse: {fileID: 1514830048049847672, guid: 52fffc4d99cbd29498728db535bf93ba, type: 3}
+  killExp: 100
+  canEnterObject: 0

@@ -6,8 +6,6 @@ using static UnityEditor.Timeline.Actions.MenuPriority;
 
 public class ItemList : MonoBehaviour
 {
-    public GameObject a;
-    public GameObject b;
     [SerializeField]private List<Item> itemList = new List<Item>();
     public List<Item> _itemList => itemList;
     public UnitBehavior owner{ get; private set; }
@@ -17,12 +15,6 @@ public class ItemList : MonoBehaviour
         owner = GetComponent<UnitBehavior>();
         for (int i = 0; i < 3; i++)
             itemList.Add(null);//初始化防止越界
-
-        if (a != null)
-        {
-            AddItem(a.GetComponent<Item>());
-            AddItem(b.GetComponent<Item>());
-        }
     }
 
     public void UseItem(int i)
@@ -45,12 +37,12 @@ public class ItemList : MonoBehaviour
                 itemList[i] = addItem;
                 addItem.transform.SetParent(owner.attr.itemPos);
                 addItem.transform.position = owner.attr.itemPos.position;
+                addItem.transform.rotation = owner.attr.itemPos.rotation;
                 addItem.ownerItemList = this;
-                Debug.Log("正在装备"+ addItem._itemName);
                 return;
             }//寻找空位
         }
-        Debug.Log("装备的道具达到上限");
+        UIEvent.OnMessageText?.Invoke("装备的道具达到上限");
         Destroy(addItem);
         return;
     }//添加道具

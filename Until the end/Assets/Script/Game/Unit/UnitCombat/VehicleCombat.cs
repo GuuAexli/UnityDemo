@@ -13,6 +13,7 @@ public class VehicleCombat : UnitCombat
             barbette.transform.rotation = Quaternion.RotateTowards(
                  barbette.transform.rotation, transform.rotation, weapon._rotateSpeed * Time.deltaTime);
         }//²»ÔÚ¹¥»÷
+        if(attr._canAttack)
         Attack();
     }
     protected override void AttackTarget(UnitAttribute target)

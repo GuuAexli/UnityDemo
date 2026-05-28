@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabName: "\u72D9\u51FB\u67AA"
   prefab: {fileID: 1587091685866413109, guid: fafe62fa42f3a0e46a23dc7b0310aa05, type: 3}
-  costValue: 0
-  description: 
+  costValue: 3
+  description: "\u62E5\u6709\u8F83\u9AD8\u8FDC\u7A0B\u7CBE\u5EA6\u7684\u72D9\u51FB\u67AA"
   menuIcon: {fileID: 0}
   weaponIcon: {fileID: 0}
   aimTime: 3
@@ -28,10 +28,10 @@ MonoBehaviour:
   bullet: {fileID: 6878576729818197845, guid: 4e05598462b385246a425047df7f7801, type: 3}
   bulletNumber: 1
   suppressionValue: 50
-  attackRange: 25
+  attackRange: 30
   duffusion: 4
-  penetrationMultiplier: 1
-  damageMultiplier: 1
+  penetrationMultiplier: 2
+  damageMultiplier: 2
   barbetteRotatSpeed: 0
   audioClips:
   - {fileID: 8300000, guid: 426b82cd8da76424ab12de8d43cf7d49, type: 3}

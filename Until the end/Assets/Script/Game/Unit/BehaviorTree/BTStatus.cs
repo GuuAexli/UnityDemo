@@ -35,6 +35,7 @@ public static class BlackboardKeys
     // 行为相关
     public const string PatrolPos = "patrolPos";
     public const string ForcedMove = "forcedMove";
+    public const string AttackPriorityTarget = "attackPriorityTarget";
 
     // 主动道具
     public const string ManualUseItem = "manualUseItem";

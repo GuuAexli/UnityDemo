@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabName: "\u8F7B\u673A\u67AA"
   prefab: {fileID: 824833497225034155, guid: b6aa8eca7ad377548bc3a22371319cb3, type: 3}
-  costValue: 0
-  description: 
+  costValue: 2
+  description: "\u53EF\u4EE5\u6709\u6548\u538B\u5236\u654C\u519B"
   menuIcon: {fileID: 0}
   weaponIcon: {fileID: 0}
   aimTime: 2
   attackInterval: 0.18
   attackCooling: 4
-  closeRangeAccurracy: 0.6
-  mediumRangeAccurracy: 0.5
-  longRangeAccurracy: 0.4
+  closeRangeAccurracy: 0.5
+  mediumRangeAccurracy: 0.4
+  longRangeAccurracy: 0.3
   attackDuration: 6
   bullet: {fileID: 6878576729818197845, guid: a45eb0ec688c93e458d60206a9c43014, type: 3}
   bulletNumber: 1

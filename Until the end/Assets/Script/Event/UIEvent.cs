@@ -17,6 +17,7 @@ public static class UIEvent
     public static System.Action UpdateSupplyInfo;//更新补给变化
     public static System.Action UpdateInningInfo;//更新回合变化
     public static System.Action<Data> UpdateDescriptionInfo;//更新描述变化
+    public static Action<int> GameEnd;
 
     //Unit
     public static System.Action<UnitAttribute> OnUnitInfo;//显示单位UI

@@ -10,6 +10,7 @@ public enum ControlType
 {
     idle,//闲置
     unit,//单位
+    attack,//攻击
     weapon,//武器
     building,//建筑
     supply//支援
@@ -24,10 +25,10 @@ public class GameController : MonoBehaviour
     UnitAttribute hitUnit;//触碰的单位
     public UnitAttribute selectedUnit;
 
-    public int cost=10;
+    public int cost=0;
     public int Inning;
-    [Header("特殊")]
-    public int CommandUnitValue;
+
+    public int CommandUnitValue { get; private set; }
     //指挥类型单位 的数量
     [Header("防御值")]
     [SerializeField]private int defenseValue;
@@ -45,17 +46,17 @@ public class GameController : MonoBehaviour
         //确保管理器唯一
 
         
-        ManagerEvent.BattleEnd += GameOver;
+        ManagerEvent.BattleEnd += GameEnd;
         ManagerEvent.DefenseValueLoss += DefenseValueLoss;
     }
     private void OnDestroy()
     {
-        ManagerEvent.BattleEnd -= GameOver;
+        ManagerEvent.BattleEnd -= GameEnd;
         ManagerEvent.DefenseValueLoss -= DefenseValueLoss;
     }
     void Start()
     {
-        cost =10;
+        cost = 0;
         UIEvent.UpdateSupplyInfo?.Invoke();
     }
 
@@ -65,21 +66,24 @@ public class GameController : MonoBehaviour
         mouseSelected();
         //执行 鼠标选择
         //DrawCircleRangeLine(hitUnit);//绘制单位攻击范围
+        if(Input.GetKeyDown(KeyCode.T)) 
+        {
+            GameEnd();
+        }
     }
     public void mouseSelected()
     //鼠标选择 
     {
-        if ((currentControlType==ControlType.idle||currentControlType==ControlType.unit)&&Input.GetMouseButtonDown(0)  )
-            //选择单位时 需要闲置状态或单位状态
+        if ((currentControlType==ControlType.idle||currentControlType==ControlType.unit)&&Input.GetMouseButtonDown(0)  )            
         {
             if (EventSystem.current.IsPointerOverGameObject())   
             {
                 return;
             }//判断是否是UI
   
-            HandleSelection(); 
+            HandleSelection();
             //执行 处理选择 
-        }
+        }//选择单位时 需要闲置状态或单位状态
         if (currentControlType==ControlType.unit&&Input.GetMouseButtonDown(1) && selectedUnit != null ) {
             //鼠标右键且选择模型不是空的  不能 在选择装载单位的状态 和 指挥状态
             MoveSelectedUnit();
@@ -133,7 +137,7 @@ public class GameController : MonoBehaviour
         UIEvent.HideUnitInfo?.Invoke();
         UIEvent.HideWeaponInfo?.Invoke();
         
-    }
+    }//选择判断
     void ToggleSelection(UnitAttribute newSelection)
     //修改选择    
     {
@@ -156,7 +160,7 @@ public class GameController : MonoBehaviour
             selectedUnit = null;
             ChangeControlType (ControlType.idle);
         }//选择相同的单位 取消选择
-    }
+    }//切换选择
     public void ClearSelection()
         //取消选择函数
     {
@@ -186,20 +190,25 @@ public class GameController : MonoBehaviour
         if (cost < 0) cost = 0;
         UIEvent.UpdateSupplyInfo?.Invoke();
     }//设置补给
-    private void GameOver()
+    private void GameEnd()
     {
-        Debug.Log("战斗结束");
+        UIEvent.OnMessageText?.Invoke("战斗结束");
+        UIEvent.GameEnd?.Invoke(Inning);
         Time.timeScale = 0;
     }//游戏结束
     private void DefenseValueLoss(int value)
     {
         defenseValue -= value;
         if (defenseValue <= 0)
-            GameOver();
+            GameEnd();
     }//减少防御值
     public void ChangeControlType(ControlType newType)
     {
         currentControlType = newType;
+    }
+    public void SetCommandUnit(int value)
+    {
+        CommandUnitValue += value;
     }
     
 }

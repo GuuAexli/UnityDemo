@@ -116,7 +116,7 @@ public abstract class UnitAttribute : MonoBehaviour,ITakeDamage
         moveEfficiency = 1;
         combatEfficiency = 1;
         if (unitData.isCommand)
-            GameController.Instance.CommandUnitValue++;
+            GameController.Instance.SetCommandUnit(1);
     }
     public virtual void ApplyLevelData() 
     {
@@ -166,6 +166,8 @@ public abstract class UnitAttribute : MonoBehaviour,ITakeDamage
             GameController.Instance.ClearSelection();
         LineEvent.HideDestroyUnitEvent?.Invoke(this);
         UIEvent.UnitOnDestroy?.Invoke(this);
+        if (unitData.isCommand)
+            GameController.Instance.SetCommandUnit(-1);
     }//销毁时 如果 游戏控制器 选择 这个单位 将它取消
     public void ApplyDamage(float damage,UnitAttribute atkUnit = null)
     {
@@ -189,7 +191,7 @@ public abstract class UnitAttribute : MonoBehaviour,ITakeDamage
         {
             UIEvent.UpdateUnitInfo?.Invoke();
         }//更新单位UI面板状态
-    }//造成伤害
+    }//应用伤害接口
     public bool TakeDamage(DamageInfo info)
     {
         float probability=info.penetration/unitArmor;
@@ -205,7 +207,7 @@ public abstract class UnitAttribute : MonoBehaviour,ITakeDamage
         }
         return isPenetration;
      
-    }//伤害接口
+    }//伤害处理接口
     public void AddHealth(float value)
     {
         health += value;
@@ -239,7 +241,7 @@ public abstract class UnitAttribute : MonoBehaviour,ITakeDamage
     {
         volumeFactor.Remove(type);
         RecalculateActualVolume();
-    }
+    }//移除体积因子
     public void RecalculateActualVolume()
     {
         actualUnitVolume = unitVolume;
